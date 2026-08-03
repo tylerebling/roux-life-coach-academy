@@ -43,7 +43,7 @@
 }
 
 :root{
-  /* Palette — carried from the Roux Life medallion */
+  /* Palette — ivory, deep forest, antique gold */
   --ink:#151C16;
   --forest:#1F2E23;
   --forest-deep:#16211A;
@@ -302,49 +302,9 @@ p{margin:0}
 .hero-meta li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold-bright)}
 .hero-meta{margin-block-end:0;padding-left:0}
 
-/* Hero figure */
-.hero-figure{position:relative;isolation:isolate}
-.hero-figure .frame{
-  position:relative;overflow:hidden;
-  border-radius:3px;
-  box-shadow:0 30px 70px -30px rgba(21,28,22,.42),0 2px 8px rgba(21,28,22,.06);
-}
-.hero-figure img{
-  width:100%;aspect-ratio:4/5;max-height:min(72vh,660px);
-  object-fit:cover;object-position:center 38%;
-}
-.hero-figure .frame::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 52%,rgba(16,24,17,.55));
-  pointer-events:none;
-}
-
-.seal-card{
-  position:absolute;z-index:2;left:-14px;bottom:26px;
-  display:grid;gap:7px;
-  max-width:min(310px,84%);
-  padding:19px 22px 20px;
-  border-left:3px solid var(--gold-bright);
-  background:rgba(22,33,26,.9);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  box-shadow:0 18px 44px -18px rgba(12,19,14,.6);
-  color:var(--cream);
-}
-.seal-card span{color:var(--gold-soft);font-size:9px;font-weight:700;letter-spacing:.19em;text-transform:uppercase}
-.seal-card strong{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:20px;line-height:1.15;font-variation-settings:'opsz' 30}
-
 @media (max-width:900px){
   /* Text leads on small screens — the offer should be the first thing read */
   .hero-grid{grid-template-columns:1fr;gap:clamp(32px,6vw,48px)}
-  .hero-figure img{aspect-ratio:4/5;object-position:center 42%}
-  /* Card becomes a caption bar rather than covering the medallion */
-  .seal-card{
-    position:static;max-width:none;
-    background:var(--forest);backdrop-filter:none;-webkit-backdrop-filter:none;
-    box-shadow:none;
-  }
-  .hero-figure .frame{border-radius:3px 3px 0 0}
-  .hero-figure .frame::after{background:linear-gradient(180deg,transparent 62%,rgba(16,24,17,.4))}
 }
 
 /* Proof strip ─────────────────────────────────────────────── */
@@ -424,20 +384,12 @@ p{margin:0}
 @media (max-width:820px){.steps{grid-template-columns:1fr;gap:34px}}
 
 /* Credential ──────────────────────────────────────────────── */
-.credential{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(36px,5vw,84px);align-items:center}
-.credential-fig{position:relative}
-.credential-fig picture{position:relative;z-index:1;display:block}
-.credential-fig img{
-  width:100%;aspect-ratio:1;object-fit:cover;
-  border-radius:3px;
-  box-shadow:0 26px 60px -28px rgba(21,28,22,.45);
-}
-.credential-fig img{border:1px solid rgba(156,116,52,.28)}
+.credential{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,80px);align-items:center}
 
 /* ™ must never render at display scale */
 .tm{
   font-family:'Inter',sans-serif;font-style:normal;font-weight:500;
-  font-size:.34em;letter-spacing:.02em;vertical-align:.5em;
+  font-size:.34em;letter-spacing:.02em;vertical-align:.52em;margin-left:.1em;
 }
 .credential h2{font-size:clamp(34px,4.4vw,60px)}
 .credential h2 em{color:var(--moss);font-style:italic;font-weight:300}
@@ -455,10 +407,7 @@ p{margin:0}
 .section--forest .ticks li{color:rgba(251,247,238,.78)}
 .section--forest .ticks li::before{border-color:var(--gold-soft)}
 
-@media (max-width:900px){
-  .credential{grid-template-columns:1fr;gap:38px}
-  .credential-fig{max-width:460px}
-}
+@media (max-width:900px){.credential{grid-template-columns:1fr;gap:38px}}
 
 /* Audience ────────────────────────────────────────────────── */
 .audience{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,40px)}
@@ -583,6 +532,120 @@ p{margin:0}
 @media (max-width:820px){.foot{grid-template-columns:1fr 1fr}.foot>div:first-child{grid-column:1/-1}}
 @media (max-width:520px){.foot{grid-template-columns:1fr}}
 
+/* Certification mark ──────────────────────────────────────── */
+.stamp{display:block;width:100%;height:auto;color:var(--gold)}
+.stamp--sm{width:76px}
+.stamp--lg{width:clamp(120px,13vw,164px)}
+
+/* The certificate artifact ────────────────────────────────── */
+/* Dark presentation stage so the cream certificate reads as the object */
+.cert-stage{
+  position:relative;margin:0;overflow:hidden;
+  display:grid;justify-items:center;gap:18px;
+  padding:clamp(26px,3vw,44px) clamp(22px,2.6vw,38px);
+  border:1px solid rgba(126,92,36,.4);border-radius:4px;
+  background:
+    radial-gradient(90% 62% at 50% 34%,rgba(199,154,78,.16),transparent 70%),
+    linear-gradient(162deg,#2A3B2F 0%,#16211A 100%);
+  box-shadow:inset 0 1px 0 rgba(226,189,116,.14);
+}
+
+.cert{
+  position:relative;width:min(430px,100%);
+  padding:clamp(30px,3.4vw,42px) clamp(24px,2.8vw,36px) clamp(24px,2.8vw,32px);
+  background:linear-gradient(176deg,#FFFDF8 0%,#F8F1E4 100%);
+  border:1px solid rgba(126,92,36,.30);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    0 34px 60px -26px rgba(6,11,7,.62),
+    0 4px 14px rgba(6,11,7,.34);
+  transform:rotate(-1.1deg);
+  text-align:center;
+}
+.cert::before,.cert::after{content:"";position:absolute;pointer-events:none}
+.cert::before{inset:9px;border:1px solid rgba(126,92,36,.34)}
+.cert::after{inset:13px;border:1px solid rgba(126,92,36,.15)}
+
+.cert-kicker{
+  color:var(--gold);
+  font-size:9.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+}
+.cert-brand{
+  margin-top:14px;
+  font-family:'Fraunces',Georgia,serif;font-weight:500;
+  font-size:23px;line-height:1;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--forest-deep);font-variation-settings:'opsz' 60;
+}
+.cert-brand em{
+  display:block;margin-top:8px;
+  color:var(--gold);font-family:'Inter',sans-serif;font-style:normal;
+  font-size:8.5px;font-weight:700;letter-spacing:.36em;
+}
+.cert-rule{
+  width:44px;height:0;margin:18px auto;
+  border:0;border-top:1px solid rgba(126,92,36,.45);
+}
+.cert-line{color:var(--text-mute);font-size:11.5px;font-style:italic;line-height:1.4}
+.cert-name{
+  margin:9px 0;
+  font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:300;
+  font-size:clamp(31px,3.4vw,39px);line-height:1.05;letter-spacing:-.02em;
+  color:var(--moss);font-variation-settings:'opsz' 72;
+}
+.cert-title{
+  margin-top:9px;
+  font-family:'Fraunces',Georgia,serif;font-weight:400;
+  font-size:clamp(17px,1.7vw,20px);line-height:1.24;letter-spacing:-.01em;
+  color:var(--forest-deep);font-variation-settings:'opsz' 28;
+}
+.cert-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  margin-top:24px;padding-top:18px;
+  border-top:1px solid rgba(126,92,36,.24);
+  text-align:left;
+}
+.cert-foot dl{display:grid;gap:9px;margin:0}
+.cert-foot dt{color:var(--gold);font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.cert-foot dd{margin:2px 0 0;color:var(--text-soft);font-size:11.5px;letter-spacing:.04em}
+
+.cert-tag{
+  color:rgba(251,247,238,.62);
+  font-size:10px;font-weight:600;letter-spacing:.17em;text-transform:uppercase;
+}
+
+@media (prefers-reduced-motion:no-preference){
+  @media (hover:hover) and (pointer:fine){
+    .cert{transition:transform 420ms var(--ease-out),box-shadow 420ms var(--ease-out)}
+    .cert-stage:hover .cert{
+      transform:rotate(0deg) translateY(-4px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.9),
+        0 44px 74px -26px rgba(6,11,7,.66),
+        0 4px 14px rgba(6,11,7,.34);
+    }
+  }
+}
+
+/* Credential detail ───────────────────────────────────────── */
+.cred-panel{
+  display:grid;gap:26px;
+  padding:clamp(28px,3.4vw,44px);
+  border:1px solid var(--rule);border-radius:4px;
+  background:var(--sand);
+}
+.cred-panel .stamp-wrap{display:flex;align-items:center;gap:20px}
+.cred-panel .stamp-wrap p{
+  color:var(--text-soft);font-size:14.5px;line-height:1.55;max-width:30ch;
+}
+.cred-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.cred-grid div{display:grid;gap:6px;padding:18px 20px;background:var(--paper)}
+.cred-grid dt{color:var(--gold);font-size:9px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}
+.cred-grid dd{margin:0;color:var(--forest);font-size:15px;line-height:1.35}
+@media (max-width:520px){
+  .cred-grid{grid-template-columns:1fr}
+  .cred-panel .stamp-wrap{flex-direction:column;align-items:flex-start;gap:16px}
+}
+
 /* Reveal ──────────────────────────────────────────────────── */
 [data-reveal]{opacity:0;transform:translateY(14px)}
 .js [data-reveal].is-in{
@@ -604,6 +667,29 @@ html:not(.js) [data-reveal]{opacity:1;transform:none}
 
 <body>
 <a class="skip" href="#main">Skip to content</a>
+
+<!-- Roux Life certification mark — drawn, not photographed -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <!-- Compact variant: micro-text is illegible below ~110px, so it drops out -->
+  <symbol id="rl-stamp-sm" viewBox="0 0 140 168">
+    <rect x=".9" y=".9" width="138.2" height="166.2" fill="none" stroke="currentColor" stroke-width="2.4" opacity=".6"/>
+    <rect x="9" y="9" width="122" height="150" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".38"/>
+    <text x="70" y="98" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="66" font-weight="400" letter-spacing="1.5" fill="currentColor">RL</text>
+    <line x1="34" y1="116" x2="106" y2="116" stroke="currentColor" stroke-width="1.2" opacity=".55"/>
+    <text x="70" y="141" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" letter-spacing=".8" fill="currentColor">CERTIFIED</text>
+  </symbol>
+
+  <symbol id="rl-stamp" viewBox="0 0 140 168">
+    <rect x=".9" y=".9" width="138.2" height="166.2" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".6"/>
+    <rect x="7" y="7" width="126" height="154" fill="none" stroke="currentColor" stroke-width=".7" opacity=".38"/>
+    <text x="70" y="33" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" letter-spacing="2.4" fill="currentColor">ROUX LIFE</text>
+    <line x1="50" y1="43" x2="90" y2="43" stroke="currentColor" stroke-width=".7" opacity=".55"/>
+    <text x="70" y="104" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="60" font-weight="400" letter-spacing="1.5" fill="currentColor">RL</text>
+    <line x1="32" y1="120" x2="108" y2="120" stroke="currentColor" stroke-width=".7" opacity=".55"/>
+    <text x="70" y="139" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" letter-spacing="2.8" fill="currentColor">CERTIFIED</text>
+    <text x="70" y="154" text-anchor="middle" font-family="Inter,sans-serif" font-size="6.6" font-weight="600" letter-spacing="1.5" fill="currentColor" opacity=".8">40-HOUR PROGRAM</text>
+  </symbol>
+</svg>
 
 <header class="site-header" id="siteHeader">
   <div class="wrap hdr">
@@ -665,18 +751,24 @@ html:not(.js) [data-reveal]{opacity:1;transform:none}
         </ul>
       </div>
 
-      <figure class="hero-figure" data-reveal style="--i:2;margin:0">
-        <div class="frame">
-          <picture>
-            <source srcset="/img/hero-portrait.webp" type="image/webp">
-            <img src="/img/hero-portrait.jpg" width="941" height="1672" fetchpriority="high"
-                 alt="The Roux Life Certified coach training medallion resting on a stone ledge beside a still lake at sunrise, framed by Spanish moss.">
-          </picture>
+      <figure class="cert-stage" data-reveal style="--i:2">
+        <div class="cert">
+          <p class="cert-kicker">Certificate of Completion</p>
+          <p class="cert-brand">Roux Life<em>Coach Academy</em></p>
+          <hr class="cert-rule">
+          <p class="cert-line">This certifies that</p>
+          <p class="cert-name">Your Name</p>
+          <p class="cert-line">has completed the</p>
+          <p class="cert-title">40-Hour Professional<br>Life Coach Training</p>
+          <div class="cert-foot">
+            <svg class="stamp stamp--sm" role="img" aria-label="Roux Life Certified mark"><use href="#rl-stamp-sm"></use></svg>
+            <dl>
+              <div><dt>Credential no.</dt><dd>RL-40-0001</dd></div>
+              <div><dt>Awarded</dt><dd>On completion</dd></div>
+            </dl>
+          </div>
         </div>
-        <figcaption class="seal-card">
-          <span>Roux Life Certified™</span>
-          <strong>40-hour distance learning certificate program</strong>
-        </figcaption>
+        <figcaption class="cert-tag">Specimen · Roux Life Certified™</figcaption>
       </figure>
     </div>
   </section>
@@ -801,15 +893,7 @@ html:not(.js) [data-reveal]{opacity:1;transform:none}
   <!-- CREDENTIAL ─────────────────────────────────────────── -->
   <section class="section section--paper" id="credential">
     <div class="wrap credential">
-      <figure class="credential-fig" data-reveal style="margin:0">
-        <picture>
-          <source srcset="/img/medallion.webp" type="image/webp">
-          <img src="/img/medallion.jpg" width="760" height="760" loading="lazy"
-               alt="The Roux Life Certified medallion, engraved: 40-hour coach training, distance learning certificate program.">
-        </picture>
-      </figure>
-
-      <div data-reveal style="--i:1">
+      <div data-reveal>
         <p class="eyebrow">The credential</p>
         <h2>Finish <em>Roux Life Certified<span class="tm">™</span></em></h2>
         <p class="lede" style="margin-top:22px">
@@ -819,9 +903,22 @@ html:not(.js) [data-reveal]{opacity:1;transform:none}
         <ul class="ticks">
           <li>A 40-hour distance learning certificate program</li>
           <li>Assessed on demonstrated skill, not attendance</li>
-          <li>Digital certificate plus the Roux Life Certified™ mark for your site</li>
-          <li>Verifiable completion you can share with prospective clients</li>
+          <li>Individually numbered and verifiable</li>
+          <li>Shareable with prospective clients from day one</li>
         </ul>
+      </div>
+
+      <div class="cred-panel" data-reveal style="--i:1">
+        <div class="stamp-wrap">
+          <svg class="stamp stamp--lg" role="img" aria-label="The Roux Life Certified mark"><use href="#rl-stamp"></use></svg>
+          <p>The Roux Life Certified™ mark is issued to you on completion — for your website, your profile, and your proposals.</p>
+        </div>
+        <dl class="cred-grid">
+          <div><dt>Program</dt><dd>40-hour distance learning</dd></div>
+          <div><dt>Assessment</dt><dd>Competency-based</dd></div>
+          <div><dt>Delivery</dt><dd>100% online, self-paced</dd></div>
+          <div><dt>Credential</dt><dd>Individually numbered</dd></div>
+        </dl>
       </div>
     </div>
   </section>
