@@ -87,7 +87,7 @@ body{
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
-  overflow-x:hidden;
+  overflow-x:clip;
 }
 
 img{display:block;max-width:100%;height:auto}
@@ -347,29 +347,6 @@ p{margin:0}
 .section--forest .section-head h2 em{color:var(--gold-soft)}
 .section-head .lede{margin-top:22px}
 
-/* Curriculum ──────────────────────────────────────────────── */
-.modules{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1px;background:var(--rule);
-  border:1px solid var(--rule);
-}
-.module{
-  display:grid;align-content:start;gap:13px;
-  padding:clamp(28px,3.2vw,40px);
-  background:var(--paper);
-  transition:background-color 260ms ease;
-}
-.module .num{
-  color:var(--gold);
-  font-size:11px;font-weight:700;letter-spacing:.16em;
-}
-.module h3{font-size:clamp(21px,1.85vw,26px);line-height:1.12;letter-spacing:-.02em}
-.module p{color:var(--text-soft);font-size:15.5px;line-height:1.6}
-@media (hover:hover) and (pointer:fine){
-  .module:hover{background:var(--sand)}
-}
-@media (max-width:960px){.modules{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:640px){.modules{grid-template-columns:1fr}}
 
 /* Steps ───────────────────────────────────────────────────── */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(26px,3.4vw,48px);counter-reset:step}
@@ -531,6 +508,169 @@ p{margin:0}
 }
 @media (max-width:820px){.foot{grid-template-columns:1fr 1fr}.foot>div:first-child{grid-column:1/-1}}
 @media (max-width:520px){.foot{grid-template-columns:1fr}}
+
+/* Paper grain — barely there, but the page feels printed with it */
+body::after{
+  content:"";position:fixed;inset:0;z-index:98;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+}
+
+/* Kinetic headline — lines rise out of their own clip on load */
+.hero h1 .ln{display:block;overflow:hidden;padding-block:.03em .12em;margin-block:-.03em -.12em}
+.hero h1 .in{display:block;transform:translateY(112%);opacity:0}
+html.ready .hero h1 .in{
+  transform:none;opacity:1;
+  transition:transform 940ms var(--ease-out),opacity 640ms var(--ease-out);
+}
+html.ready .hero h1 .ln:nth-child(2) .in{transition-delay:120ms}
+html:not(.js) .hero h1 .in{transform:none;opacity:1}
+@media (prefers-reduced-motion:reduce){
+  .hero h1 .in{transform:none;opacity:1;transition:opacity 300ms ease}
+  .hero h1 .ln{overflow:visible}
+}
+
+/* Hero right column ───────────────────────────────────────── */
+.hero-panel{display:grid;gap:14px;margin:0}
+.hero-shot{
+  position:relative;margin:0;overflow:hidden;border-radius:4px;
+  box-shadow:0 30px 60px -34px rgba(5,38,27,.5);
+}
+.hero-shot img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:center 34%}
+.shot-tag{
+  position:absolute;left:0;right:0;bottom:0;
+  display:flex;align-items:center;gap:12px;
+  padding:26px 18px 14px;
+  background:linear-gradient(180deg,transparent,rgba(6,44,32,.9) 52%);
+  color:var(--cream);
+  font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+}
+.shot-tag .stamp{flex:0 0 auto;width:34px;color:var(--gold-soft)}
+
+.hero-stat{
+  display:flex;align-items:center;gap:20px;
+  padding:22px 26px;border-radius:4px;
+  background:var(--gold-bright);color:var(--forest-deep);
+}
+.hero-stat .rest{
+  margin-left:auto;padding-left:20px;
+  border-left:1px solid rgba(12,67,49,.28);
+  font-size:11px;font-weight:700;line-height:1.7;
+  letter-spacing:.13em;text-transform:uppercase;text-align:right;
+}
+.hero-stat .k{
+  font-family:'Fraunces',Georgia,serif;font-weight:400;
+  font-size:clamp(52px,6vw,76px);line-height:.82;letter-spacing:-.005em;
+  font-variation-settings:'opsz' 120;
+}
+.hero-stat .lbl{
+  font-size:12px;font-weight:600;line-height:1.35;
+  letter-spacing:.14em;text-transform:uppercase;
+}
+.hero-stat .lbl strong{font-weight:800}
+
+/* Marquee ─────────────────────────────────────────────────── */
+.marquee{
+  overflow:hidden;
+  background:var(--forest);color:var(--gold-soft);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+}
+.marquee-track{display:flex;width:max-content;padding-block:15px;animation:slide 46s linear infinite}
+.marquee-track span{
+  padding-inline:26px;
+  font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;
+}
+.marquee-track i{align-self:center;color:var(--gold-bright);font-style:normal;font-size:9px}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .marquee-track{animation:none;flex-wrap:wrap;width:auto;padding-inline:var(--gutter)}
+  .marquee{-webkit-mask-image:none;mask-image:none}
+}
+
+/* Curriculum — the certificate assembles as you read ───────── */
+.build-grid{
+  display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+  gap:clamp(36px,5vw,86px);align-items:start;
+}
+.mods{margin:0;padding:0;list-style:none;counter-reset:m}
+.mod{
+  display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,2.4vw,30px);
+  padding:clamp(26px,3vw,36px) 0;
+  border-top:2px solid var(--rule);
+  transition:border-top-color 460ms var(--ease-out);
+}
+.mod.is-on{border-top-color:var(--gold-bright)}
+.mod:last-child{border-bottom:1px solid var(--rule)}
+.mod .n{
+  font-family:'Fraunces',Georgia,serif;font-weight:400;
+  font-size:clamp(38px,4.4vw,60px);line-height:.8;letter-spacing:-.02em;
+  /* gold-bright cannot clear 3:1 on sand at ANY opacity — the dim state
+     is a lighter mix of the text-safe gold instead */
+  color:var(--gold);opacity:.8;
+  font-variation-settings:'opsz' 90;
+  transition:opacity 420ms var(--ease-out);
+}
+.mod.is-on .n{opacity:1}
+.mod h3{font-size:clamp(21px,2vw,28px);line-height:1.1}
+.mod p{margin-top:11px;color:var(--text-soft);font-size:15.5px;line-height:1.6;max-width:46ch}
+
+.build-rail{position:sticky;top:112px;display:grid;justify-items:center;gap:16px}
+.build-count{
+  color:var(--text-mute);
+  font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+}
+.build-count b{color:var(--gold);font-size:14px}
+
+/* competency lines ink in one at a time */
+.comps{display:grid;gap:0;margin:10px 0 0;padding:0;list-style:none;text-align:left}
+.comps li{
+  position:relative;
+  padding:7px 0 7px 20px;
+  border-bottom:1px solid rgba(145,99,16,.14);
+  color:var(--text-soft);
+  font-size:11.5px;line-height:1.35;letter-spacing:.01em;
+  opacity:.22;
+  transition:opacity 460ms var(--ease-out);
+}
+.comps li:last-child{border-bottom:0}
+.comps li::before{
+  content:"";position:absolute;left:2px;top:12px;
+  width:9px;height:5px;
+  border-left:1.4px solid var(--gold);border-bottom:1.4px solid var(--gold);
+  transform:rotate(-45deg) scale(.5);opacity:0;
+  transition:transform 460ms var(--ease-out),opacity 320ms var(--ease-out);
+}
+.comps li.is-inked{opacity:1}
+.comps li.is-inked::before{transform:rotate(-45deg) scale(1);opacity:1}
+
+.cert--build .cert-foot{position:relative}
+.cert--build:not(.is-sealed) .cert-foot::before{
+  content:"";position:absolute;left:0;top:18px;
+  width:76px;height:91px;
+  border:1px dashed rgba(145,99,16,.30);
+}
+.cert-seal{opacity:0;transform:scale(.82) rotate(-8deg);transform-origin:center}
+.cert--build.is-sealed .cert-seal{
+  opacity:1;transform:none;
+  transition:transform 620ms var(--ease-out),opacity 380ms var(--ease-out);
+}
+.cert--build .cert-foot dd{transition:color 380ms ease}
+.cert--build:not(.is-sealed) .cert-foot dd{color:rgba(61,85,72,.32)}
+
+html:not(.js) .comps li,
+html:not(.js) .comps li::before{opacity:1;transform:rotate(-45deg) scale(1)}
+html:not(.js) .cert-seal{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .comps li{opacity:1}
+  .comps li::before{opacity:1;transform:rotate(-45deg) scale(1)}
+  .cert-seal{opacity:1;transform:none}
+}
+
+@media (max-width:900px){
+  .build-grid{grid-template-columns:1fr;gap:38px}
+  .build-rail{position:static;order:2}
+  .mods{order:1}
+}
 
 /* Certification mark ──────────────────────────────────────── */
 .stamp{display:block;width:100%;height:auto;color:var(--gold)}
@@ -731,7 +871,10 @@ html:not(.js) [data-reveal]{opacity:1;transform:none}
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow" data-reveal style="--i:0">Professional Life Coach Certification</p>
-        <h1 data-reveal style="--i:1">Become the life coach <em>you're meant to be.</em></h1>
+        <h1 data-reveal style="--i:1">
+          <span class="ln"><span class="in">Become the life coach</span></span>
+          <em class="ln"><span class="in">you're meant to be.</span></em>
+        </h1>
         <p class="lede" data-reveal style="--i:2">
           Roux Life Coach Academy is a <strong>40-hour online life coach training course</strong> that
           gives you the skills, the structure, and the credential to start coaching clients with
@@ -751,25 +894,24 @@ html:not(.js) [data-reveal]{opacity:1;transform:none}
         </ul>
       </div>
 
-      <figure class="cert-stage" data-reveal style="--i:2">
-        <div class="cert">
-          <p class="cert-kicker">Certificate of Completion</p>
-          <p class="cert-brand">Roux Life<em>Coach Academy</em></p>
-          <hr class="cert-rule">
-          <p class="cert-line">This certifies that</p>
-          <p class="cert-name">Your Name</p>
-          <p class="cert-line">has completed the</p>
-          <p class="cert-title">40-Hour Professional<br>Life Coach Training</p>
-          <div class="cert-foot">
-            <svg class="stamp stamp--sm" role="img" aria-label="Roux Life Certified mark"><use href="#rl-stamp-sm"></use></svg>
-            <dl>
-              <div><dt>Credential no.</dt><dd>RL-40-0001</dd></div>
-              <div><dt>Awarded</dt><dd>On completion</dd></div>
-            </dl>
-          </div>
-        </div>
-        <figcaption class="cert-tag">Specimen · Roux Life Certified™</figcaption>
-      </figure>
+      <div class="hero-panel" data-reveal style="--i:2">
+        <figure class="hero-shot">
+          <picture>
+            <source srcset="/img/hero-moss.webp" type="image/webp">
+            <img src="/img/hero-moss.jpg" width="941" height="560" fetchpriority="high"
+                 alt="Morning light through Spanish moss over still water — the Roux Life setting.">
+          </picture>
+          <figcaption class="shot-tag">
+            <svg class="stamp" role="img" aria-label="Roux Life Certified mark"><use href="#rl-stamp-sm"></use></svg>
+            Roux Life Certified™ · 40-hour program
+          </figcaption>
+        </figure>
+        <p class="hero-stat">
+          <span class="k">40</span>
+          <span class="lbl">hours to<br><strong>certified</strong></span>
+          <span class="rest">6 modules<br>1 certificate</span>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -784,6 +926,14 @@ html:not(.js) [data-reveal]{opacity:1;transform:none}
       </ul>
     </div>
   </section>
+
+  <!-- MARQUEE ────────────────────────────────────────────── -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Discovery calls</span><i>✦</i><span>Session structure</span><i>✦</i><span>Powerful questions</span><i>✦</i><span>Deep listening</span><i>✦</i><span>Goal setting</span><i>✦</i><span>Accountability</span><i>✦</i><span>Working with resistance</span><i>✦</i><span>Ethics &amp; scope</span><i>✦</i><span>Referral</span><i>✦</i><span>Packages &amp; pricing</span><i>✦</i><span>Your first ten clients</span><i>✦</i>
+      <span>Discovery calls</span><i>✦</i><span>Session structure</span><i>✦</i><span>Powerful questions</span><i>✦</i><span>Deep listening</span><i>✦</i><span>Goal setting</span><i>✦</i><span>Accountability</span><i>✦</i><span>Working with resistance</span><i>✦</i><span>Ethics &amp; scope</span><i>✦</i><span>Referral</span><i>✦</i><span>Packages &amp; pricing</span><i>✦</i><span>Your first ten clients</span><i>✦</i>
+    </div>
+  </div>
 
   <!-- THE COURSE ─────────────────────────────────────────── -->
   <section class="section section--paper" id="course">
@@ -820,44 +970,88 @@ html:not(.js) [data-reveal]{opacity:1;transform:none}
     <div class="wrap">
       <div class="section-head" data-reveal>
         <p class="eyebrow">The curriculum</p>
-        <h2>Six modules. <em>One working practice.</em></h2>
+        <h2>Six modules. <em>One earned certificate.</em></h2>
         <p class="lede">
-          Each module builds on the one before it, so you finish with a method you can actually run —
-          from the first discovery call to a client who renews.
+          Every module is a competency, and every competency is a line on your certificate. Read down
+          — and watch it fill in.
         </p>
       </div>
 
-      <div class="modules">
-        <article class="module" data-reveal style="--i:0">
-          <p class="num">01</p>
-          <h3>Foundations of Life Coaching</h3>
-          <p>What coaching is, what it deliberately is not, and the ethical boundaries that protect both you and your client.</p>
-        </article>
-        <article class="module" data-reveal style="--i:1">
-          <p class="num">02</p>
-          <h3>The Coaching Conversation</h3>
-          <p>Deep listening, questions that open rather than lead, and the session structure that turns talk into momentum.</p>
-        </article>
-        <article class="module" data-reveal style="--i:2">
-          <p class="num">03</p>
-          <h3>Goals, Values &amp; Vision</h3>
-          <p>Help clients name what they actually want, then translate it into commitments they keep after the call ends.</p>
-        </article>
-        <article class="module" data-reveal style="--i:3">
-          <p class="num">04</p>
-          <h3>Working Through Resistance</h3>
-          <p>Recognize the patterns that stall progress — and move a client past them without pushing them away.</p>
-        </article>
-        <article class="module" data-reveal style="--i:4">
-          <p class="num">05</p>
-          <h3>Ethics, Scope &amp; Referral</h3>
-          <p>Know your limits precisely. Document responsibly. Refer with confidence when a client needs more than coaching.</p>
-        </article>
-        <article class="module" data-reveal style="--i:5">
-          <p class="num">06</p>
-          <h3>Building Your Practice</h3>
-          <p>Packages, pricing, your first ten clients, and the simple systems that keep a coaching business running.</p>
-        </article>
+      <div class="build-grid">
+        <ol class="mods">
+          <li class="mod" data-mod="1" data-reveal>
+            <p class="n">01</p>
+            <div>
+              <h3>Foundations of Life Coaching</h3>
+              <p>What coaching is, what it deliberately is not, and the ethical boundaries that protect both you and your client.</p>
+            </div>
+          </li>
+          <li class="mod" data-mod="2" data-reveal>
+            <p class="n">02</p>
+            <div>
+              <h3>The Coaching Conversation</h3>
+              <p>Deep listening, questions that open rather than lead, and the session structure that turns talk into momentum.</p>
+            </div>
+          </li>
+          <li class="mod" data-mod="3" data-reveal>
+            <p class="n">03</p>
+            <div>
+              <h3>Goals, Values &amp; Vision</h3>
+              <p>Help clients name what they actually want, then translate it into commitments they keep after the call ends.</p>
+            </div>
+          </li>
+          <li class="mod" data-mod="4" data-reveal>
+            <p class="n">04</p>
+            <div>
+              <h3>Working Through Resistance</h3>
+              <p>Recognize the patterns that stall progress — and move a client past them without pushing them away.</p>
+            </div>
+          </li>
+          <li class="mod" data-mod="5" data-reveal>
+            <p class="n">05</p>
+            <div>
+              <h3>Ethics, Scope &amp; Referral</h3>
+              <p>Know your limits precisely. Document responsibly. Refer with confidence when a client needs more than coaching.</p>
+            </div>
+          </li>
+          <li class="mod" data-mod="6" data-reveal>
+            <p class="n">06</p>
+            <div>
+              <h3>Building Your Practice</h3>
+              <p>Packages, pricing, your first ten clients, and the simple systems that keep a coaching business running.</p>
+            </div>
+          </li>
+        </ol>
+
+        <aside class="build-rail">
+          <figure class="cert-stage" style="width:100%">
+            <div class="cert cert--build" id="buildCert">
+              <p class="cert-kicker">Certificate of Completion</p>
+              <p class="cert-brand">Roux Life<em>Coach Academy</em></p>
+              <hr class="cert-rule">
+              <p class="cert-line">This certifies that</p>
+              <p class="cert-name">Your Name</p>
+              <p class="cert-line">is assessed competent in</p>
+              <ul class="comps">
+                <li data-i="1">Coaching foundations &amp; ethical practice</li>
+                <li data-i="2">Session structure &amp; the coaching conversation</li>
+                <li data-i="3">Goal, value &amp; vision work</li>
+                <li data-i="4">Working through client resistance</li>
+                <li data-i="5">Scope, documentation &amp; referral</li>
+                <li data-i="6">Practice design &amp; client acquisition</li>
+              </ul>
+              <div class="cert-foot">
+                <svg class="stamp stamp--sm cert-seal" role="img" aria-label="Roux Life Certified mark"><use href="#rl-stamp-sm"></use></svg>
+                <dl>
+                  <div><dt>Credential no.</dt><dd>RL-40-0001</dd></div>
+                  <div><dt>Awarded</dt><dd>On completion</dd></div>
+                </dl>
+              </div>
+            </div>
+            <figcaption class="cert-tag">Specimen · Roux Life Certified™</figcaption>
+          </figure>
+          <p class="build-count"><b id="buildN">0</b> / 6 competencies assessed</p>
+        </aside>
       </div>
     </div>
   </section>
@@ -1109,6 +1303,58 @@ document.documentElement.classList.add('js');
     }
   });
 })();
+
+/* Certificate assembles as the modules pass mid-screen ------------- */
+(function () {
+  var cert  = document.getElementById('buildCert');
+  var count = document.getElementById('buildN');
+  if (!cert) return;
+
+  var mods  = Array.prototype.slice.call(document.querySelectorAll('.mod'));
+  var comps = Array.prototype.slice.call(cert.querySelectorAll('.comps li'));
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function inkAll() {
+    comps.forEach(function (c) { c.classList.add('is-inked'); });
+    mods.forEach(function (m) { m.classList.add('is-on'); });
+    cert.classList.add('is-sealed');
+    if (count) count.textContent = String(comps.length);
+  }
+
+  // Reduced motion gets the finished article, not a silent empty one
+  if (reduced) { inkAll(); return; }
+
+  var ticking = false, last = -1;
+
+  function update() {
+    ticking = false;
+    var line = window.innerHeight * 0.62;
+    var n = 0;
+    for (var i = 0; i < mods.length; i++) {
+      if (mods[i].getBoundingClientRect().top < line) n = i + 1;
+    }
+    if (n === last) return;
+    last = n;
+
+    for (var j = 0; j < mods.length; j++) mods[j].classList.toggle('is-on', j < n);
+    for (var k = 0; k < comps.length; k++) comps[k].classList.toggle('is-inked', k < n);
+    cert.classList.toggle('is-sealed', n >= comps.length);
+    if (count) count.textContent = String(n);
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+
+document.documentElement.classList.add('ready');
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(function () { document.documentElement.classList.add('fonts-in'); });
+}
 
 document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
