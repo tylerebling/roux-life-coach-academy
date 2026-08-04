@@ -1,0 +1,9 @@
+ROUX LIFE ACADEMY · LESSON 4 PRODUCTION NOTES
+
+Voice: Roux Voice Studio, af_heart, speed 0.94.
+Presentation: index.html or START_LESSON_4.html.
+Hosting: drag the regular NETLIFY_DRAG_THIS_FOLDER_LESSON_4_V1 folder into Netlify Drop.
+Assets: keep every HTML, MP3, PNG, CSV, and TXT file together at the site root.
+Interaction: the presentation pauses at six decisions and explains every answer before continuing.
+Learning Lab: opens after the presentation and contains Elena's case, workbook, application work, downloads, and graded quiz.
+Scope: coaching education only; no diagnosis, psychotherapy, trauma treatment, or emergency care.

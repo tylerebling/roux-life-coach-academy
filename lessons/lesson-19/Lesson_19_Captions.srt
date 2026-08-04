@@ -1,0 +1,159 @@
+1
+00:00:00,000 --> 00:00:19,800
+Ethics is not a disclaimer at the bottom of a contract. It shapes how a coach describes the service, protects privacy, uses influence, responds to vulnerability, documents decisions, and recognizes limits. Ethical coaching combines warmth with boundaries and courage with humility.
+
+2
+00:00:20,150 --> 00:00:41,750
+We begin with coaching scope, competence, and informed consent. We then examine confidentiality, technology, records, boundaries, conflicts, marketing, attachment-related content, warning signs, safety, referral, consultation, and documentation. Six ethical decisions prepare you for Tasha's capstone case.
+
+3
+00:00:42,100 --> 00:01:04,800
+Coaching supports present choices, future goals, values, behavior, communication, accountability, and development. It can include emotion and discuss how past experience affects current choices. It does not become psychotherapy, diagnosis, medical treatment, legal advice, or crisis care because the conversation feels meaningful.
+
+4
+00:01:05,150 --> 00:01:26,610
+A certificate does not grant unlimited authority. Scope depends on training, demonstrated competence, the contract, jurisdiction, insurance, organizational policy, and client need. Coaches must seek qualified legal or regulatory guidance for their location rather than relying on a course as legal advice.
+
+5
+00:01:26,960 --> 00:01:48,800
+Good intentions are not competence. A coach should understand the population, topic, tools, risks, culture, and limits of the service offered. New or complex work may require education, mentoring, supervision, consultation, co-support, or referral. Confidence should never substitute for qualification.
+
+6
+00:01:49,150 --> 00:02:03,500
+Pause here and choose the response that best preserves client dignity, ownership, and coaching scope. A client asks a coach to interpret symptoms and tell her which anxiety disorder she has. What should the coach do?
+
+7
+00:02:03,850 --> 00:02:27,830
+Clients need understandable information before agreeing. Consent includes what coaching is and is not, expected roles, fees, cancellations, technology, communication, confidentiality limits, records, conflicts, possible risks, alternatives, and how to raise concerns. A signature alone is not meaningful consent if the terms were unclear.
+
+8
+00:02:28,180 --> 00:02:50,910
+Consent is a process. Ask permission before using unfamiliar exercises, deepening into sensitive material, recording, sharing information, or shifting into education or consulting. When goals, risks, fees, platforms, or roles change, update the agreement rather than assuming the original signature covers everything.
+
+9
+00:02:51,260 --> 00:03:12,330
+Coaches protect client information and explain that confidentiality may have legal or ethical limits involving imminent danger, abuse, court orders, organizational arrangements, or other jurisdiction-specific duties. Never promise absolute secrecy. Seek legal guidance for exact obligations.
+
+10
+00:03:12,680 --> 00:03:35,170
+More data does not automatically create better care. Collect what is needed for the service, consent, billing, safety, and legal requirements. Avoid speculative diagnoses and unnecessary intimate details. Define secure retention, access, correction, and disposal practices appropriate to the platform and jurisdiction.
+
+11
+00:03:35,520 --> 00:03:57,050
+Video platforms, email, messaging, scheduling, artificial intelligence, transcription, storage, and payment systems all affect privacy. Coaches should understand their tools, obtain required consent, limit access, use strong security, and avoid placing identifiable client material into unapproved services.
+
+12
+00:03:57,400 --> 00:04:12,620
+Pause here and choose the response that best preserves client dignity, ownership, and coaching scope. A coach wants to paste detailed client notes into a public AI tool to generate questions. What is the ethical first step?
+
+13
+00:04:12,970 --> 00:04:33,150
+Boundaries clarify when and how contact occurs, what the coach provides, and where responsibility lies. Unlimited messaging, emergency promises, friendships, financial entanglement, or rescue dynamics can create dependency and harm. Compassion becomes more reliable when it has structure.
+
+14
+00:04:33,500 --> 00:04:55,100
+Coaching someone with another significant relationship can create conflicts, pressure, confidentiality problems, or reduced freedom to say no. Small communities sometimes make overlap unavoidable. Name it, assess power and risk, document safeguards, consult, and decline when the relationship cannot protect the client.
+
+15
+00:04:55,450 --> 00:05:15,510
+A coach should disclose relevant incentives, commissions, affiliations, and pressures. Do not recommend a product, provider, or program while hiding personal benefit. In employer-sponsored coaching, clarify who the client is, what is reported, and how confidentiality works before sessions begin.
+
+16
+00:05:15,860 --> 00:05:34,460
+A hug, gift, invitation, or personal story can carry different meanings across cultures and relationships. Ask rather than assume. Self-disclosure should serve the client's work, not the coach's need for connection. Repeated boundary ambiguity deserves consultation.
+
+17
+00:05:34,810 --> 00:05:53,820
+The coaching role creates influence and access to vulnerable information. Sexualized, romantic, coercive, retaliatory, or exploitative behavior violates trust. Coaches need clear policies, consultation, and compliance with applicable professional codes and law.
+
+18
+00:05:54,170 --> 00:06:09,510
+Pause here and choose the response that best preserves client dignity, ownership, and coaching scope. A manager wants to coach a direct report privately and keep the sessions secret from the organization. What should happen first?
+
+19
+00:06:09,860 --> 00:06:31,390
+Ethical marketing avoids claims such as heal trauma, cure anxiety, save your marriage, or guarantee income. Describe the process and intended support without implying licensure or results the coach cannot control. Credentials, affiliations, research claims, and testimonials must be accurate and not misleading.
+
+20
+00:06:31,740 --> 00:06:52,600
+Removing a name does not always protect identity. Location, occupation, family structure, timing, or unusual events can identify a client. Marketing consent should explain exactly what will be used, where, for how long, and whether it can be withdrawn, subject to applicable law and practical limits.
+
+21
+00:06:52,950 --> 00:07:14,430
+Culture, race, gender, disability, class, faith, family, sexuality, and community shape goals, risk, communication, and access. Ethical coaching does not reduce structural barriers to mindset. The coach asks, learns, repairs mistakes, and refers when cultural or population competence is insufficient.
+
+22
+00:07:14,780 --> 00:07:34,030
+Bias can shape whose emotion is trusted, which behavior is called professional, and whose responsibility is exaggerated. Use consultation, feedback, education, and outcome review. Humility does not mean paralysis; it means accountable learning and willingness to change practice.
+
+23
+00:07:34,380 --> 00:07:56,510
+Attachment ideas may help clients discuss how they seek closeness, respond to uncertainty, protect themselves, or communicate needs. Coaches must not diagnose attachment disorders or turn a label into identity. Use tentative, educational language and focus on present choices, regulation, boundaries, and consent.
+
+24
+00:07:56,860 --> 00:08:08,880
+Pause here and choose the response that best preserves client dignity, ownership, and coaching scope. A client pulls away after conflict. What is the strongest coaching response?
+
+25
+00:08:09,230 --> 00:08:32,490
+A difficult emotion is not automatically outside coaching. Look at severity, duration, functioning, risk, and the service needed. Significant decline, escalating symptoms, inability to perform daily activities, dangerous behavior, or safety concerns indicate that clinical, medical, addiction, or emergency support may be necessary.
+
+26
+00:08:32,840 --> 00:08:54,220
+Referral should be specific enough to help. Licensed mental-health clinicians, physicians, prescribers, dietitians, addiction specialists, domestic-violence advocates, attorneys, financial professionals, or emergency services serve different needs. The coach does not claim that one provider fits every situation.
+
+27
+00:08:54,570 --> 00:09:15,400
+When warning signs indicate possible danger, follow your trained protocol and ask clear, calm, direct questions rather than euphemisms. Determine the information your protocol and applicable law require. Do not conduct a clinical risk assessment beyond competence; connect with emergency or licensed support.
+
+28
+00:09:15,750 --> 00:09:36,030
+If there is immediate risk of self-harm, harm to others, abuse, or another emergency, the planned coaching agenda ends. Follow the written procedure, applicable law, organizational policy, and qualified guidance. Do not leave the client to manage an emergency alone or improvise beyond training.
+
+29
+00:09:36,380 --> 00:09:55,720
+A generic boundary exercise can increase danger when abuse or coercive control is present. Avoid telling the client to confront, announce departure, or create a plan that could be monitored. Connect with specialized resources and follow applicable reporting and safety requirements.
+
+30
+00:09:56,070 --> 00:10:09,650
+Pause here and choose the response that best preserves client dignity, ownership, and coaching scope. A client says, ‘I have the pills beside me and plan to take them tonight.’ What is the ethical priority?
+
+31
+00:10:10,000 --> 00:10:29,660
+A referral might sound like: what you are describing is important, and it has moved beyond what coaching should address alone. A licensed clinician can evaluate and treat these symptoms. Let us identify how you will connect today. Referral is not rejection; it is responsible continuity of care.
+
+32
+00:10:30,010 --> 00:10:49,040
+Vague language leaves the client to interpret seriousness. Name the category of professional and urgency. Offer more than one option when feasible and avoid guaranteeing availability or fit. The coach can support scheduling or question preparation within consent and scope.
+
+33
+00:10:49,390 --> 00:11:10,270
+Referral does not always require termination. Coaching may pause, continue alongside treatment, or end depending on risk, functioning, provider recommendations, competence, contract, and client goals. Coordination requires appropriate written authorization and minimum necessary information.
+
+34
+00:11:10,620 --> 00:11:31,160
+Consultation is a normal professional safeguard. Use qualified supervisors, experienced coaches, clinicians, attorneys, insurers, or ethics resources as appropriate. Protect identity and confidentiality, disclose only what is necessary, and document guidance relevant to the decision.
+
+35
+00:11:31,510 --> 00:11:51,330
+Documentation should be timely, factual, concise, and secure. Record what was said, what you observed, what policy or scope issue applied, what action you took, who was consulted or contacted when authorized or required, and the follow-up. Avoid speculation and retrospective editing.
+
+36
+00:11:51,680 --> 00:12:00,460
+Pause here and choose the response that best preserves client dignity, ownership, and coaching scope. Which note is most appropriate?
+
+37
+00:12:00,810 --> 00:12:26,080
+Tasha initially seeks coaching after a breakup. Over time, her functioning declines and safety language appears. The coach does not interpret this as simply anxious attachment or assign more self-validation exercises. The coach asks direct safety questions, follows the emergency protocol, connects qualified care, documents objective facts, and consults appropriately.
+
+38
+00:12:26,430 --> 00:12:48,130
+After immediate safety is addressed, Tasha receives clear referral information and support connecting to care. Coaching pauses. With appropriate authorization, limited coordination may occur. Future coaching would require stability, appropriate goals, clear roles, and confidence that it complements rather than replaces treatment.
+
+39
+00:12:48,480 --> 00:13:28,820
+When an ethical concern is not an obvious emergency, pause before reacting. Recognize the exact tension instead of reducing it to a feeling. Open the relevant facts, agreements, laws, policies, duties, and client perspective. Uncover power differences, foreseeable harm, personal bias, missing competence, and where consultation is needed. Then execute the safest accountable action, explain it clearly, document the reasoning, and review the result. The ROUX Method does not replace a professional code or legal advice. It gives the coach a disciplined way to slow down and use them well.
+
+40
+00:13:29,170 --> 00:13:53,480
+Roux Life coaching welcomes emotional honesty while respecting the limits of coaching. We do not diagnose, exploit vulnerability, promise outcomes, or hold risk alone. We use consent, competence, consultation, referral, safety procedures, and accountable documentation. Ethical courage means doing what protects the client even when the conversation is uncomfortable.

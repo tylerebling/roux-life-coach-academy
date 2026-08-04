@@ -1,0 +1,17 @@
+{
+  "title": "Lesson 19 \u00b7 Scope, Ethics, Referral, and Client Safety",
+  "scenes": 40,
+  "interactive_questions": 6,
+  "narration_words": 1629,
+  "estimated_total_minutes_with_interactions": "25\u201330",
+  "quiz_questions": 12,
+  "passing_score": 80,
+  "voice": "Roux Voice Studio \u00b7 af_heart \u00b7 0.94 speed",
+  "visual_policy": "Every scene has a unique cinematic photograph; missing photos, repeated sources, and repeated rendered assets fail the build.",
+  "hosting": "Flat Netlify-ready static folder",
+  "narration_files": 40,
+  "narration_minutes": 13.7,
+  "image_files": 40,
+  "unique_image_hashes": 40,
+  "validation": "passed"
+}

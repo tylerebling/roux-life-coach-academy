@@ -1,0 +1,17 @@
+{
+  "title": "Lesson 4 \u00b7 Values, Identity, and Personal Truth",
+  "scenes": 37,
+  "interactive_questions": 6,
+  "narration_words": 2341,
+  "estimated_total_minutes_with_interactions": "25\u201330",
+  "quiz_questions": 12,
+  "passing_score": 80,
+  "voice": "Roux Voice Studio \u00b7 af_heart \u00b7 0.94 speed",
+  "visual_policy": "12 unique cinematic photographs + unique content-specific diagram for every remaining scene",
+  "hosting": "Flat Netlify-ready static folder",
+  "narration_files": 37,
+  "narration_minutes": 17.1,
+  "image_files": 37,
+  "unique_image_hashes": 37,
+  "validation": "passed"
+}

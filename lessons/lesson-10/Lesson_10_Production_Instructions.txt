@@ -1,0 +1,7 @@
+ROUX LIFE ACADEMY · LESSON 10 PRODUCTION NOTES
+
+Voice: Roux Voice Studio, af_heart, speed 0.94.
+Presentation: index.html.
+Hosting: drag this regular folder into Netlify Drop.
+Keep all HTML, MP3, PNG, CSV, and TXT files together at the site root.
+No Supabase is used.

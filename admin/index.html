@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Roux Life Academy Administration</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../"><img src="../academy/roux-logo.webp" alt="Roux Life Coaching"><span>Academy Administration</span></a>
+    <div class="top-actions"><span id="adminIdentity">Verifying access…</span><button id="signOut" hidden>Sign out</button></div>
+  </header>
+
+  <main>
+    <section class="access-card" id="accessPanel">
+      <p class="eyebrow">SECURE ADMINISTRATOR ACCESS</p>
+      <h1>Manage the complete learner journey.</h1>
+      <p>Sign in with an approved administrator account. Passwords are never displayed here; password help uses Supabase’s secure recovery process.</p>
+      <form id="signInForm">
+        <label>Email<input id="email" type="email" autocomplete="email" required></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+        <button type="submit">Open administration</button>
+      </form>
+      <button class="text-button" id="forgotPassword">Send me a recovery email</button>
+      <p class="message" id="authMessage"></p>
+    </section>
+
+    <section id="adminApp" hidden>
+      <div class="hero">
+        <div><p class="eyebrow">ROUX LIFE ACADEMY</p><h1>Administration Center</h1><p>Users, progress, credentials, enrollment, and billing in one secure view.</p></div>
+        <button id="refresh">Refresh records</button>
+      </div>
+
+      <div class="metrics" id="metrics"></div>
+
+      <nav class="tabs" aria-label="Administration sections">
+        <button class="active" data-tab="learners">Learners</button>
+        <button data-tab="certificates">Certificates</button>
+        <button data-tab="billing">Billing</button>
+        <button data-tab="course">Course settings</button>
+        <button data-tab="audit">Audit log</button>
+      </nav>
+
+      <section class="panel active" id="learners">
+        <div class="panel-heading"><div><p class="eyebrow">LEARNER DIRECTORY</p><h2>Accounts and progress</h2></div><input id="learnerSearch" type="search" placeholder="Search name or email"></div>
+        <div class="table-wrap"><table><thead><tr><th>Learner</th><th>Access</th><th>Progress</th><th>Final exam</th><th>Last sign-in</th><th>Actions</th></tr></thead><tbody id="learnerRows"></tbody></table></div>
+      </section>
+
+      <section class="panel" id="certificates">
+        <div class="panel-heading"><div><p class="eyebrow">CREDENTIAL REGISTRY</p><h2>Issued certificates</h2></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Recipient</th><th>Certificate</th><th>Score</th><th>Issued</th><th>Status</th><th>Actions</th></tr></thead><tbody id="certificateRows"></tbody></table></div>
+      </section>
+
+      <section class="panel" id="billing">
+        <div class="panel-heading"><div><p class="eyebrow">BILLING</p><h2>Payments and enrollment access</h2></div><p class="helper">Refunds require Stripe to be configured and permanently affect learner access.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>Learner</th><th>Status</th><th>Checkout</th><th>Payment</th><th>Enrolled</th><th>Actions</th></tr></thead><tbody id="billingRows"></tbody></table></div>
+      </section>
+
+      <section class="panel" id="course">
+        <div class="panel-heading"><div><p class="eyebrow">COURSE SETTINGS</p><h2>Publication and pricing</h2></div></div>
+        <form class="settings" id="courseForm">
+          <label>Course price in dollars<input id="coursePrice" type="number" min="0" step="0.01"></label>
+          <label>Stripe Price ID<input id="stripePriceId" type="text" placeholder="price_..."></label>
+          <label class="checkbox"><input id="coursePublished" type="checkbox"> Academy is published</label>
+          <button type="submit">Save course settings</button>
+        </form>
+      </section>
+
+      <section class="panel" id="audit">
+        <div class="panel-heading"><div><p class="eyebrow">SECURITY HISTORY</p><h2>Administrator audit log</h2></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Time</th><th>Action</th><th>Target</th><th>Administrator</th><th>Details</th></tr></thead><tbody id="auditRows"></tbody></table></div>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="confirmDialog"><form method="dialog"><h2 id="dialogTitle">Confirm action</h2><p id="dialogMessage"></p><label id="reasonLabel" hidden>Reason<textarea id="dialogReason"></textarea></label><div><button value="cancel">Cancel</button><button class="danger" id="dialogConfirm" value="confirm">Confirm</button></div></form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

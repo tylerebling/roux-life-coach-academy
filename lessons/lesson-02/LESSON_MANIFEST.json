@@ -1,0 +1,10 @@
+{
+  "title": "Lesson 2 \u00b7 The ROUX Coaching Method",
+  "scenes": 53,
+  "interactive_questions": 6,
+  "narration_words": 2961,
+  "estimated_narration_minutes_at_140_wpm": 21.1,
+  "estimated_total_minutes_with_interactions": "26\u201330",
+  "format": "Self-contained browser lesson; no Supabase or internet connection required after build.",
+  "voice": "Roux Voice Studio \u00b7 af_heart \u00b7 0.94 speed"
+}
