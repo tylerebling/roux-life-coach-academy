@@ -3,12 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0d2117">
+  <meta name="theme-color" content="#fffdf7">
   <title>Roux Life Academy · RLC Certification</title>
   <meta name="description" content="The Roux Life Certified Coach professional certification academy.">
-  <link rel="stylesheet" href="academy/styles.css?release=d90f4b5">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="academy/styles.css?release=premium-dashboard-v1">
 </head>
 <body class="academy-locked">
+  <a class="skip-link" href="#dashboardContent">Skip to learning dashboard</a>
   <section class="academy-gate" id="academyGate" aria-labelledby="academyGateTitle">
     <div class="academy-gate-card">
       <img src="academy/roux-logo.webp" alt="Roux Life Coaching">
@@ -19,7 +23,7 @@
       <a href="/">Return to the public program page</a>
     </div>
   </section>
-  <main>
+  <main id="dashboardContent">
     <header class="topbar">
       <a class="brand" href="#top" aria-label="Roux Life Academy home"><span class="brand-mark"><img src="academy/roux-logo.webp" alt="Roux Life Coaching"></span><span class="brand-label">Academy</span></a>
       <nav aria-label="Academy navigation"><a href="#curriculum" data-section-link="curriculum">Curriculum</a><a href="#certification" data-section-link="certification">Certification</a><a href="#materials" data-section-link="materials">Materials</a><a href="admin/">Admin</a></nav>
@@ -42,16 +46,44 @@
     </header>
 
     <section class="hero" id="top">
-      <div class="hero-image" aria-hidden="true"></div><div class="hero-scrim" aria-hidden="true"></div>
-      <div class="hero-copy reveal"><p class="eyebrow">ROUX LIFE CERTIFIED COACH · RLC</p><h1>Become the kind of coach people can trust with what matters.</h1><p class="hero-lede">A 40-hour professional certification in emotional courage, ethical coaching, attachment-informed pattern education, boundaries, transformation, and client-owned action.</p><div class="hero-actions"><a class="primary-button" id="continueButton" href="#curriculum">Continue your journey</a><a class="secondary-button" href="#certification">View certification path</a></div></div>
+      <div class="hero-image" aria-hidden="true"></div>
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <div class="hero-copy reveal">
+        <p class="eyebrow">YOUR RLC LEARNING SPACE</p>
+        <h1>Continue becoming the coach people can trust.</h1>
+        <p class="hero-lede">Return to your next lesson, deepen your professional judgment, and move steadily toward the Roux Life Certified Coach credential.</p>
+        <div class="hero-context" aria-label="Academy features">
+          <span>Progress saved automatically</span>
+          <span>19 guided lessons</span>
+          <span>40-hour certification</span>
+        </div>
+        <div class="hero-actions">
+          <a class="primary-button" id="continueButton" href="#curriculum">Continue your journey</a>
+          <a class="secondary-button" href="#curriculum">Explore curriculum</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="journey-strip" aria-labelledby="next-step-title">
+      <div class="journey-next">
+        <p class="eyebrow">YOUR NEXT STEP</p>
+        <div>
+          <span class="journey-number" id="nextLessonNumber">Lesson 1</span>
+          <h2 id="next-step-title"><span id="nextLessonTitle">What Coaching Is—and Is Not</span></h2>
+          <p id="nextLessonMeta">Coaching Foundations · Your professional starting point</p>
+        </div>
+      </div>
+      <div class="journey-action">
+        <div><span>Current stage</span><strong id="journeyStage">Curriculum</strong></div>
+        <a class="journey-button" id="resumeButton" href="lessons/lesson-01/index.html">Resume learning <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
     <section class="principles" aria-label="Program standards"><article><span>01</span><div><strong>Clarity without control</strong><p>Support better thinking while the client retains ownership.</p></div></article><article><span>02</span><div><strong>Challenge without shame</strong><p>Make courage and accountability emotionally sustainable.</p></div></article><article><span>03</span><div><strong>Depth with boundaries</strong><p>Welcome emotion without pretending coaching is therapy.</p></div></article></section>
 
     <section class="curriculum-section" id="curriculum">
-      <div class="section-heading"><div><p class="eyebrow">THE COMPLETE LEARNING JOURNEY</p><h2>Nineteen lessons. One professional standard.</h2></div><p>Every lesson combines Lauren’s narration, cinematic visual teaching, interactive coaching decisions, a guided workbook, practical application, and an 80% graded assessment.</p></div>
-      <div class="division-tabs" id="divisionTabs" role="tablist" aria-label="Filter lessons by division"></div>
+      <div class="section-heading"><div><p class="eyebrow">YOUR SEQUENCED CURRICULUM</p><h2>Build confidence one earned lesson at a time.</h2></div><p>Each lesson combines Lauren’s narration, cinematic visual teaching, interactive coaching decisions, guided practice, and an 80% graded assessment.</p></div>
+      <div class="curriculum-toolbar"><span>Choose a learning division</span><div class="division-tabs" id="divisionTabs" role="tablist" aria-label="Filter lessons by division"></div></div>
       <div class="lesson-grid" id="lessonGrid"></div>
       <div class="evaluator-note"><div><strong>Earned lesson progression</strong><p>Each lesson unlocks only after the previous presentation, workbook, practical application, and 80% assessment requirement are complete.</p></div></div>
     </section>
