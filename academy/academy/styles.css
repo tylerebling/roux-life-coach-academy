@@ -413,3 +413,30 @@ footer span { font-size: 12px; }
   .hero-image { left:0; opacity:.28; }
   .hero-scrim { background:linear-gradient(180deg,rgba(255,253,248,.94),rgba(246,240,227,.88)); }
 }
+
+
+/* Compact hero progress panel */
+@media (min-width:761px) {
+  .hero-status {
+    width: min(300px,100%);
+    justify-self: end;
+    align-self: end;
+    padding: 18px 20px;
+    margin: 0 0 10px;
+    border-radius: 20px;
+    background: rgba(255,253,247,.78);
+    box-shadow: 0 16px 45px rgba(42,48,39,.12);
+  }
+  .status-top { gap: 14px; }
+  .status-top span { max-width: 135px; font-size: 13px; line-height: 1.35; }
+  .status-top strong { font-size: 30px; line-height: 1; }
+  .progress-track { height: 5px; margin: 12px 0 15px; }
+  .status-grid { gap: 10px; }
+  .status-grid div { gap: 2px; padding-top: 10px; }
+  .status-grid strong { font-size: 19px; }
+  .status-grid span { font-size: 10px; line-height: 1.35; }
+}
+@media (min-width:1081px) {
+  .hero { grid-template-columns:minmax(0,1.6fr) minmax(240px,.4fr); }
+  .hero-status { max-width:300px; padding:18px 20px; border-radius:20px; }
+}
