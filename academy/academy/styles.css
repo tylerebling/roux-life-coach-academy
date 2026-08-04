@@ -397,8 +397,8 @@ footer span { font-size: 12px; }
   color: var(--ink);
   background: linear-gradient(135deg,#fffdf8 0%,#f6f0e3 58%,#e9e3d7 100%);
 }
-.hero-image { left: 48%; filter: saturate(.72) contrast(.96) brightness(1.08); }
-.hero-scrim { background: linear-gradient(90deg,#fffdf8 0%,rgba(255,253,248,.97) 38%,rgba(255,253,248,.7) 58%,rgba(255,253,248,.08) 82%),linear-gradient(0deg,rgba(246,240,227,.72),transparent 54%); }
+.hero-image { left: 44%; background-image: url('/academy/academy/roux-academy-learning-hero.webp'); background-position: center center; filter: saturate(.82) contrast(.98) brightness(1.05); }
+.hero-scrim { background: linear-gradient(90deg,#fffdf8 0%,rgba(255,253,248,.96) 35%,rgba(255,253,248,.6) 52%,rgba(255,253,248,.04) 76%),linear-gradient(0deg,rgba(246,240,227,.5),transparent 48%); }
 .hero h1 { text-shadow: 0 10px 30px rgba(74,61,42,.08); }
 .hero-lede { color: rgba(23,34,27,.76); }
 .secondary-button { border-color: rgba(23,53,37,.35); color: var(--forest-900); background: rgba(255,255,255,.55); }
