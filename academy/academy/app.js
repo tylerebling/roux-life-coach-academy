@@ -48,9 +48,9 @@ function renderTabs(){
 function renderLessons(){
   const filtered=state.activeDivision==="All lessons"?lessons:lessons.filter(l=>l.division===state.activeDivision);
   $("#lessonGrid").innerHTML=filtered.map((lesson,index)=>{
-    const done=state.completed.includes(lesson.number),unlocked=lesson.number===1||state.completed.includes(lesson.number-1);
-    const action=unlocked?`<a class="lesson-action" href="${lesson.url}">${done?"Completed · Review":"Open lesson"}<span aria-hidden="true">→</span></a>`:`<span class="lesson-action" aria-disabled="true">Complete Lesson ${lesson.number-1} to unlock <span aria-hidden="true">🔒</span></span>`;
-    return `<article class="lesson-card ${done?"completed":""} ${unlocked?"":"locked"}" style="--delay:${index*35}ms"><div class="lesson-art ${lesson.accent}"><span>${String(lesson.number).padStart(2,"0")}</span><div class="art-line"></div></div><div class="lesson-body"><p class="lesson-division">${lesson.division}</p><h3>${lesson.title}</h3><div class="lesson-meta"><span>${lesson.minutes} min presentation</span><span>Presentation · workbook · practice · quiz</span></div>${action}</div>${done?'<span class="completion-mark" aria-label="Completed">✓</span>':""}</article>`;
+    const done=state.completed.includes(lesson.number),unlocked=lesson.number===1||state.completed.includes(lesson.number-1),current=unlocked&&!done;
+    const action=unlocked?`<a class="lesson-action" href="${lesson.url}" ${current?'aria-current="step"':""}>${done?"Completed · Review":current?"Continue lesson":"Open lesson"}<span aria-hidden="true">→</span></a>`:`<span class="lesson-action" aria-disabled="true">Complete Lesson ${lesson.number-1} to unlock <span class="lock-mark" aria-hidden="true">Locked</span></span>`;
+    return `<article class="lesson-card ${done?"completed":""} ${current?"current":""} ${unlocked?"":"locked"}" style="--delay:${index*35}ms">${current?'<span class="lesson-current-label">Your next lesson</span>':""}<div class="lesson-art ${lesson.accent}"><span>${String(lesson.number).padStart(2,"0")}</span><div class="art-line"></div></div><div class="lesson-body"><p class="lesson-division">${lesson.division}</p><h3>${lesson.title}</h3><div class="lesson-meta"><span>${lesson.minutes} min presentation</span><span>Presentation · workbook · practice · quiz</span></div>${action}</div>${done?'<span class="completion-mark" aria-label="Completed">✓</span>':""}</article>`;
   }).join("");
 }
 function renderMaterials(){
@@ -65,7 +65,15 @@ function renderMaterials(){
 function renderProgress(){
   const progress=Math.round(state.completed.length/lessons.length*100), remaining=lessons.length-state.completed.length, unlocked=remaining===0, ready=unlocked&&(state.examScore||0)>=80;
   $("#progressValue").textContent=`${progress}%`; $("#progressTrack").setAttribute("aria-label",`${progress}% complete`); $("#progressTrack span").style.width=`${progress}%`; $("#completedValue").textContent=state.completed.length; $("#remainingValue").textContent=remaining; $("#examValue").textContent=state.examScore===null?"—":`${state.examScore}%`; $("#pathLessonCount").textContent=`${state.completed.length} of ${lessons.length} lessons`;
-  const next=lessons.find(l=>!state.completed.includes(l.number)); $("#continueButton").textContent=next?`Continue with Lesson ${next.number}`:"Review the curriculum"; $("#continueButton").href=next?next.url:"#curriculum"; $("#continueButton").href=next?next.url:"#curriculum";
+  const next=lessons.find(l=>!state.completed.includes(l.number));
+  $("#continueButton").textContent=next?`Continue with Lesson ${next.number}`:"Review the curriculum";
+  $("#continueButton").href=next?next.url:"#curriculum";
+  const resumeButton=$("#resumeButton"), nextNumber=$("#nextLessonNumber"), nextTitle=$("#nextLessonTitle"), nextMeta=$("#nextLessonMeta"), journeyStage=$("#journeyStage");
+  if(resumeButton){resumeButton.href=next?next.url:"#curriculum";resumeButton.innerHTML=next?'Resume learning <span aria-hidden="true">→</span>':'Review curriculum <span aria-hidden="true">→</span>';}
+  if(nextNumber)nextNumber.textContent=next?`Lesson ${next.number}`:"Curriculum complete";
+  if(nextTitle)nextTitle.textContent=next?next.title:"You are ready for the final assessment";
+  if(nextMeta)nextMeta.textContent=next?`${next.division} · ${next.minutes} minute presentation`:"Certification · Comprehensive assessment";
+  if(journeyStage)journeyStage.textContent=remaining===0?"Final assessment":state.completed.length?"In progress":"Curriculum";
   $("#pathLessons").className=unlocked?"done":"current"; $("#pathExam").className=ready?"done":unlocked?"current":"locked"; $("#pathCertificate").className=state.issuedName?"done":ready?"current":"locked";
   $("#examHeadline").textContent=unlocked?"Your final examination is unlocked.":`Complete ${remaining} more lesson${remaining===1?"":"s"} to unlock the exam.`; $("#openExam").disabled=!unlocked; $("#openExam").textContent=state.examScore===null?"Begin final exam":"Review or retake exam"; $("#issueCard").classList.toggle("hidden",!ready);
 }
