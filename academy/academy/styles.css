@@ -418,11 +418,15 @@ footer span { font-size: 12px; }
 /* Compact hero progress panel */
 @media (min-width:761px) {
   .hero-status {
-    width: min(300px,100%);
-    justify-self: end;
-    align-self: end;
+    position: absolute;
+    left: 52%;
+    bottom: 22px;
+    width: min(300px,calc(48% - 30px));
+    justify-self: auto;
+    align-self: auto;
     padding: 18px 20px;
-    margin: 0 0 10px;
+    margin: 0;
+    z-index: 4;
     border-radius: 20px;
     background: rgba(255,253,247,.78);
     box-shadow: 0 16px 45px rgba(42,48,39,.12);
@@ -438,5 +442,5 @@ footer span { font-size: 12px; }
 }
 @media (min-width:1081px) {
   .hero { grid-template-columns:minmax(0,1.6fr) minmax(240px,.4fr); }
-  .hero-status { max-width:300px; padding:18px 20px; border-radius:20px; }
+  .hero-status { max-width:300px; left:53%; bottom:22px; padding:18px 20px; border-radius:20px; }
 }
