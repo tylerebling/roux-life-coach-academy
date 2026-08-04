@@ -377,3 +377,39 @@ footer span { font-size: 12px; }
   .certificate { width: 11in; height: 8.5in; margin: 0; box-shadow: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   @page { size: landscape; margin: 0; }
 }
+
+
+/* Roux Life light-airy academy opening */
+.topbar {
+  color: var(--forest-950);
+  background: rgba(255,253,247,.92);
+  border-bottom-color: rgba(68,78,66,.13);
+  box-shadow: 0 8px 30px rgba(39,45,38,.05);
+  backdrop-filter: blur(18px) saturate(1.08);
+}
+.brand-mark img { filter: brightness(0) saturate(100%) invert(12%) sepia(13%) saturate(1390%) hue-rotate(94deg) brightness(91%) contrast(93%); }
+.brand .brand-label { border-left-color: rgba(23,34,27,.25); }
+.topbar nav a { color: rgba(23,34,27,.72); }
+.topbar nav a:hover, .topbar nav a.active { color: var(--forest-950); }
+.profile-chip { border-color: rgba(23,53,37,.24); background: rgba(255,255,255,.78); color: var(--forest-900); }
+.profile-chip:hover { background: var(--cream-100); }
+.hero {
+  color: var(--ink);
+  background: linear-gradient(135deg,#fffdf8 0%,#f6f0e3 58%,#e9e3d7 100%);
+}
+.hero-image { left: 48%; filter: saturate(.72) contrast(.96) brightness(1.08); }
+.hero-scrim { background: linear-gradient(90deg,#fffdf8 0%,rgba(255,253,248,.97) 38%,rgba(255,253,248,.7) 58%,rgba(255,253,248,.08) 82%),linear-gradient(0deg,rgba(246,240,227,.72),transparent 54%); }
+.hero h1 { text-shadow: 0 10px 30px rgba(74,61,42,.08); }
+.hero-lede { color: rgba(23,34,27,.76); }
+.secondary-button { border-color: rgba(23,53,37,.35); color: var(--forest-900); background: rgba(255,255,255,.55); }
+.secondary-button:hover { background: rgba(255,255,255,.9); }
+.glass-card { background: rgba(255,253,247,.84); border-color: rgba(88,92,76,.2); box-shadow: 0 24px 70px rgba(42,48,39,.14); backdrop-filter: blur(20px) saturate(1.08); }
+.status-top span { color: rgba(23,34,27,.7); }
+.status-top strong { color: var(--forest-900); }
+.progress-track { background: rgba(23,53,37,.12); }
+.status-grid div { border-top-color: rgba(23,53,37,.14); }
+.status-grid span { color: rgba(23,34,27,.62); }
+@media (max-width:760px) {
+  .hero-image { left:0; opacity:.28; }
+  .hero-scrim { background:linear-gradient(180deg,rgba(255,253,248,.94),rgba(246,240,227,.88)); }
+}
