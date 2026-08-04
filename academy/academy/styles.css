@@ -444,3 +444,180 @@ footer span { font-size: 12px; }
   .hero { grid-template-columns:minmax(0,1.6fr) minmax(240px,.4fr); }
   .hero-status { max-width:300px; left:53%; bottom:22px; padding:18px 20px; border-radius:20px; }
 }
+
+
+/* Top navigation progress disclosure */
+.progress-menu {
+  position: relative;
+  flex: 0 0 auto;
+  z-index: 90;
+}
+
+.progress-toggle {
+  width: 164px;
+  min-height: 48px;
+  padding: 8px 13px 9px;
+  border: 1px solid rgba(21, 48, 37, 0.18);
+  border-radius: 18px;
+  background: rgba(255, 253, 247, 0.82);
+  color: #14281f;
+  box-shadow: 0 10px 28px rgba(39, 47, 39, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 5px 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.progress-toggle:hover,
+.progress-toggle[aria-expanded="true"] {
+  transform: translateY(-1px);
+  border-color: rgba(191, 145, 67, 0.56);
+  background: rgba(255, 253, 247, 0.96);
+  box-shadow: 0 14px 34px rgba(39, 47, 39, 0.13);
+}
+
+.progress-toggle:focus-visible {
+  outline: 3px solid rgba(191, 145, 67, 0.32);
+  outline-offset: 3px;
+}
+
+.progress-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.progress-toggle > strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.progress-mini {
+  grid-column: 1 / -1;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(20, 40, 31, 0.12);
+}
+
+.progress-mini > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #bd7b53, #d9b86c);
+  transition: width 500ms cubic-bezier(.2,.75,.3,1);
+}
+
+.progress-popover {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(320px, calc(100vw - 32px));
+  padding: 20px;
+  border: 1px solid rgba(21, 48, 37, 0.15);
+  border-radius: 24px;
+  background: rgba(255, 253, 247, 0.96);
+  color: #14281f;
+  box-shadow: 0 24px 70px rgba(30, 39, 32, 0.18);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  transform-origin: top right;
+  animation: progressReveal 180ms ease both;
+}
+
+.progress-popover[hidden] {
+  display: none;
+}
+
+.progress-popover-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(21, 48, 37, 0.12);
+}
+
+.progress-popover-heading span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.progress-popover-heading small {
+  padding-top: 4px;
+  color: #6d756f;
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+.progress-popover .status-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.progress-popover .status-grid > div {
+  min-width: 0;
+}
+
+.progress-popover .status-grid strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #14281f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+}
+
+.progress-popover .status-grid span {
+  display: block;
+  color: #69726c;
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+@keyframes progressReveal {
+  from { opacity: 0; transform: translateY(-7px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 1080px) {
+  .progress-menu { margin-left: auto; }
+}
+
+@media (max-width: 760px) {
+  .topbar { gap: 10px; }
+  .progress-toggle {
+    width: 78px;
+    min-height: 44px;
+    padding: 8px 10px;
+  }
+  .progress-label { display: none; }
+  .progress-toggle > strong {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+  .progress-mini { width: 100%; }
+  .profile-chip {
+    max-width: 116px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .progress-popover {
+    position: fixed;
+    top: 70px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+}
