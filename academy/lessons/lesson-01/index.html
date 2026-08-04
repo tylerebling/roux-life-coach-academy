@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lesson 1 · What Coaching Is—and What It Is Not</title>
+  <style>
+    :root{--green:#10291d;--cream:#f6f0e4;--gold:#d9b875;--rust:#b96542;--ink:#172119}*{box-sizing:border-box}body{margin:0;background:var(--green);color:var(--cream);font-family:Inter,Arial,sans-serif}header{padding:22px 5vw;border-bottom:1px solid #ffffff28;display:flex;justify-content:space-between;align-items:center}header a{color:var(--cream);text-decoration:none}.wrap{max-width:1180px;margin:auto;padding:42px 5vw 80px}.eyebrow{letter-spacing:.18em;color:var(--gold);font-weight:800;font-size:.78rem}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:end;margin-bottom:34px}h1,h2,h3{font-family:Georgia,serif}h1{font-size:clamp(2.8rem,6vw,5.6rem);line-height:.93;margin:.25em 0}.lede{font-size:1.12rem;line-height:1.7;color:#e7e2d8}.panel{background:#f7f1e6;color:var(--ink);border-radius:24px;padding:28px;margin:24px 0;box-shadow:0 22px 60px #0004}.video{padding:0;overflow:hidden;background:#050806}.video video{display:block;width:100%;max-height:74vh}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}label{display:block;font-weight:700}.field{background:white;border:1px solid #dfd5c3;border-radius:16px;padding:18px}.field p{font-weight:400;color:#596159;line-height:1.5}.field textarea{width:100%;min-height:120px;border:1px solid #cbbfae;border-radius:10px;padding:12px;font:inherit}.q{border-top:1px solid #d9cfbd;padding:20px 0}.q label{font-weight:400;padding:8px 0}.button{display:inline-block;border:0;border-radius:999px;padding:14px 22px;background:var(--gold);color:#122117;font-weight:800;cursor:pointer}.result{padding:18px;border-radius:14px;margin-top:16px;background:#e8e0d1}.requirements{display:grid;gap:10px}.req{padding:14px;border:1px solid #d8cebc;border-radius:12px}.req.done{background:#dfeade;border-color:#739175}@media(max-width:760px){.hero,.grid{grid-template-columns:1fr}h1{font-size:3rem}}
+  </style>
+  <style>html.academy-auth-check body{visibility:hidden}</style>
+  <script>document.documentElement.classList.add('academy-auth-check')</script>
+</head>
+<body>
+<header><strong>ROUX LIFE ACADEMY · LESSON 1</strong><a href="../../index.html">Return to academy</a></header>
+<main class="wrap">
+  <section class="hero"><div><p class="eyebrow">COACHING FOUNDATIONS</p><h1>What Coaching Is—and What It Is Not</h1></div><p class="lede">Begin with the professional boundary that protects every conversation: the coach owns the quality of the process; the client owns their choices, actions, and life.</p></section>
+  <section class="panel video"><video id="lessonVideo" controls preload="metadata">Your browser does not support video playback.</video><p id="videoStatus" role="status">Connecting to your protected Lesson 1 video…</p></section>
+  <section class="panel"><p class="eyebrow">GUIDED WORKBOOK</p><h2>Translate the foundation into practice</h2><div class="grid" id="workbook"></div></section>
+  <section class="panel"><p class="eyebrow">REALISTIC COACHING SCENARIO</p><h2>A client asks you to decide for them</h2><p>Jordan says, “I am miserable at work. Just tell me whether I should quit.” Write the first response you would offer, the question you would ask next, and the boundary that keeps ownership with Jordan.</p><label>My coaching response<textarea id="scenario"></textarea></label></section>
+  <section class="panel"><p class="eyebrow">12-QUESTION ASSESSMENT</p><h2>Demonstrate the coaching foundation</h2><form id="quiz"></form><button class="button" id="grade" type="button">Grade lesson quiz</button><div class="result" id="result">An 80% score is required.</div></section>
+  <section class="panel"><p class="eyebrow">COMPLETION REQUIREMENTS</p><h2>Finish every part to unlock Lesson 2</h2><div class="requirements" id="requirements"></div><p><a class="button" href="../../index.html">Return to academy</a></p></section>
+</main>
+<script>
+const N=1,KEY='rouxAcademyLesson1Record';
+const fields=[['definition','Define professional coaching in your own words.'],['ownership','What belongs to the coach, and what belongs to the client?'],['scope','Name three concerns that require referral or emergency support.'],['boundary','Write one sentence that explains coaching is not therapy.']];
+const questions=[
+['Professional coaching is best described as:', ['A process for giving expert answers','A collaborative process supporting awareness, choice, and action','Treatment for mental-health conditions','A way to make decisions for clients'],1,'Coaching is collaborative and preserves client ownership.'],
+['The coach is primarily responsible for:', ['The client’s choices','The integrity of the coaching process','Guaranteeing an outcome','Solving the client’s life'],1,'The coach owns the process; the client owns choices and action.'],
+['Which response best protects client ownership?', ['Here is what you should do','What matters most to you in this decision?','I made this choice once, so copy me','The safest choice is obvious'],1,'A useful question expands the client’s thinking without taking control.'],
+['Coaching differs from consulting because coaching primarily:', ['Draws out the client’s thinking','Provides a diagnosis','Promises a result','Replaces the client’s judgment'],0,'Consulting commonly supplies expertise; coaching primarily facilitates thinking and action.'],
+['A coach discussing emotion should:', ['Avoid all emotion','Welcome relevant emotion while staying within scope','Treat trauma','Diagnose the cause'],1,'Emotion can be present in coaching without turning coaching into clinical treatment.'],
+['Referral is:', ['A failure','Responsible professional judgment when needs exceed scope','Only needed for legal problems','A way to avoid hard sessions'],1,'Referral protects the client and the integrity of coaching.'],
+['Immediate safety risk requires the coach to:', ['Continue goal setting','Follow an appropriate safety and emergency protocol','Promise secrecy','Wait until the next session'],1,'Safety takes priority over the ordinary coaching agenda.'],
+['A missed action step should first be treated as:', ['Proof the client is lazy','Information to explore without shame','A reason for punishment','A reason to end coaching'],1,'Curiosity reveals obstacles, fear, poor fit, or an unrealistic plan.'],
+['A professional boundary should be:', ['Hidden','Clear, communicated, and consistent','Used to control the client','Changed whenever the client asks'],1,'Clear boundaries make expectations and scope understandable.'],
+['Confidentiality means a coach should:', ['Share stories without names','Protect client information and explain applicable limits','Promise secrecy in every circumstance','Post interesting examples online'],1,'Privacy practices and their limits must be clear and responsible.'],
+['Which claim is responsible?', ['I cure anxiety','I guarantee transformation','I help clients clarify goals and build accountability','I replace therapy'],2,'A responsible claim describes the coaching service without promising uncontrollable outcomes.'],
+['Healthy coaching should leave clients:', ['More dependent on the coach','More capable of thinking, choosing, and acting','Afraid to make mistakes','Ready to follow instructions'],1,'The work should build capability rather than dependence.']
+];
+let state=JSON.parse(localStorage.getItem(KEY)||'{}');state.workbook=state.workbook||{};state.answers=state.answers||{};
+const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderRequirements()};
+document.getElementById('workbook').innerHTML=fields.map(([id,q])=>`<div class="field"><label>${q}<textarea id="${id}"></textarea></label></div>`).join('');
+fields.forEach(([id])=>{const el=document.getElementById(id);el.value=state.workbook[id]||'';el.oninput=()=>{state.workbook[id]=el.value;save()}});
+const scenario=document.getElementById('scenario');scenario.value=state.scenario||'';scenario.oninput=()=>{state.scenario=scenario.value;save()};
+const video=document.getElementById('lessonVideo');video.addEventListener('timeupdate',()=>{if(video.duration&&video.currentTime/video.duration>=.9){state.presentation=true;save()}});video.addEventListener('ended',()=>{state.presentation=true;save()});
+document.getElementById('quiz').innerHTML=questions.map((q,i)=>`<div class="q"><h3>${i+1}. ${q[0]}</h3>${q[1].map((a,j)=>`<label><input type="radio" name="q${i}" value="${j}" ${state.answers[i]==j?'checked':''}> ${a}</label>`).join('')}<p id="why${i}"></p></div>`).join('');
+document.querySelectorAll('#quiz input').forEach(el=>el.onchange=()=>{state.answers[Number(el.name.slice(1))]=Number(el.value);save()});
+document.getElementById('grade').onclick=()=>{if(Object.keys(state.answers).length<12){document.getElementById('result').textContent='Answer all 12 questions before grading.';return}let score=0;questions.forEach((q,i)=>{const ok=state.answers[i]===q[2];if(ok)score++;document.getElementById('why'+i).textContent=(ok?'Correct. ':'Review: ')+q[3]});state.quizScore=Math.round(score/12*100);state.quizPassed=state.quizScore>=80;save();document.getElementById('result').textContent=`${state.quizScore}% · ${state.quizPassed?'Passed':'Retake required'}`};
+function renderRequirements(){const workbook=fields.every(([id])=>(state.workbook[id]||'').trim().length>=20),scenarioDone=(state.scenario||'').trim().length>=40;state.lesson=1;state.presentationComplete=!!state.presentation;state.workbookComplete=workbook;state.practiceComplete=scenarioDone;state.scenarioComplete=scenarioDone;state.complete=!!(state.presentation&&workbook&&scenarioDone&&state.quizPassed);if(state.complete)state.completedAt=state.completedAt||new Date().toISOString();localStorage.setItem(KEY,JSON.stringify(state));window.dispatchEvent(new CustomEvent('roux-academy-progress',{detail:state}));document.getElementById('requirements').innerHTML=[['Presentation viewed',state.presentation],['Workbook completed',workbook],['Scenario response completed',scenarioDone],['Quiz passed at 80% or higher',state.quizPassed]].map(([x,d])=>`<div class="req ${d?'done':''}">${d?'✓':'○'} ${x}</div>`).join('')}
+renderRequirements();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script>
+<script src="../../academy/cloud.js"></script>
+<script>
+(async()=>{
+  try{
+    const cloud=window.rouxAcademyCloud;
+    const status=document.getElementById('videoStatus');
+    if(!cloud?.client){status.textContent='Lesson 1 could not connect to secure course storage.';return}
+    const sessionResult=await cloud.client.auth.getSession();
+    if(!sessionResult.data.session){status.textContent='Sign in to securely load Lesson 1.';return}
+    const result=await cloud.client.functions.invoke('academy-asset-url',{body:{path:'lessons/lesson-01/lesson-01.mp4'}});
+    if(!result.error&&result.data?.signedUrl){
+      const video=document.getElementById('lessonVideo');
+      video.src=result.data.signedUrl;
+      video.load();
+      status.hidden=true;
+    }else{
+      status.textContent='Lesson 1 could not be securely loaded. Sign in again, then refresh this page.';
+    }
+  }catch(error){document.getElementById('videoStatus').textContent='Lesson 1 could not be securely loaded. Please refresh and try again.';console.warn('Protected video delivery is unavailable.',error)}
+})();
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script>
+  <script src="../../academy/guard.js"></script>
+</body></html>

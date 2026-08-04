@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d2117">
+  <title>Roux Life Academy · RLC Certification</title>
+  <meta name="description" content="The Roux Life Certified Coach professional certification academy.">
+  <link rel="stylesheet" href="academy/styles.css">
+</head>
+<body class="academy-locked">
+  <section class="academy-gate" id="academyGate" aria-labelledby="academyGateTitle">
+    <div class="academy-gate-card">
+      <img src="academy/roux-logo.webp" alt="Roux Life Coaching">
+      <p>ROUX LIFE CERTIFIED COACH · RLC</p>
+      <h1 id="academyGateTitle">Your Academy is ready when you are.</h1>
+      <p class="academy-gate-copy">Sign in to continue your lessons, saved progress, assessments, and certification journey. New learners can create an account to begin enrollment.</p>
+      <div class="academy-gate-actions"><button type="button" data-gate-action="signin">Sign in</button><button type="button" class="gate-outline" data-gate-action="enroll">Create account</button></div>
+      <a href="/">Return to the public program page</a>
+    </div>
+  </section>
+  <main>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Roux Life Academy home"><span class="brand-mark"><img src="academy/roux-logo.webp" alt="Roux Life Coaching"></span><span class="brand-label">Academy</span></a>
+      <nav aria-label="Academy navigation"><a href="#curriculum" data-section-link="curriculum">Curriculum</a><a href="#certification" data-section-link="certification">Certification</a><a href="#materials" data-section-link="materials">Materials</a><a href="admin/">Admin</a></nav>
+      <button class="profile-chip" data-scroll="certification">RLC Candidate</button>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="hero-image" aria-hidden="true"></div><div class="hero-scrim" aria-hidden="true"></div>
+      <div class="hero-copy reveal"><p class="eyebrow">ROUX LIFE CERTIFIED COACH · RLC</p><h1>Become the kind of coach people can trust with what matters.</h1><p class="hero-lede">A 40-hour professional certification in emotional courage, ethical coaching, attachment-informed pattern education, boundaries, transformation, and client-owned action.</p><div class="hero-actions"><a class="primary-button" id="continueButton" href="#curriculum">Continue your journey</a><a class="secondary-button" href="#certification">View certification path</a></div></div>
+      <div class="hero-status glass-card reveal delay-1"><div class="status-top"><span>Your certification journey</span><strong id="progressValue">0%</strong></div><div class="progress-track" id="progressTrack" aria-label="0% complete"><span></span></div><div class="status-grid"><div><strong id="completedValue">0</strong><span>Lessons complete</span></div><div><strong id="remainingValue">19</strong><span>Lessons remaining</span></div><div><strong id="examValue">—</strong><span>Final exam</span></div></div></div>
+    </section>
+
+    <section class="principles" aria-label="Program standards"><article><span>01</span><div><strong>Clarity without control</strong><p>Support better thinking while the client retains ownership.</p></div></article><article><span>02</span><div><strong>Challenge without shame</strong><p>Make courage and accountability emotionally sustainable.</p></div></article><article><span>03</span><div><strong>Depth with boundaries</strong><p>Welcome emotion without pretending coaching is therapy.</p></div></article></section>
+
+    <section class="curriculum-section" id="curriculum">
+      <div class="section-heading"><div><p class="eyebrow">THE COMPLETE LEARNING JOURNEY</p><h2>Nineteen lessons. One professional standard.</h2></div><p>Every lesson combines Lauren’s narration, cinematic visual teaching, interactive coaching decisions, a guided workbook, practical application, and an 80% graded assessment.</p></div>
+      <div class="division-tabs" id="divisionTabs" role="tablist" aria-label="Filter lessons by division"></div>
+      <div class="lesson-grid" id="lessonGrid"></div>
+      <div class="evaluator-note"><div><strong>Earned lesson progression</strong><p>Each lesson unlocks only after the previous presentation, workbook, practical application, and 80% assessment requirement are complete.</p></div></div>
+    </section>
+
+    <section class="materials-section" id="materials"><div class="materials-photo" aria-hidden="true"></div><div class="materials-copy"><p class="eyebrow">THE LEARNER’S PRACTICE LIBRARY</p><h2>Knowledge becomes capability through practice.</h2><p>RLC is designed as a complete learning experience—not 40 hours of passive video. Guided reflection, practice conversations, ethical case decisions, workbooks, and skill demonstrations turn ideas into professional judgment.</p><div class="materials-list"><div><strong>19</strong><span>Guided workbooks</span></div><div><strong>114</strong><span>Interactive decisions</span></div><div><strong>228</strong><span>Lesson quiz questions</span></div><div><strong>40 hrs</strong><span>Total learning experience</span></div></div><button class="materials-button" id="openMaterials" type="button">Open learner materials</button></div></section>
+
+    <section class="materials-library hidden" id="materialsLibrary" aria-labelledby="materials-library-title">
+      <div class="section-heading"><div><p class="eyebrow">LESSON-BY-LESSON RESOURCES</p><h2 id="materials-library-title">Your workbooks and learning labs.</h2></div><p>Resources unlock with their lesson. Each learning lab combines the guided workbook, practical application, reflection, and graded lesson assessment.</p></div>
+      <div class="materials-grid" id="materialsGrid"></div>
+    </section>
+
+    <section class="certification-section" id="certification">
+      <div class="certification-heading"><p class="eyebrow">THE RLC FINISH LINE</p><h2>Your credential is earned in three clear stages.</h2></div>
+      <div class="pathway"><article id="pathLessons" class="current"><span>1</span><div><p>Complete the curriculum</p><strong id="pathLessonCount">0 of 19 lessons</strong></div></article><article id="pathExam" class="locked"><span>2</span><div><p>Pass the comprehensive exam</p><strong>80% required · unlimited retakes</strong></div></article><article id="pathCertificate" class="locked"><span>3</span><div><p>Receive the RLC credential</p><strong>Personalized, numbered, high resolution</strong></div></article></div>
+      <div class="exam-card"><div><p class="eyebrow">COMPREHENSIVE ASSESSMENT</p><h3 id="examHeadline">Complete 19 more lessons to unlock the exam.</h3><p>The 20-question assessment covers coaching foundations, the ROUX Method, emotional courage, attachment-informed pattern education, boundaries, change, coaching skills, session structure, ethics, safety, and referral.</p></div><button class="primary-button" id="openExam" disabled>Begin final exam</button></div>
+      <div class="issue-card hidden" id="issueCard"><div><p class="eyebrow">CERTIFICATE ISSUED</p><h3>Your official RLC credential is ready.</h3><p>The secure registry stores the graduate name, final score, issue date, certificate number, and credential status.</p></div><button class="primary-button" id="issueCertificate">View certificate</button></div>
+    </section>
+
+    <footer><img src="academy/roux-logo.webp" alt="Roux Life Coaching"><p>RLC is a private professional coaching certification issued by Roux Life. It is not a state license, university degree, mental-health credential, or authorization to diagnose or treat clinical conditions.</p><span>© <span id="year"></span> Roux Life</span></footer>
+  </main>
+
+  <div class="notice hidden" id="notice" role="status"><span></span><button aria-label="Dismiss message">×</button></div>
+
+  <div class="modal-shell hidden" id="examShell" role="dialog" aria-modal="true" aria-labelledby="exam-title"><div class="exam-modal"><div class="modal-header"><div><p class="eyebrow">RLC COMPREHENSIVE EXAM</p><h2 id="exam-title">Professional knowledge assessment</h2><p>Choose the strongest answer. A score of 80% is required.</p></div><button class="close-button" aria-label="Close exam" data-close="examShell">×</button></div><div class="question-list" id="questionList"></div><div class="exam-submit"><div><span id="answeredCount">0 of 20 answered</span><strong id="scoreDisplay"></strong></div><button class="primary-button" id="gradeExam">Submit final exam</button></div></div></div>
+
+  <div class="modal-shell certificate-shell hidden" id="certificateShell" role="dialog" aria-modal="true" aria-labelledby="certificate-title"><div class="certificate-modal"><div class="certificate-toolbar"><div><strong>Official RLC credential</strong><span>Print, save as PDF, or download a 3300×2550 PNG</span></div><div><button id="verifyCertificate">Verify credential</button><button id="downloadRecord">Credential record</button><button id="printCertificate">Print / Save PDF</button><button id="downloadCertificate">High-resolution PNG</button><button class="close-button" aria-label="Close certificate" data-close="certificateShell">×</button></div></div><article class="certificate" id="rlc-certificate"><div class="certificate-border"><div class="certificate-watermark" aria-hidden="true">RLC</div><img src="academy/roux-logo.webp" alt="Roux Life Coaching"><p class="certificate-label">CERTIFICATE OF COMPLETION</p><p class="certificate-intro">This certifies that</p><h2 id="certificate-title">Graduate Name</h2><div class="certificate-rule"></div><p>has successfully completed the 40-hour</p><h3>Roux Life Certified Coach Program</h3><p class="certificate-detail">and demonstrated proficiency in ethical, action-centered transformational coaching, including the ROUX Coaching Method, emotional courage, boundaries, attachment-informed pattern education, client safety, and professional referral.</p><strong class="credential">RLC · Roux Life Certified Coach</strong><div class="signatures"><div><span class="signature">Nicole Deslatte</span><i></i><small>Founder, Roux Life</small></div><div><span id="certificateDate">Date</span><i></i><small>Date Issued</small></div></div><div class="certificate-seal" aria-hidden="true"><b>RLC</b><span>ROUX LIFE</span></div><p class="certificate-number" id="certificateNumber">Certificate No. RLC—PENDING</p><p class="certificate-disclaimer">Private professional coaching certification · Not a state license or mental-health credential</p></div></article></div></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script>
+  <script src="academy/app.js"></script>
+  <script src="academy/cloud.js"></script>
+</body>
+</html>
