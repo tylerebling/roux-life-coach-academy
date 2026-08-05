@@ -21,6 +21,18 @@ const lessons = [
 ].map(([number,title,division,minutes,accent])=>({number,title,division,minutes,accent}));
 
 lessons.forEach(lesson=>{lesson.url=`lessons/lesson-${String(lesson.number).padStart(2,"0")}/index.html`;});
+const lessonDescriptions = {
+  "Coaching Foundations":"Build the professional judgment, structure, and client-ownership principles that anchor every coaching conversation.",
+  "Self-Awareness":"Learn to notice the stories, beliefs, values, and protective patterns shaping a client’s choices.",
+  "Emotional Courage":"Practice honest, boundaried courage without turning vulnerability into performance or pressure.",
+  "Resilience":"Develop shame-aware accountability, self-compassion, repair, and sustainable emotional resilience.",
+  "Attachment & Connection":"Understand relationship patterns while keeping attachment education firmly within coaching scope.",
+  "Relationships":"Coach clearer requests, healthier boundaries, and difficult conversations with dignity and consent.",
+  "Life Transitions":"Help clients navigate uncertainty, grief, identity shifts, and renewed direction without rushing the process.",
+  "Sustainable Change":"Translate values into realistic goals, habits, experiments, and recovery plans that can last.",
+  "Professional Practice":"Strengthen listening, questions, session architecture, documentation, and client-owned action.",
+  "Professional Responsibility":"Protect clients and the profession through ethical scope, referral, safety, and sound judgment."
+};
 
 const questions = [];
 
@@ -50,7 +62,18 @@ function renderLessons(){
   $("#lessonGrid").innerHTML=filtered.map((lesson,index)=>{
     const done=state.completed.includes(lesson.number),unlocked=lesson.number===1||state.completed.includes(lesson.number-1),current=unlocked&&!done;
     const action=unlocked?`<a class="lesson-action" href="${lesson.url}" ${current?'aria-current="step"':""}>${done?"Completed · Review":current?"Continue lesson":"Open lesson"}<span aria-hidden="true">→</span></a>`:`<span class="lesson-action" aria-disabled="true">Complete Lesson ${lesson.number-1} to unlock <span class="lock-mark" aria-hidden="true">Locked</span></span>`;
-    return `<article class="lesson-card ${done?"completed":""} ${current?"current":""} ${unlocked?"":"locked"}" style="--delay:${index*35}ms">${current?'<span class="lesson-current-label">Your next lesson</span>':""}<div class="lesson-art ${lesson.accent}"><span>${String(lesson.number).padStart(2,"0")}</span><div class="art-line"></div></div><div class="lesson-body"><p class="lesson-division">${lesson.division}</p><h3>${lesson.title}</h3><div class="lesson-meta"><span>${lesson.minutes} min presentation</span><span>Presentation · workbook · practice · quiz</span></div>${action}</div>${done?'<span class="completion-mark" aria-label="Completed">✓</span>':""}</article>`;
+    return `<article class="lesson-card ${done?"completed":""} ${current?"current":""} ${unlocked?"":"locked"}" style="--delay:${index*35}ms">
+      ${current?'<span class="lesson-current-label">Continue here</span>':""}
+      <div class="lesson-art ${lesson.accent}" aria-hidden="true"><span>${String(lesson.number).padStart(2,"0")}</span><small>RLC</small><div class="art-line"></div></div>
+      <div class="lesson-body">
+        <div class="lesson-heading-row"><p class="lesson-division">${lesson.division}</p><span class="lesson-duration">${lesson.minutes} min</span></div>
+        <h3>${lesson.title}</h3>
+        <p class="lesson-description">${lessonDescriptions[lesson.division]}</p>
+        <div class="lesson-meta"><span>Immersive lesson</span><span>Workbook</span><span>Practice</span><span>Assessment</span></div>
+        ${action}
+      </div>
+      ${done?'<span class="completion-mark" aria-label="Completed">✓</span>':""}
+    </article>`;
   }).join("");
 }
 function renderMaterials(){
