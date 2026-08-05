@@ -66,7 +66,19 @@ renderRequirements();
       video.load();
       status.hidden=true;
     }else{
-      status.textContent='Lesson 1 could not be securely loaded. Sign in again, then refresh this page.';
+      let detail=result.data?.error||'';
+      if(!detail&&result.error?.context){
+        try{const body=await result.error.context.clone().json();detail=body?.error||''}catch(_error){}
+      }
+      const messages={
+        AUTH_REQUIRED:'Your sign-in expired. Return to the Academy and sign in again.',
+        ENROLLMENT_REQUIRED:'This account is not enrolled in the certification.',
+        COURSE_NOT_FOUND:'The Academy course record is not configured.',
+        STORAGE_NOT_CONFIGURED:'Protected course storage is not fully connected.',
+        INVALID_ASSET_PATH:'The Lesson 1 video path is invalid.'
+      };
+      status.textContent=messages[detail]||('Lesson 1 could not be securely loaded'+(detail?': '+detail:'. Please refresh and try again.'));
+      console.error('Lesson 1 protected-video request failed.',detail||result.error);
     }
   }catch(error){document.getElementById('videoStatus').textContent='Lesson 1 could not be securely loaded. Please refresh and try again.';console.warn('Protected video delivery is unavailable.',error)}
 })();
