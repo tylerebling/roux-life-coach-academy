@@ -100,7 +100,7 @@
 
   async function pushLesson(record) {
     if (!session || !record?.lesson) return;
-    await invoke("academy-progress", {
+    const result = await invoke("academy-progress", {
       action: "update",
       lessonNumber: record.lesson,
       presentationComplete: !!record.presentationComplete,
@@ -108,6 +108,8 @@
       practiceComplete: !!(record.practiceComplete ?? record.workbookComplete),
       quizScore: Number(record.quizScore || (record.quizPassed ? 80 : 0)),
     });
+    await pullProgress();
+    return result;
   }
 
   async function loadFinalQuestions() {

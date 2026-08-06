@@ -111,8 +111,9 @@ function dashboardIdentity(user,remote){
 }
 function renderDashboard(){
   const shell=document.getElementById("studentDashboard");if(!shell||!window.RouxDashboardModel)return;
-  const view=window.RouxDashboardModel.buildDashboard(lessons,localStorage),remote=window.rouxAcademyCloud?.remoteState||{};
-  const session=window.rouxAcademyCloud?.session,user=session?.user||{},{fullName,firstName}=dashboardIdentity(user,remote);
+  const cloud=window.rouxAcademyCloud;if(!cloud||(cloud.session&&!cloud.remoteState)){shell.setAttribute("aria-busy","true");return;}
+  const view=window.RouxDashboardModel.buildDashboard(lessons,localStorage),remote=cloud.remoteState||{};
+  const session=cloud.session,user=session?.user||{},{fullName,firstName}=dashboardIdentity(user,remote);
   const curriculumPhaseIndex=dashboardPhases.findIndex(phase=>phase.range&&view.current.number>=phase.range[0]&&view.current.number<=phase.range[1]);
   const finalPassed=Number(state.examScore||remote.final_exam_score||remote.exam?.score||remote.certificate?.final_score||0)>=80;
   const phaseIndex=view.completed===view.total?5:Math.max(0,curriculumPhaseIndex),phase=dashboardPhases[phaseIndex];
