@@ -647,3 +647,7 @@ footer span { font-size: 12px; }
 /* Optical centering for asymmetric pictured icons v37 */
 .dashboard-lower-reference .milestone:nth-child(4) i:after{background-position-x:-76px!important}
 .dashboard-lower-reference .milestone:nth-child(5) i:after{background-position-x:-116px!important}
+
+/* Final optical centering on both axes v38 */
+.dashboard-lower-reference .milestone:nth-child(4) i:after{background-position:-72px 6px!important}
+.dashboard-lower-reference .milestone:nth-child(5) i:after{background-position:-112px 4px!important}
