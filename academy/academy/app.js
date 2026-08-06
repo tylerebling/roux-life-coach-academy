@@ -97,12 +97,12 @@ const dashboardPhases=[
   {name:"Final Review",range:null,description:"Complete the secure final assessment and receive your credential."}
 ];
 const dashboardPhaseIcons=[
-'<svg viewBox="0 0 32 32"><path d="M16 27V12M16 18c-5 0-8-3-8-8 5 0 8 3 8 8Zm0-3c0-5 3-8 8-8 0 5-3 8-8 8ZM10 27h12"/></svg>',
-'<svg viewBox="0 0 32 32"><path d="M20 26h-9v-5c-2-2-3-5-3-8a9 9 0 1 1 15 7v6h-3"/><path d="m16 9 1.2 2.4 2.8.4-2 2 .5 2.7-2.5-1.3-2.5 1.3.5-2.7-2-2 2.8-.4Z"/></svg>',
-'<svg viewBox="0 0 32 32"><path d="m4 26 9-13 5 7 3-4 7 10M16 16V5m0 0h8l-3 3 3 3h-8"/></svg>',
-'<svg viewBox="0 0 32 32"><circle cx="11" cy="11" r="4"/><circle cx="22" cy="12" r="4"/><path d="M3 27v-4a8 8 0 0 1 16 0v4m0-8a7 7 0 0 1 10 6v2"/></svg>',
-'<svg viewBox="0 0 32 32"><path d="M16 3v3m9-1-2 3m7 5-4 1M7 5l2 3M2 13l4 1m5 3c0-3 2-6 5-6s5 2 5 5c0 3-3 4-3 7h-5c0-2-2-3-2-6Zm2 10h5m-4 3h3"/></svg>',
-'<svg viewBox="0 0 32 32"><path d="M9 5h14l3 5-3 16-7-4-7 4-3-16Z"/><circle cx="16" cy="13" r="5"/><path d="m13 13 2 2 4-5"/></svg>'];
+'<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 28V11M16 18c-5 0-9-3-9-9 6 0 9 3 9 9Zm0-4c0-5 3-9 9-9 0 6-3 9-9 9ZM9 28h14"/></svg>',
+'<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M20 27h-9v-5c-2-2-3-5-3-8A9 9 0 1 1 23 21v6h-3"/><path d="M16 10c1-2 5-1 5 2 0 3-5 6-5 6s-5-3-5-6c0-3 4-4 5-2Z"/></svg>',
+'<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 27 12 14l5 7 3-4 9 10M15 18V5m0 0h9l-3 3 3 3h-9M8 27c3-3 5-4 8-5"/></svg>',
+'<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="11" cy="10" r="4"/><circle cx="22" cy="10" r="4"/><path d="M3 27v-5a8 8 0 0 1 16 0v5m0-11a8 8 0 0 1 10 8v3"/></svg>',
+'<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="20" cy="6" r="2.5"/><path d="M20 1v2m0 6v2m-5-5h2m6 0h2M7 28c0-5 10-5 10-10S8 15 8 10c0-3 3-5 7-5M5 28h5m4 0h5"/></svg>',
+'<svg viewBox="0 0 32 32" aria-hidden="true"><path d="m9 4 3 2 4-2 4 2 3-2 2 4 4 1-1 4 2 3-3 3 1 4-4 1-2 4-4-2-4 2-2-4-4-1 1-4-3-3 3-3-1-4 4-1Z"/><circle cx="16" cy="15" r="6"/><path d="m13 15 2 2 4-5M12 24l-2 6 6-3m4-3 2 6-6-3"/></svg>'];
 function dashboardText(id,value){const element=document.getElementById(id);if(element)element.textContent=value;}
 function dashboardIdentity(user,remote){
   const profile=remote.profile||remote.student||remote.enrollment?.profile||{};

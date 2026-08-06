@@ -623,3 +623,10 @@ footer span { font-size: 12px; }
 .dashboard-lower-reference .feedback-icon,.dashboard-lower-reference .trophy-icon{background:#e8eee3!important;color:#17372b!important}
 .dashboard-lower-reference .feedback-icon svg,.dashboard-lower-reference .trophy-icon svg{stroke-width:1.45!important}
 .dashboard-lower-reference .stat-clock{background:#e8eee3!important}.dashboard-lower-reference .stat-star{background:#f3e7d2!important}
+
+/* Exact Certification Journey icon set v35 */
+.dashboard-lower-reference .milestone i{width:60px!important;height:60px!important}
+.dashboard-lower-reference .milestone i svg{display:block;width:36px!important;height:36px!important;fill:none;stroke:currentColor;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round}
+.dashboard-lower-reference .milestone.current i{border-color:#c69437!important;background:linear-gradient(145deg,#d2a54e,#b77c18)!important;color:#fff!important}
+.dashboard-lower-reference .milestone.locked i{background:#fffaf2!important;color:#17372b!important}
+.dashboard-lower-reference .milestone.complete i{background:#eef0ec!important;color:#858b86!important}
