@@ -529,7 +529,7 @@ footer span { font-size: 12px; }
 /* User-supplied wordmark only: no separate leaf or previous logo artwork. */
 .dashboard-logo{display:grid;place-items:center;height:120px;flex-basis:120px;padding:0;overflow:visible}
 .dashboard-logo:before{display:none}
-.dashboard-logo img{display:block;width:220px;height:auto;max-width:none;object-fit:contain;filter:brightness(0) invert(1);mix-blend-mode:screen;transform:none}
+.dashboard-logo img{display:block;width:220px;height:auto;max-width:none;object-fit:contain;filter:none;mix-blend-mode:normal;transform:none}
 
 @media(max-height:800px) and (min-width:821px){
   .dashboard-logo{height:94px;flex-basis:94px;padding:0}
