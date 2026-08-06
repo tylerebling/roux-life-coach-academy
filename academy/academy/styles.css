@@ -630,3 +630,16 @@ footer span { font-size: 12px; }
 .dashboard-lower-reference .milestone.current i{border-color:#c69437!important;background:linear-gradient(145deg,#d2a54e,#b77c18)!important;color:#fff!important}
 .dashboard-lower-reference .milestone.locked i{background:#fffaf2!important;color:#17372b!important}
 .dashboard-lower-reference .milestone.complete i{background:#eef0ec!important;color:#858b86!important}
+
+/* Pictured Certification Journey artwork v36 */
+.dashboard-lower-reference .milestone:nth-child(n+2) i svg{visibility:hidden!important}
+.dashboard-lower-reference .milestone:nth-child(n+2) i:after{content:"";display:block;position:absolute;inset:10px;background-image:url('/academy/academy/journey-icons-exact.png?release=pictured-v36');background-repeat:no-repeat;background-size:200px 40px;background-position-y:0}
+.dashboard-lower-reference .milestone:nth-child(2) i:after{background-position-x:0}
+.dashboard-lower-reference .milestone:nth-child(3) i:after{background-position-x:-40px}
+.dashboard-lower-reference .milestone:nth-child(4) i:after{background-position-x:-80px}
+.dashboard-lower-reference .milestone:nth-child(5) i:after{background-position-x:-120px}
+.dashboard-lower-reference .milestone:nth-child(6) i:after{background-position-x:-160px}
+.dashboard-lower-reference .milestone.current i:after{filter:brightness(0) invert(1)}
+.dashboard-lower-reference .milestone.complete i:after{filter:grayscale(1);opacity:.62}
+
+.dashboard-lower-reference .milestone i{position:relative!important;overflow:hidden}
