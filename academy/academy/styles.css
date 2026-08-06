@@ -564,3 +564,7 @@ footer span { font-size: 12px; }
 
 /* Current journey phase: gold outline, light center, readable icon. */
 .milestone.current i{border:2px solid #b88b48;background:#fffdf8;color:#9a6d35;box-shadow:0 0 0 5px rgba(184,139,72,.14)}
+
+/* Journey state hierarchy: completed is gray; current remains gold. */
+.milestone.complete i{border:1.5px solid #c7c8c3;background:#eef0ec;color:#858b86;box-shadow:none}
+.milestone.current i{border:2px solid #b88b48;background:#fffdf8;color:#9a6d35;box-shadow:0 0 0 5px rgba(184,139,72,.14)}
