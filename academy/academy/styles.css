@@ -409,3 +409,20 @@ footer span { font-size: 12px; }
 @media(max-width:1050px){.practice-banner{grid-template-columns:55px minmax(220px,1fr) 180px}.practice-photo{display:none}.practice-banner>a{grid-column:3;width:180px}.current-lesson-card>img.lesson-photo{min-height:265px}}
 @media(max-width:760px){.current-lesson-card>img.lesson-photo{height:180px;min-height:180px}.practice-banner{grid-template-columns:50px 1fr;padding:16px}.practice-banner>a{grid-column:1/3;width:100%}}
 
+/* Keep the approved dashboard composition intact on tablet-width laptop windows. */
+@media(max-width:1100px) and (min-width:761px){
+  .dashboard-primary-grid{grid-template-columns:1fr}
+  .current-lesson-card{grid-template-columns:180px minmax(0,1fr) 155px;grid-template-rows:minmax(265px,1fr)}
+  .current-lesson-card>img.lesson-photo{grid-column:1;grid-row:1;min-height:265px}
+  .lesson-content{grid-column:2;grid-row:1;padding:20px}
+  .lesson-progress-action{grid-column:3;grid-row:1;min-height:0;padding:16px 14px}
+  .lesson-ring{width:86px;height:86px}
+  .lesson-ring b{font-size:28px}
+  .lesson-progress-action>span{margin:8px 0 16px}
+  .lesson-progress-action .resume-button{min-width:130px;padding:10px 12px;font-size:14px}
+  .up-next-card{min-height:225px}
+  .up-next-card h3{max-width:520px}
+  .milestone-track{grid-template-columns:repeat(6,minmax(82px,1fr));overflow-x:visible}
+  .milestone-track:before{right:7%;width:auto}
+}
+
