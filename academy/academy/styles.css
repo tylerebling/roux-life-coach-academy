@@ -490,12 +490,13 @@ footer span { font-size: 12px; }
 .dashboard-logo{position:relative;flex:0 0 120px;padding-top:42px}
 .dashboard-logo:before{content:"";position:absolute;left:50%;top:0;width:56px;height:48px;transform:translateX(-50%);background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 56'%3E%3Cg fill='none' stroke='%23c29237' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M32 51C31 37 32 24 34 5M32 43C24 38 18 31 14 22M32 35C40 30 46 23 50 14M30 29C23 25 19 19 18 11M34 22C41 18 45 12 46 5M25 38C18 39 12 37 7 33C13 29 20 29 27 32M39 31C46 31 52 28 57 23C51 21 45 22 39 26M26 23C21 19 18 14 18 8C24 10 28 15 30 20M37 16C38 10 37 5 34 1C30 6 29 12 32 18'/%3E%3C/g%3E%3C/svg%3E")}
 .dashboard-logo img{height:72px;object-position:center bottom}
-.current-lesson-card>img.lesson-photo{object-position:11% center}
+.dashboard-logo img{width:270px;max-width:none}
+.current-lesson-card>img.lesson-photo{object-position:center center}
 
 @media(max-height:800px) and (min-width:821px){
   .dashboard-logo{height:94px;flex-basis:94px;padding-top:34px}
   .dashboard-logo:before{width:46px;height:38px}
-  .dashboard-logo img{height:55px}
+  .dashboard-logo img{width:250px;height:55px}
 }
 
 /* 1536 x 1024 visual-master geometry. */
