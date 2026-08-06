@@ -633,7 +633,7 @@ footer span { font-size: 12px; }
 
 /* Pictured Certification Journey artwork v36 */
 .dashboard-lower-reference .milestone:nth-child(n+2) i svg{visibility:hidden!important}
-.dashboard-lower-reference .milestone:nth-child(n+2) i:after{content:"";display:block;position:absolute;inset:10px;background-image:url('/academy/academy/journey-icons-exact.png?release=pictured-v36');background-repeat:no-repeat;background-size:200px 40px;background-position-y:0}
+.dashboard-lower-reference .milestone:nth-child(n+2) i:after{content:"";display:block;position:absolute;inset:10px;background-image:url('/academy/academy/journey-icons-exact.png?release=pictured-v39');background-repeat:no-repeat;background-size:200px 40px;background-position-y:0}
 .dashboard-lower-reference .milestone:nth-child(2) i:after{background-position-x:0}
 .dashboard-lower-reference .milestone:nth-child(3) i:after{background-position-x:-40px}
 .dashboard-lower-reference .milestone:nth-child(4) i:after{background-position-x:-80px}
@@ -651,3 +651,6 @@ footer span { font-size: 12px; }
 /* Final optical centering on both axes v38 */
 .dashboard-lower-reference .milestone:nth-child(4) i:after{background-position:-72px 6px!important}
 .dashboard-lower-reference .milestone:nth-child(5) i:after{background-position:-112px 4px!important}
+
+/* Full, unclipped Communication artwork v39 */
+.dashboard-lower-reference .milestone:nth-child(4) i:after{background-position:-80px 0!important}
