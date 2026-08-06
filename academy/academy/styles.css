@@ -388,4 +388,6 @@ footer span { font-size: 12px; }
 .dashboard-logo img,.academy-gate-card img{filter:none;mix-blend-mode:screen}.mobile-nav-toggle img{mix-blend-mode:screen}
 @media(max-width:760px){.mobile-nav-toggle{border-bottom-color:#25483a;background:#17372b;color:#fff}}
 .dashboard-route-note a{color:#8d6535;font-weight:800;text-decoration:none}
+.student-dashboard~.topbar,.student-dashboard~.hero,.student-dashboard~.principles,.student-dashboard~.curriculum-section,.student-dashboard~.materials-section,.student-dashboard~.materials-library,.student-dashboard~.certification-section,.student-dashboard~footer{display:none!important}
+.dashboard-sidebar nav a span{font-size:9px;letter-spacing:.02em;font-weight:900}.empty-state>span{font:800 9px/1.2 Inter,Arial,sans-serif;letter-spacing:.08em}.up-next-illustration span{font-size:10px;font-weight:900;letter-spacing:.12em}
 
