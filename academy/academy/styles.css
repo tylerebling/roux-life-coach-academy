@@ -512,6 +512,11 @@ footer span { font-size: 12px; }
 @media(min-width:1101px) and (min-height:801px){
   .dashboard-welcome{min-height:172px}
   .info-card{min-height:234px}
+  .dashboard-canvas{padding-bottom:4px}
+  .journey-panel{margin-top:10px}
+  .dashboard-info-grid{margin-top:13px}
+  .practice-banner{margin-top:12px}
+  .dashboard-route-note{display:none}
 }
 
 @media(min-width:1101px) and (max-height:800px){
