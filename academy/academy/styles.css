@@ -657,3 +657,7 @@ footer span { font-size: 12px; }
 
 /* Final pixel center for rebuilt Communication icon v40 */
 .dashboard-lower-reference .milestone:nth-child(4) i:after{background-position:-78px 2px!important}
+
+/* Full vector Communication icon: no crop, no manual offset v41 */
+.dashboard-lower-reference .milestone:nth-child(4) i:after{display:none!important}
+.dashboard-lower-reference .milestone:nth-child(4) i svg{visibility:visible!important;display:block!important;width:36px!important;height:36px!important;margin:auto!important;transform:none!important}
