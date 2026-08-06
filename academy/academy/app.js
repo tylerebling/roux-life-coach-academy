@@ -97,10 +97,22 @@ const dashboardPhases=[
   {name:"Final Review",range:[19,19],description:"Demonstrate ethical judgment and prepare for certification review."}
 ];
 function dashboardText(id,value){const element=document.getElementById(id);if(element)element.textContent=value;}
+function dashboardIdentity(user,remote){
+  const profile=remote.profile||remote.student||remote.enrollment?.profile||{};
+  const full=(profile.full_name||profile.name||user.user_metadata?.full_name||user.user_metadata?.name||"").trim();
+  const explicitFirst=(profile.first_name||user.user_metadata?.first_name||"").trim();
+  if(explicitFirst)return{firstName:explicitFirst,fullName:full||explicitFirst};
+  if(full)return{firstName:full.split(/\s+/)[0],fullName:full};
+  const emailLocal=(user.email||"").split("@")[0].toLowerCase().replace(/[^a-z]/g,"");
+  const commonFirstNames=["alexandra","christopher","danielle","elizabeth","jennifer","jonathan","michael","michelle","nicole","rebecca","samantha","stephanie","victoria","amanda","andrew","ashley","brandon","brittany","charles","emily","jessica","joshua","lauren","matthew","megan","melissa","natalie","rachel","sarah","taylor","tyler"];
+  const matched=commonFirstNames.sort((a,b)=>b.length-a.length).find(name=>emailLocal.startsWith(name));
+  const firstName=matched?matched[0].toUpperCase()+matched.slice(1):"Student";
+  return{firstName,fullName:firstName};
+}
 function renderDashboard(){
   const shell=document.getElementById("studentDashboard");if(!shell||!window.RouxDashboardModel)return;
   const view=window.RouxDashboardModel.buildDashboard(lessons,localStorage),remote=window.rouxAcademyCloud?.remoteState||{};
-  const session=window.rouxAcademyCloud?.session,user=session?.user||{},fullName=(user.user_metadata?.full_name||user.email?.split("@")[0]||"Candidate").trim(),firstName=fullName.split(/\s+/)[0]||"Candidate";
+  const session=window.rouxAcademyCloud?.session,user=session?.user||{},{fullName,firstName}=dashboardIdentity(user,remote);
   const phaseIndex=dashboardPhases.findIndex(phase=>view.current.number>=phase.range[0]&&view.current.number<=phase.range[1]),phase=dashboardPhases[Math.max(0,phaseIndex)];
   dashboardText("studentFirstName",firstName);dashboardText("profileName",fullName);dashboardText("profileInitial",firstName.slice(0,1).toUpperCase());dashboardText("phaseKicker",`PHASE ${phaseIndex+1}: ${phase.name.toUpperCase()}`);dashboardText("phaseDescription",phase.description);
   dashboardText("currentLessonNumber",`LESSON ${String(view.current.number).padStart(2,"0")} - ${phase.name.toUpperCase()}`);dashboardText("currentLessonTitle",view.current.title);dashboardText("currentLessonMeta",`${view.current.minutes} min - Next: ${view.resumeActivity==="review"?"Review completed lesson":`Complete ${view.resumeActivity}`}`);
