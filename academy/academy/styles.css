@@ -471,3 +471,6 @@ footer span { font-size: 12px; }
   .practice-banner{grid-template-columns:44px minmax(0,1fr)}
 }
 
+/* The locked action already carries the lock icon; avoid a duplicate badge collision. */
+.up-next-card .lock-pill{display:none}
+
