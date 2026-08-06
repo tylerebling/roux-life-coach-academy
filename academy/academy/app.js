@@ -130,7 +130,9 @@ $$('[data-close]').forEach(button=>button.addEventListener("click",()=>document.
 $$('[data-scroll]').forEach(button=>button.addEventListener("click",()=>document.getElementById(button.dataset.scroll).scrollIntoView({behavior:"smooth"})));
 const materialsButton=$("#openMaterials");if(materialsButton)materialsButton.addEventListener("click",()=>{const library=$("#materialsLibrary");library.classList.remove("hidden");renderMaterials();library.scrollIntoView({behavior:"smooth",block:"start"});});
 const mobileNavToggle=$("#mobileNavToggle");if(mobileNavToggle)mobileNavToggle.addEventListener("click",()=>{const open=document.body.classList.toggle("dashboard-menu-open");mobileNavToggle.setAttribute("aria-expanded",String(open));});
-$$('.dashboard-sidebar a').forEach(link=>link.addEventListener("click",()=>{document.body.classList.remove("dashboard-menu-open");mobileNavToggle?.setAttribute("aria-expanded","false");}));
+function syncDashboardNavigation(){const hash=location.hash||"#journey";$$('.dashboard-sidebar nav a').forEach(link=>{const active=link.getAttribute("href")===hash||(hash==="#certification"&&link.getAttribute("href")==="#certification-dashboard");link.classList.toggle("active",active);if(active)link.setAttribute("aria-current","page");else link.removeAttribute("aria-current");});}
+$$('.dashboard-sidebar a').forEach(link=>link.addEventListener("click",()=>{document.body.classList.remove("dashboard-menu-open");mobileNavToggle?.setAttribute("aria-expanded","false");setTimeout(syncDashboardNavigation,0);}));
+window.addEventListener("hashchange",syncDashboardNavigation);syncDashboardNavigation();
 const dashboardLogout=$("#dashboardLogout");if(dashboardLogout)dashboardLogout.addEventListener("click",async()=>{if(confirm("Sign out of the academy?"))await window.rouxAcademyCloud?.client.auth.signOut();});
 $$('[data-pending-route]').forEach(link=>link.addEventListener("click",event=>{event.preventDefault();showNotice(`${link.dataset.pendingRoute} is ready to connect when its production route is available.`);}));
 const observedSections=["curriculum","materials","certification"].map(id=>document.getElementById(id)).filter(Boolean);
