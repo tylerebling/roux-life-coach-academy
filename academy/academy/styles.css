@@ -654,3 +654,6 @@ footer span { font-size: 12px; }
 
 /* Full, unclipped Communication artwork v39 */
 .dashboard-lower-reference .milestone:nth-child(4) i:after{background-position:-80px 0!important}
+
+/* Final pixel center for rebuilt Communication icon v40 */
+.dashboard-lower-reference .milestone:nth-child(4) i:after{background-position:-78px 2px!important}
