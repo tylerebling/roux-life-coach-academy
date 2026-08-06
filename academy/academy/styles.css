@@ -615,3 +615,11 @@ footer span { font-size: 12px; }
 .dashboard-lower-reference .next-step-photo{object-position:center!important}
 .dashboard-lower-reference .community-support-strip{margin-top:8px!important}
 .dashboard-lower-reference .dashboard-footer{margin-top:4px!important}
+
+/* Exact lower-card icon set v34 */
+.dashboard-lower-reference .task-icon:before,.dashboard-lower-reference .task-icon:after{display:none!important}
+.dashboard-lower-reference .task-icon{display:grid!important;place-items:center!important;width:40px!important;height:40px!important;flex:0 0 40px!important;padding:10px!important;border-radius:50%!important;background:#e8eee3!important;color:#17372b!important}
+.dashboard-lower-reference .task-icon svg{display:block!important;width:22px!important;height:22px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.45!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+.dashboard-lower-reference .feedback-icon,.dashboard-lower-reference .trophy-icon{background:#e8eee3!important;color:#17372b!important}
+.dashboard-lower-reference .feedback-icon svg,.dashboard-lower-reference .trophy-icon svg{stroke-width:1.45!important}
+.dashboard-lower-reference .stat-clock{background:#e8eee3!important}.dashboard-lower-reference .stat-star{background:#f3e7d2!important}
