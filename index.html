@@ -26,14 +26,14 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
 .nav-demo,.nav-apply,.hero-apply,.hero-demo,.demo-launch,.bottom-stories,.bottom-apply,.bottom-demo{display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid transparent;border-radius:5px;font-family:Arial,Helvetica,sans-serif;font-weight:700;letter-spacing:.035em;text-transform:uppercase;text-decoration:none;line-height:1;color:#fff;box-shadow:0 4px 9px rgba(45,55,44,.16),inset 0 1px 0 rgba(255,255,255,.42)}
 .nav-demo::after{content:"Sign In"}.nav-apply::after,.hero-apply::after,.bottom-apply::after{content:"Apply Now"}.hero-demo::after,.bottom-demo::after{content:"◉  Try the Demo"}.demo-launch::after{content:"Try the Demo Now  →"}.bottom-stories::after{content:"Read Their Stories  →"}
 .nav-apply,.hero-apply,.bottom-apply{background:linear-gradient(180deg,#cf963e 0%,#b97b23 100%);border-color:#ad711f;color:#fff}
-.nav-demo,.hero-demo,.bottom-demo{background:#fffaf2;border-color:#b9853d;color:#253f32}
+.nav-demo,.hero-demo,.bottom-demo{background:#fffaf2;border-color:#b9853d;color:#000;font-weight:850}
 .demo-launch,.bottom-stories{background:linear-gradient(180deg,#315943 0%,#1f4231 100%);border-color:#173829;color:#fff}
 .nav-demo,.nav-apply{font-size:clamp(5px,.53vw,9px)}
 .hero-apply,.hero-demo{font-size:clamp(6px,.67vw,11px)}
 .demo-launch{font-size:clamp(6px,.62vw,10px)}
 .bottom-stories{font-size:clamp(5px,.5vw,8px)}
 .bottom-apply,.bottom-demo{font-size:clamp(6px,.61vw,10px)}
-.nav-demo:hover,.nav-apply:hover,.hero-apply:hover,.hero-demo:hover,.demo-launch:hover,.bottom-stories:hover,.bottom-apply:hover,.bottom-demo:hover{filter:saturate(1.08) brightness(1.035);box-shadow:0 7px 14px rgba(41,61,48,.22),inset 0 1px 0 rgba(255,255,255,.58);transform:translateY(-2px)}\n.nav-demo:hover,.hero-demo:hover,.bottom-demo:hover{background:#fffaf2}\n.nav-apply:hover,.hero-apply:hover,.bottom-apply:hover{background:linear-gradient(180deg,#d39a42 0%,#bd7f27 100%)}\n.demo-launch:hover,.bottom-stories:hover{background:linear-gradient(180deg,#365f49 0%,#234936 100%)}
+.nav-demo:hover,.nav-apply:hover,.hero-apply:hover,.hero-demo:hover,.demo-launch:hover,.bottom-stories:hover,.bottom-apply:hover,.bottom-demo:hover{filter:saturate(1.08) brightness(1.035);box-shadow:0 7px 14px rgba(41,61,48,.22),inset 0 1px 0 rgba(255,255,255,.58);transform:translateY(-2px)}\n.nav-demo:hover,.hero-demo:hover,.bottom-demo:hover{background:#fffaf2;color:#000}\n.nav-apply:hover,.hero-apply:hover,.bottom-apply:hover{background:linear-gradient(180deg,#d39a42 0%,#bd7f27 100%)}\n.demo-launch:hover,.bottom-stories:hover{background:linear-gradient(180deg,#365f49 0%,#234936 100%)}
 .nav-demo:active,.nav-apply:active,.hero-apply:active,.hero-demo:active,.demo-launch:active,.bottom-stories:active,.bottom-apply:active,.bottom-demo:active{transform:translateY(1px);box-shadow:0 2px 4px rgba(41,61,48,.18),inset 0 1px 2px rgba(20,30,24,.16)}
 .nav-programs,.nav-courses,.nav-simulator,.nav-why,.nav-stories,.nav-resources{border-radius:4px}
 .middle-pillar,.journey,.path,.footer-programs,.footer-courses,.footer-resources,.footer-company{border-radius:10px}
@@ -89,6 +89,11 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
   .hotspot:focus-visible{outline-width:2px;outline-offset:1px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hotspot{transition:none}}
+
+/* Academy sign-in */
+.auth-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:rgba(6,18,13,.84);backdrop-filter:blur(10px)}
+.auth-modal[hidden]{display:none}.auth-card{position:relative;width:min(440px,100%);padding:38px;border:1px solid rgba(190,139,63,.55);border-radius:22px;background:#fffaf2;color:#11281e;box-shadow:0 28px 90px rgba(0,0,0,.42)}
+.auth-close{position:absolute;right:14px;top:12px;border:0;background:transparent;color:#183629;font-size:28px;cursor:pointer}.auth-kicker{margin:0;color:#a36d25;font:800 12px Arial,sans-serif;letter-spacing:.17em}.auth-card h2{margin:10px 0 8px;font:600 34px/1.05 Georgia,serif}.auth-copy{margin:0 0 22px;color:#536158;font:14px/1.5 Arial,sans-serif}.auth-card label{display:block;margin:14px 0;color:#172d23;font:800 12px Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}.auth-card input{display:block;width:100%;margin-top:7px;padding:14px 15px;border:1px solid #b8aa95;border-radius:9px;background:#fff;color:#111;font:16px Arial,sans-serif;outline:none}.auth-card input:focus{border-color:#b97b23;box-shadow:0 0 0 3px rgba(185,123,35,.15)}.auth-submit{width:100%;margin-top:10px;padding:14px;border:1px solid #173829;border-radius:9px;background:linear-gradient(180deg,#315943,#1f4231);color:#fff;font:850 14px Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;box-shadow:0 5px 12px rgba(31,66,49,.22)}.auth-submit:disabled{opacity:.65;cursor:wait}.auth-recover{margin-top:14px;border:0;background:transparent;color:#765127;font:700 13px Arial,sans-serif;text-decoration:underline;cursor:pointer}.auth-message{min-height:20px;margin:14px 0 0;color:#8b3328;font:700 13px/1.4 Arial,sans-serif}.auth-message.success{color:#24583c}
 
   </style>
 </head>
@@ -147,5 +152,45 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
       <a class="hotspot student-signin" href="/academy/?action=signin"><span class="sr">Student sign in</span></a>
     </section>
   </main>
+  <div class="auth-modal" id="academySignIn" role="dialog" aria-modal="true" aria-labelledby="academySignInTitle" hidden>
+    <form class="auth-card" id="academySignInForm">
+      <button class="auth-close" type="button" aria-label="Close sign in">&times;</button>
+      <p class="auth-kicker">ROUX LIFE ACADEMY</p>
+      <h2 id="academySignInTitle">Welcome back.</h2>
+      <p class="auth-copy">Sign in to continue your lessons, saved progress, assessments, and certification journey.</p>
+      <label>Username (email)<input id="academyUsername" name="username" type="email" autocomplete="username" required></label>
+      <label>Password<input id="academyPassword" name="password" type="password" autocomplete="current-password" required></label>
+      <button class="auth-submit" type="submit">Sign In</button>
+      <button class="auth-recover" type="button">Forgot your password?</button>
+      <p class="auth-message" id="academyAuthMessage" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script>
+  <script>
+  (()=>{
+    const modal=document.getElementById('academySignIn');
+    const form=document.getElementById('academySignInForm');
+    const email=document.getElementById('academyUsername');
+    const password=document.getElementById('academyPassword');
+    const message=document.getElementById('academyAuthMessage');
+    const submit=form.querySelector('.auth-submit');
+    const client=window.supabase?.createClient('https://dwkjwzissuaahieapkxo.supabase.co','sb_publishable_KyYzYYxFcf7icqODS0WEcw_mBmEvb-_');
+    const open=event=>{event?.preventDefault();modal.hidden=false;document.body.style.overflow='hidden';requestAnimationFrame(()=>email.focus())};
+    const close=()=>{modal.hidden=true;document.body.style.overflow='';message.textContent='';password.value=''};
+    document.querySelector('.nav-demo')?.addEventListener('click',open);
+    form.querySelector('.auth-close').addEventListener('click',close);
+    modal.addEventListener('click',event=>{if(event.target===modal)close()});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!modal.hidden)close()});
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();message.className='auth-message';message.textContent='Signing in…';submit.disabled=true;
+      try{if(!client)throw new Error('Sign in is temporarily unavailable.');const result=await client.auth.signInWithPassword({email:email.value.trim(),password:password.value});if(result.error)throw result.error;message.className='auth-message success';message.textContent='Signed in. Opening your academy…';location.assign('/academy/')}catch(error){message.textContent=error.message||'Unable to sign in.';submit.disabled=false}
+    });
+    form.querySelector('.auth-recover').addEventListener('click',async()=>{
+      const value=email.value.trim();message.className='auth-message';if(!value){message.textContent='Enter your username email first.';email.focus();return}
+      try{if(!client)throw new Error('Recovery is temporarily unavailable.');const result=await client.auth.resetPasswordForEmail(value,{redirectTo:location.origin+'/academy/'});if(result.error)throw result.error;message.className='auth-message success';message.textContent='Password recovery email sent.'}catch(error){message.textContent=error.message||'Unable to send recovery email.'}
+    });
+  })();
+  </script>
+
 </body>
 </html>
