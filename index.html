@@ -116,6 +116,13 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
 .phone-screen::before{content:"";position:absolute;z-index:8;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.23) 0%,rgba(255,255,255,.04) 24%,transparent 39%,transparent 72%,rgba(255,255,255,.08) 100%);mix-blend-mode:screen}
 .phone-screen::after{content:"";position:absolute;z-index:8;top:1.7%;right:8%;width:1.7%;aspect-ratio:1;border-radius:50%;background:#122019;box-shadow:-4px 0 0 #202a25;opacity:.72}
 .phone-home{height:.85%;background:#0a0e0c;box-shadow:0 1px 0 rgba(255,255,255,.45)}
+
+/* Photographic dashboard content */
+.phone-heading{align-items:center}.phone-welcome{display:flex;align-items:center;gap:5%}.phone-avatar{width:18%;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:center 22%;box-shadow:0 0 0 1px #fff,0 0 0 2px #c69a58}
+.phone-next{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(90deg,rgba(99,57,15,.93),rgba(183,111,23,.72)),url("https://raw.githubusercontent.com/tylerebling/roux-life-coach-academy/fa1674213dd51b8c7d0970c1782dde28b4ad07cf/public-assets/images/hero-academy-room.jpg") center/cover no-repeat}.phone-next::after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(110deg,rgba(16,38,28,.18),transparent 55%,rgba(255,205,119,.16))}
+.phone-next-title{max-width:76%;color:#fff;text-shadow:0 1px 2px rgba(42,23,5,.35)}.phone-label{color:#ffe6b5}.phone-pill{box-shadow:0 2px 5px rgba(20,20,15,.18)}
+.phone-thumb{flex:0 0 16%;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:center 22%;box-shadow:0 0 0 1px #fff,0 0 0 2px #d5b988}.phone-activity:nth-of-type(2) .phone-thumb{object-position:65% center}
+.phone-photo-strip{display:grid;grid-template-columns:1.35fr .65fr;gap:3%;margin-top:5%;height:12%}.phone-photo-strip img{width:100%;height:100%;object-fit:cover;border-radius:8%;box-shadow:inset 0 0 0 1px rgba(25,43,34,.12)}.phone-photo-strip img:first-child{object-position:center 28%}.phone-photo-strip img:last-child{object-position:70% center}
 </style>
 </head>
 <body>
@@ -127,16 +134,16 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
         <div class="phone-screen">
           <div class="phone-status"><span>9:41</span><span>● Wi-Fi ▰</span></div>
           <div class="phone-brand">MY DASHBOARD</div>
-          <div class="phone-heading"><span>Welcome back, Coach.</span><span>⌁</span></div>
+          <div class="phone-heading"><span class="phone-welcome"><img class="phone-avatar" src="https://raw.githubusercontent.com/tylerebling/roux-life-coach-academy/fa1674213dd51b8c7d0970c1782dde28b4ad07cf/public-assets/images/simulator-coach.jpg" alt=""><span>Welcome back,<br>Coach.</span></span><span>⌁</span></div>
           <div class="phone-rule"></div>
           <div class="phone-progress-row">
             <div class="phone-ring"><span>78%</span></div>
             <div class="phone-progress-copy">Certification<br>in progress</div>
           </div>
           <div class="phone-next"><div class="phone-label">Next up</div><div class="phone-next-title">Business Building Workshop</div><span class="phone-pill">Continue →</span></div>
-          <div class="phone-recent">Recent activity</div>
-          <div class="phone-activity"><span class="phone-dot"></span><span><strong>Lesson completed</strong><small>Smart Coach Framework</small></span></div>
-          <div class="phone-activity"><span class="phone-dot"></span><span><strong>Quiz passed</strong><small>Life Coach Certification</small></span></div>
+          <div class="phone-photo-strip"><img src="https://raw.githubusercontent.com/tylerebling/roux-life-coach-academy/fa1674213dd51b8c7d0970c1782dde28b4ad07cf/public-assets/images/simulator-coach.jpg" alt=""><img src="https://raw.githubusercontent.com/tylerebling/roux-life-coach-academy/fa1674213dd51b8c7d0970c1782dde28b4ad07cf/public-assets/images/hero-academy-room.jpg" alt=""></div><div class="phone-recent">Recent activity</div>
+          <div class="phone-activity"><img class="phone-thumb" src="https://raw.githubusercontent.com/tylerebling/roux-life-coach-academy/fa1674213dd51b8c7d0970c1782dde28b4ad07cf/public-assets/images/simulator-coach.jpg" alt=""><span><strong>Lesson completed</strong><small>Smart Coach Framework</small></span></div>
+          <div class="phone-activity"><img class="phone-thumb" src="https://raw.githubusercontent.com/tylerebling/roux-life-coach-academy/fa1674213dd51b8c7d0970c1782dde28b4ad07cf/public-assets/images/simulator-coach.jpg" alt=""><span><strong>Quiz passed</strong><small>Life Coach Certification</small></span></div>
           <span class="phone-home"></span>
         </div>
       </div>
