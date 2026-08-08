@@ -1,0 +1,4 @@
+/* Final fidelity pass against the approved uploaded concept. */
+.hero-bg{background:linear-gradient(90deg,rgba(255,253,248,.86) 0%,rgba(255,253,248,.55) 39%,rgba(255,253,248,.04) 67%),url('/public-assets/images/hero-academy-room.jpg') center/cover;opacity:1}.screen-main>img{content:url('/public-assets/images/simulator-coach.jpg')}.hero-grid{min-height:548px}.hero-copy{padding-top:62px}.hero h1{font-size:59px}.hero-product{height:470px}.laptop{top:38px}.trust-band{margin-top:-2px}.demo{margin-top:30px}.ecosystem,.journey,.advantage,.paths{padding-top:42px;padding-bottom:30px}
+@media(max-width:620px){.hero-grid{min-height:auto}.hero h1{font-size:43px}.hero-product{height:310px}.hero-bg{background-position:63% center}}
+
