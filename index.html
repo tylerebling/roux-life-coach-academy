@@ -5,7 +5,77 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Roux Life Coach Academy</title>
   <meta name="description" content="Roux Life Coach Academy online coach training, Smart Coach Simulator, business support, and certification pathways.">
-  <link rel="stylesheet" href="/clone.css">
+  <style>
+:root{color-scheme:light;--focus:#c88b2b;--hover:rgba(202,139,43,.10)}
+*{box-sizing:border-box}
+html{background:#f8f2e8;scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#fffaf2,#f6efe3)}
+.art-shell{width:min(100%,1536px);margin:auto;overflow:hidden;background:#fbf5eb;box-shadow:0 0 70px rgba(39,48,39,.14)}
+img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) contrast(1.045) brightness(1.015)}
+.slice,.middle-art{position:relative;overflow:hidden}
+.top-art{height:calc(min(100vw,1536px) * .932)}
+.top-art>img{position:absolute;inset:0 auto auto 0}
+.bottom-art{height:calc(min(100vw,1536px) * 1.033)}
+.bottom-art>img{position:absolute;left:0;top:calc(min(100vw,1536px) * -1.075)}
+.hotspot{position:absolute;z-index:2;display:block;border-radius:5px;cursor:pointer;transition:background-color .18s ease,box-shadow .18s ease,transform .18s ease}
+.hotspot:hover{background:var(--hover);box-shadow:inset 0 0 0 1px rgba(176,113,25,.25)}
+.hotspot:active{transform:scale(.985)}
+.hotspot:focus-visible{outline:4px solid var(--focus);outline-offset:3px;background:rgba(255,255,255,.18)}
+
+/* Header and hero */
+.nav-programs{left:28.8%;top:.9%;width:6.4%;height:2.8%}
+.nav-courses{left:35.6%;top:.9%;width:6.2%;height:2.8%}
+.nav-simulator{left:42%;top:.9%;width:9.5%;height:2.8%}
+.nav-why{left:51.7%;top:.9%;width:7.6%;height:2.8%}
+.nav-stories{left:59.4%;top:.9%;width:8.6%;height:2.8%}
+.nav-resources{left:68%;top:.9%;width:8.4%;height:2.8%}
+.nav-demo{left:77.1%;top:1%;width:12.8%;height:2.6%}
+.nav-apply{left:90.4%;top:1%;width:8.4%;height:2.6%}
+.hero-apply{left:5.8%;top:15.4%;width:12.3%;height:3%}
+.hero-demo{left:19.4%;top:15.4%;width:14%;height:3%}
+
+/* Demo experience */
+.demo-dashboard{left:39.4%;top:34.6%;width:11.6%;height:6.1%}
+.demo-lesson{left:51.3%;top:34.6%;width:11.6%;height:6.1%}
+.demo-simulator{left:63.2%;top:34.6%;width:11.6%;height:6.1%}
+.demo-feedback{left:75.1%;top:34.6%;width:11.6%;height:6.1%}
+.demo-launch{left:41.2%;top:40.8%;width:23%;height:2.8%}
+
+/* Everything you need */
+.middle-pillar{top:9.4%;width:12.2%;height:18.6%}
+.p1{left:13.2%}.p2{left:25.6%}.p3{left:38%}.p4{left:50.5%}.p5{left:63%}.p6{left:75.5%}
+
+/* Proven path */
+.journey{top:37.5%;height:17%}
+.j1{left:3.6%;width:17.1%}.j2{left:21.3%;width:17.1%}.j3{left:39.5%;width:17.1%}.j4{left:57.7%;width:17.1%}.j5{left:75.8%;width:20%}
+.middle-stories{left:4%;top:58%;width:52%;height:23%}
+
+/* Program pathways */
+.path{top:36.8%;width:21.5%;height:16.6%}
+.path1{left:5.2%}.path2{left:27.1%}.path3{left:49%}.path4{left:70.9%}
+.bottom-stories{left:5.8%;top:59.3%;width:14.2%;height:4.4%}
+.bottom-apply{left:58.8%;top:75.6%;width:13.8%;height:4.1%}
+.bottom-demo{left:75%;top:75.6%;width:13.8%;height:4.1%}
+
+/* Footer */
+.footer-programs{left:24%;top:86.3%;width:11.5%;height:9.7%}
+.footer-courses{left:39%;top:86.3%;width:11.5%;height:9.7%}
+.footer-resources{left:53.8%;top:86.3%;width:10.5%;height:9.7%}
+.footer-company{left:65.8%;top:86.3%;width:10.5%;height:9.7%}
+.footer-email{left:77.6%;top:88.2%;width:15.7%;height:3.8%}
+.student-signin{left:38%;top:95.2%;width:11%;height:3.2%}
+
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:700px){
+  .art-shell{width:100%}
+  .top-art{height:93.2vw}
+  .bottom-art{height:103.3vw}
+  .bottom-art>img{top:-107.5vw}
+  .hotspot:focus-visible{outline-width:2px;outline-offset:1px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hotspot{transition:none}}
+
+  </style>
 </head>
 <body>
   <main class="art-shell">
