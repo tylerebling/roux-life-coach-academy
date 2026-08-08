@@ -197,6 +197,18 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
 .demo-video-play:focus-visible{outline:3px solid #173f2f;outline-offset:4px}
 @media(max-width:700px){.demo-video-play{left:19.5%;top:77%;width:6.2%}}
 
+
+/* Sharp native dashboard fitted inside the demo laptop */
+.demo-laptop-ui{position:absolute;z-index:13;left:11.35%;top:68.95%;width:16.25%;height:11.55%;overflow:hidden;border:clamp(1px,.16vw,2px) solid #151b18;border-radius:2.5% 2.5% 1% 1%;background:#f8f5ed;color:#183226;font-family:Montserrat,"Segoe UI",sans-serif;box-shadow:inset 0 0 0 1px rgba(255,255,255,.38),0 2px 5px rgba(21,31,26,.22);transform:perspective(800px) rotateY(1.5deg) rotateZ(-.35deg);transform-origin:center bottom;pointer-events:none}
+.demo-laptop-bar{height:12%;display:flex;align-items:center;gap:3%;padding:0 4%;background:#143c2d;color:#fff;font-size:clamp(2px,.2vw,3.4px);font-weight:800;letter-spacing:.08em}.demo-laptop-bar b{margin-left:auto;color:#d8aa5f}
+.demo-laptop-body{display:grid;grid-template-columns:22% 1fr;height:88%}.demo-laptop-side{padding:12% 10%;background:#194532;color:#d8e4dc;font-size:clamp(1.5px,.15vw,2.6px);line-height:2.5}.demo-laptop-side strong{display:block;margin-bottom:15%;color:#e0b76e;font-size:clamp(2px,.2vw,3.4px)}
+.demo-laptop-main{padding:5% 5% 4%;background:linear-gradient(145deg,#fffefb,#efe9dc)}.demo-laptop-welcome{color:#b57b2a;font-size:clamp(1.7px,.17vw,2.9px);font-weight:800;letter-spacing:.09em}.demo-laptop-main h3{margin:2% 0 4%;font:700 clamp(3px,.36vw,6px)/1 "Cormorant Garamond",Georgia,serif}
+.demo-laptop-progress{height:4%;border-radius:9px;background:#ddd5c7;overflow:hidden}.demo-laptop-progress span{display:block;width:18%;height:100%;background:linear-gradient(90deg,#1d513b,#c68a34)}
+.demo-laptop-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:4%;height:59%;margin-top:4%}.demo-laptop-course{position:relative;padding:7%;overflow:hidden;border-radius:4%;background:linear-gradient(120deg,#173f2f 0%,#285a44 62%,#c69b59 160%);color:#fff;box-shadow:0 2px 4px rgba(20,42,31,.2)}.demo-laptop-course small{display:block;color:#e2bd79;font-size:clamp(1.4px,.14vw,2.4px);font-weight:800}.demo-laptop-course strong{display:block;margin-top:8%;font:700 clamp(2.6px,.29vw,4.8px)/1.05 "Cormorant Garamond",Georgia,serif}.demo-laptop-course em{position:absolute;left:7%;bottom:8%;padding:3% 7%;border-radius:99px;background:#c78932;font-size:clamp(1.2px,.12vw,2px);font-style:normal;font-weight:800}
+.demo-laptop-stats{display:grid;gap:5%}.demo-laptop-stats span{display:grid;place-items:center;border:1px solid #ddd3c2;border-radius:5%;background:#fff;color:#647067;font-size:clamp(1.3px,.13vw,2.2px);box-shadow:0 1px 2px rgba(42,50,45,.08)}.demo-laptop-stats b{display:block;color:#173f2f;font-size:clamp(2.3px,.23vw,3.8px)}
+.demo-launch{top:92.25%}
+@media(max-width:700px){.demo-laptop-ui{left:11.2%;top:68.7%;width:16.7%;height:11.7%}.demo-launch{top:92%}}
+
 </style>
 </head>
 <body>
@@ -255,6 +267,22 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
       <a class="hotspot nav-apply" href="#apply" data-apply-placeholder><span class="sr">Apply now</span></a>
       <a class="hotspot hero-apply" href="#apply" data-apply-placeholder><span class="sr">Apply now</span></a>
       <a class="hotspot hero-demo" href="/academy/?action=demo"><span class="sr">Try the demo</span></a>
+
+      <div class="demo-laptop-ui" aria-hidden="true">
+        <div class="demo-laptop-bar"><span>ROUX LIFE ACADEMY</span><b>Candidate</b></div>
+        <div class="demo-laptop-body">
+          <aside class="demo-laptop-side"><strong>RL</strong><span>Overview</span><br><span>My Courses</span><br><span>Simulator</span><br><span>Progress</span></aside>
+          <section class="demo-laptop-main">
+            <span class="demo-laptop-welcome">GOOD EVENING, COACH</span>
+            <h3>Your learning dashboard</h3>
+            <div class="demo-laptop-progress"><span></span></div>
+            <div class="demo-laptop-grid">
+              <article class="demo-laptop-course"><small>PHASE 1 · FOUNDATIONS</small><strong>What Is a Life Coach?</strong><em>Resume lesson →</em></article>
+              <div class="demo-laptop-stats"><span><b>18%</b>Progress</span><span><b>01</b>Current lesson</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
       <a class="demo-video-play" href="/academy/?action=demo" aria-label="Play the Roux Life Academy demo"></a>
       <a class="hotspot demo-dashboard" href="/academy/?action=dashboard-preview"><span class="sr">Explore the student dashboard</span></a>
       <a class="hotspot demo-lesson" href="/academy/?action=sample-lesson"><span class="sr">Watch a sample lesson</span></a>
