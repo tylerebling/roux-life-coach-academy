@@ -106,3 +106,17 @@ footer{box-shadow:inset 0 1px #fff}
 @keyframes softSweep{0%,70%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
 @keyframes sealPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
 @media(prefers-reduced-motion:reduce){.hero-copy,.hero-visual,.phone-ui,.credibility-bar:after,.cta-seal{animation:none!important}.dashboard-window,.demo-visual,.path-grid img{transition:none}}
+
+
+/* Interactive feature states */
+.sim-chat p[role="button"],.phone-ui[role="button"],.play[role="button"],.journey-list li[role="button"],.comparison>div[role="button"],.sim-scores span[role="button"],blockquote[role="button"]{cursor:pointer}
+.sim-chat p:hover,.sim-chat p.selected{transform:translateX(4px);background:#fff8e7;box-shadow:0 4px 12px rgba(31,60,47,.12)}
+.sim-chat p.selected{outline:2px solid #c58c2e}
+.sim-chat label.confirmed{background:#eaf2e8;border-color:#78906f;color:#214a38;font-weight:700}
+.phone-ui:hover{box-shadow:0 32px 65px rgba(22,42,34,.4),0 8px 20px rgba(22,42,34,.24)}
+.phone-ui:focus-visible,.play:focus-visible,.journey-list li:focus-visible,.comparison>div:focus-visible,.sim-scores span:focus-visible,blockquote:focus-visible{outline:3px solid #d19a3c;outline-offset:4px}
+.sim-scores span{transition:.22s}.sim-scores span:hover,.sim-scores span.expanded{background:#285949;transform:translateY(-3px)}.sim-scores span.expanded b{transform:scale(1.12)}
+.comparison>div.is-selected{background:#fff0cf!important;transform:translateX(7px)!important;box-shadow:inset 5px 0 #c98e2c}
+.journey-list li[role="button"]:active{transform:translateY(-1px)}
+.story-grid blockquote.expanded{background:#fff;border-color:#c69a50;transform:translateY(-8px) scale(1.015);box-shadow:0 24px 44px rgba(34,58,47,.16)}
+.play[role="button"]:hover{filter:brightness(1.08)}
