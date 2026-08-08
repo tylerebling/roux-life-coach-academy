@@ -174,7 +174,7 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
     const password=document.getElementById('academyPassword');
     const message=document.getElementById('academyAuthMessage');
     const submit=form.querySelector('.auth-submit');
-    const client=window.supabase?.createClient('https://dwkjwzissuaahieapkxo.supabase.co','sb_publishable_KyYzYYxFcf7icqODS0WEcw_mBmEvb-_');
+    let client;const getClient=()=>client||(client=window.supabase?.createClient('https://dwkjwzissuaahieapkxo.supabase.co','sb_publishable_KyYzYYxFcf7icqODS0WEcw_mBmEvb-_'));
     const open=event=>{event?.preventDefault();modal.hidden=false;document.body.style.overflow='hidden';requestAnimationFrame(()=>email.focus())};
     const close=()=>{modal.hidden=true;document.body.style.overflow='';message.textContent='';password.value=''};
     document.querySelector('.nav-demo')?.addEventListener('click',open);
@@ -183,11 +183,11 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
     document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!modal.hidden)close()});
     form.addEventListener('submit',async event=>{
       event.preventDefault();message.className='auth-message';message.textContent='Signing in…';submit.disabled=true;
-      try{if(!client)throw new Error('Sign in is temporarily unavailable.');const result=await client.auth.signInWithPassword({email:email.value.trim(),password:password.value});if(result.error)throw result.error;message.className='auth-message success';message.textContent='Signed in. Opening your academy…';location.assign('/academy/')}catch(error){message.textContent=error.message||'Unable to sign in.';submit.disabled=false}
+      try{const authClient=getClient();if(!authClient)throw new Error('Sign in is temporarily unavailable.');const result=await authClient.auth.signInWithPassword({email:email.value.trim(),password:password.value});if(result.error)throw result.error;message.className='auth-message success';message.textContent='Signed in. Opening your academy…';location.assign('/academy/')}catch(error){message.textContent=error.message||'Unable to sign in.';submit.disabled=false}
     });
     form.querySelector('.auth-recover').addEventListener('click',async()=>{
       const value=email.value.trim();message.className='auth-message';if(!value){message.textContent='Enter your username email first.';email.focus();return}
-      try{if(!client)throw new Error('Recovery is temporarily unavailable.');const result=await client.auth.resetPasswordForEmail(value,{redirectTo:location.origin+'/academy/'});if(result.error)throw result.error;message.className='auth-message success';message.textContent='Password recovery email sent.'}catch(error){message.textContent=error.message||'Unable to send recovery email.'}
+      try{const authClient=getClient();if(!authClient)throw new Error('Recovery is temporarily unavailable.');const result=await authClient.auth.resetPasswordForEmail(value,{redirectTo:location.origin+'/academy/'});if(result.error)throw result.error;message.className='auth-message success';message.textContent='Password recovery email sent.'}catch(error){message.textContent=error.message||'Unable to send recovery email.'}
     });
   })();
   </script>
