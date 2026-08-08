@@ -142,9 +142,73 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
 .nav-programs:focus-visible,.nav-courses:focus-visible,.nav-simulator:focus-visible,.nav-why:focus-visible,.nav-stories:focus-visible,.nav-resources:focus-visible{outline:2px solid #b77a27;outline-offset:4px;background:#fffdf9}
 .top-art>img:first-child{filter:contrast(1.035) saturate(1.025);image-rendering:auto}
 .hero-phone-ui,.hero-phone-ui *{text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased}
+
+/* Native site header: fully replaces the header baked into the source artwork */
+.site-header{position:sticky;top:0;z-index:100;width:min(100%,1536px);margin:0 auto;background:rgba(255,252,246,.98);border-bottom:1px solid #e8dfd1;box-shadow:0 8px 24px rgba(28,49,39,.08);backdrop-filter:blur(18px)}
+.site-header-inner{min-height:88px;padding:0 clamp(22px,3vw,48px);display:grid;grid-template-columns:minmax(245px,1fr) auto auto;align-items:center;gap:clamp(18px,2.3vw,38px)}
+.site-brand{display:flex;align-items:center;gap:13px;color:#132a21;text-decoration:none;min-width:0}
+.site-mark{position:relative;display:grid;place-items:center;width:54px;height:54px;color:#b67823;font:700 48px/1 "Cormorant Garamond",Georgia,serif;border-right:1px solid #eadfce}
+.site-mark::after{content:"❧";position:absolute;right:-2px;bottom:4px;padding:1px;background:#fffaf3;color:#9d7335;font:16px Georgia,serif}
+.site-wordmark{display:flex;flex-direction:column;line-height:1;white-space:nowrap}
+.site-wordmark strong{font:700 clamp(20px,1.72vw,28px)/1 "Cormorant Garamond",Georgia,serif;letter-spacing:.14em}
+.site-wordmark small{margin-top:7px;color:#b17325;font:800 8px/1 Montserrat,"Segoe UI",sans-serif;letter-spacing:.31em}
+.site-nav{display:flex;align-items:center;gap:clamp(18px,2.15vw,34px)}
+.site-nav a{position:relative;padding:34px 0 31px;color:#14271f;font:800 clamp(8px,.67vw,11px)/1 Montserrat,"Segoe UI",sans-serif;text-decoration:none;white-space:nowrap;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased}
+.site-nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:22px;height:2px;background:#b77a27;transition:left .2s ease,right .2s ease}
+.site-nav a:hover,.site-nav a:focus-visible{color:#a6691e}.site-nav a:hover::after,.site-nav a:focus-visible::after{left:0;right:0}
+.site-nav .has-menu::before{content:"⌄";position:absolute;right:-12px;top:33px;color:#a6691e;font-size:10px}
+.site-actions{display:flex;align-items:center;gap:12px}
+.site-action{display:grid;place-items:center;min-width:116px;height:46px;padding:0 20px;border:1px solid #b77a27;border-radius:7px;font:800 10px/1 Montserrat,"Segoe UI",sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+.site-signin{background:#fffaf2;color:#111;box-shadow:0 5px 13px rgba(45,55,44,.12),inset 0 1px 0 #fff}
+.site-apply{background:linear-gradient(180deg,#d29a43,#b77720);color:#fff;box-shadow:0 7px 16px rgba(136,84,20,.24),inset 0 1px 0 rgba(255,255,255,.45)}
+.site-action:hover,.site-action:focus-visible{transform:translateY(-2px);box-shadow:0 10px 20px rgba(45,55,44,.2);filter:saturate(1.08)}
+.site-action:active{transform:translateY(1px)}
+.site-menu-toggle{display:none;width:46px;height:42px;border:1px solid #c49350;border-radius:7px;background:#fffaf2;color:#17382a;font-size:21px;cursor:pointer}
+.top-art{height:calc(min(100vw,1536px) * .875)}
+.top-art>img{top:calc(min(100vw,1536px) * -.057)}
+.top-art::before{display:none!important}
+.top-art>.nav-programs,.top-art>.nav-courses,.top-art>.nav-simulator,.top-art>.nav-why,.top-art>.nav-stories,.top-art>.nav-resources,.top-art>.nav-demo,.top-art>.nav-apply{display:none!important}
+.top-art>.hero-phone-ui{top:27.1%}
+.hero-apply,.hero-demo{top:31.65%}
+@media(max-width:1120px){
+ .site-header-inner{grid-template-columns:1fr auto}.site-nav{display:none}.site-actions{justify-self:end}
+ .site-nav.is-open{position:absolute;display:grid;left:14px;right:14px;top:calc(100% + 1px);gap:0;padding:10px 18px;background:#fffaf3;border:1px solid #e2d5c1;border-radius:0 0 12px 12px;box-shadow:0 16px 30px rgba(26,45,36,.16)}
+ .site-nav.is-open a{padding:15px 3px;border-bottom:1px solid #eee4d6}.site-nav.is-open a:last-child{border:0}.site-nav.is-open a::after,.site-nav.is-open a::before{display:none}
+ .site-menu-toggle{display:block}
+}
+@media(max-width:650px){
+ .site-header-inner{min-height:72px;padding:0 14px;grid-template-columns:1fr auto;gap:8px}
+ .site-mark{width:39px;height:43px;font-size:38px}.site-wordmark strong{font-size:17px;letter-spacing:.09em}.site-wordmark small{font-size:6px;letter-spacing:.22em}
+ .site-actions{gap:7px}.site-action{min-width:74px;height:38px;padding:0 10px;font-size:8px}.site-apply{display:none}
+ .site-menu-toggle{display:block}.site-actions .site-menu-toggle{display:block}
+ .top-art{height:87.5vw}.top-art>img{top:-5.7vw}.top-art>.hero-phone-ui{top:26.8%}.hero-apply,.hero-demo{top:31.4%}
+}
+
 </style>
 </head>
 <body>
+
+  <header class="site-header" aria-label="Primary navigation">
+    <div class="site-header-inner">
+      <a class="site-brand" href="/" aria-label="Roux Life Coach Academy home">
+        <span class="site-mark" aria-hidden="true">R</span>
+        <span class="site-wordmark"><strong>ROUX LIFE</strong><small>COACH ACADEMY</small></span>
+      </a>
+      <nav class="site-nav" aria-label="Main menu">
+        <a class="has-menu" href="/academy/?action=programs">Programs</a>
+        <a class="has-menu" href="/academy/?action=courses">Courses</a>
+        <a href="/academy/?action=demo">Smart Simulator™</a>
+        <a href="#advantage">Why Roux Life</a>
+        <a href="/academy/?action=stories">Success Stories</a>
+        <a class="has-menu" href="/academy/?action=resources">Resources</a>
+      </nav>
+      <div class="site-actions">
+        <a class="site-action site-signin" href="/academy/?action=signin">Sign In</a>
+        <a class="site-action site-apply" href="#apply" data-apply-placeholder>Apply Now</a>
+        <button class="site-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
   <main class="art-shell">
     <h1 class="sr">Roux Life Coach Academy</h1>
     <section class="slice top-art" aria-label="Roux Life Coach Academy introduction and demo">
@@ -243,7 +307,7 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
     let client;const getClient=()=>client||(client=window.supabase?.createClient('https://dwkjwzissuaahieapkxo.supabase.co','sb_publishable_KyYzYYxFcf7icqODS0WEcw_mBmEvb-_'));
     document.querySelectorAll('[data-apply-placeholder]').forEach(button=>button.addEventListener('click',event=>event.preventDefault()));\n    const open=event=>{event?.preventDefault();modal.hidden=false;document.body.style.overflow='hidden';requestAnimationFrame(()=>email.focus())};
     const close=()=>{modal.hidden=true;document.body.style.overflow='';message.textContent='';password.value=''};
-    document.querySelector('.nav-demo')?.addEventListener('click',open);
+    document.querySelectorAll('.nav-demo,.site-signin').forEach(button=>button.addEventListener('click',open));
     form.querySelector('.auth-close').addEventListener('click',close);
     modal.addEventListener('click',event=>{if(event.target===modal)close()});
     document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!modal.hidden)close()});
@@ -255,6 +319,7 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
       const value=email.value.trim();message.className='auth-message';if(!value){message.textContent='Enter your username email first.';email.focus();return}
       try{const authClient=getClient();if(!authClient)throw new Error('Recovery is temporarily unavailable.');const result=await authClient.auth.resetPasswordForEmail(value,{redirectTo:location.origin+'/academy/'});if(result.error)throw result.error;message.className='auth-message success';message.textContent='Password recovery email sent.'}catch(error){message.textContent=error.message||'Unable to send recovery email.'}
     });
+    const menuButton=document.querySelector('.site-menu-toggle');const headerNav=document.querySelector('.site-nav');menuButton?.addEventListener('click',()=>{const openMenu=menuButton.getAttribute('aria-expanded')!=='true';menuButton.setAttribute('aria-expanded',String(openMenu));headerNav?.classList.toggle('is-open',openMenu)});
   })();
   </script>
 
