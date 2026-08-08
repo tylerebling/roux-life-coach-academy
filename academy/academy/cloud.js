@@ -73,7 +73,7 @@
     const chip = document.querySelector(".profile-chip");
     if (!chip) return;
     chip.textContent = session ? (session.user.email || "My academy") : "Sign in";
-    chip.onclick = session ? async () => { if (confirm("Sign out of the academy?")) await client.auth.signOut(); } : showAuth;
+    chip.onclick = session ? async () => { if (confirm("Sign out of the academy?")) { await client.auth.signOut(); location.replace("/"); } } : showAuth;
     renderAccess();
   }
 
