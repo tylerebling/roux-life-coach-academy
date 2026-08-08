@@ -107,7 +107,16 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
 .auth-modal[hidden]{display:none}.auth-card{position:relative;width:min(440px,100%);padding:38px;border:1px solid rgba(190,139,63,.55);border-radius:22px;background:#fffaf2;color:#11281e;box-shadow:0 28px 90px rgba(0,0,0,.42)}
 .auth-close{position:absolute;right:14px;top:12px;border:0;background:transparent;color:#183629;font-size:28px;cursor:pointer}.auth-kicker{margin:0;color:#a36d25;font:800 12px Montserrat,"Segoe UI",sans-serif;letter-spacing:.17em}.auth-card h2{margin:10px 0 8px;font:700 36px/1.02 "Cormorant Garamond",Georgia,serif}.auth-copy{margin:0 0 22px;color:#536158;font:14px/1.5 Montserrat,"Segoe UI",sans-serif}.auth-card label{display:block;margin:14px 0;color:#172d23;font:800 12px Montserrat,"Segoe UI",sans-serif;letter-spacing:.04em;text-transform:uppercase}.auth-card input{display:block;width:100%;margin-top:7px;padding:14px 15px;border:1px solid #b8aa95;border-radius:9px;background:#fff;color:#111;font:16px Montserrat,"Segoe UI",sans-serif;outline:none}.auth-card input:focus{border-color:#b97b23;box-shadow:0 0 0 3px rgba(185,123,35,.15)}.auth-submit{width:100%;margin-top:10px;padding:14px;border:1px solid #173829;border-radius:9px;background:linear-gradient(180deg,#315943,#1f4231);color:#fff;font:800 14px Montserrat,"Segoe UI",sans-serif;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;box-shadow:0 5px 12px rgba(31,66,49,.22)}.auth-submit:disabled{opacity:.65;cursor:wait}.auth-recover{margin-top:14px;border:0;background:transparent;color:#765127;font:700 13px Montserrat,"Segoe UI",sans-serif;text-decoration:underline;cursor:pointer}.auth-message{min-height:20px;margin:14px 0 0;color:#8b3328;font:700 13px/1.4 Montserrat,"Segoe UI",sans-serif}.auth-message.success{color:#24583c}
 
-  </style>
+  
+/* Photorealistic phone treatment */
+.top-art>.hero-phone-ui{padding:.72%;border-width:clamp(3px,.46vw,7px);border-color:#090d0b;border-radius:16%/7.4%;background:linear-gradient(105deg,#6b726e 0%,#171c19 6%,#050706 48%,#262d29 92%,#747b77 100%);box-shadow:0 18px 24px rgba(11,18,14,.34),0 5px 8px rgba(11,18,14,.25),inset 2px 0 2px rgba(255,255,255,.34),inset -2px 0 2px rgba(255,255,255,.12)}
+.top-art>.hero-phone-ui::before{left:35%;top:1.05%;width:30%;height:4.9%;border-radius:0 0 999px 999px;background:linear-gradient(180deg,#020302,#101511);box-shadow:inset 0 -1px 0 rgba(255,255,255,.08),0 1px 2px rgba(0,0,0,.35)}
+.top-art>.hero-phone-ui::after{content:"";position:absolute;z-index:5;left:-2.4%;top:22%;width:2.2%;height:10%;border-radius:4px 0 0 4px;background:linear-gradient(90deg,#2b312e,#777d79);box-shadow:0 14px 0 #4f5652,0 30px 0 #4f5652,calc(100% + 15.2vw) 8px 0 #414844}
+.phone-screen{border-radius:13.4%/6%;background:linear-gradient(180deg,#fffefa 0%,#faf5ea 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.76),inset 0 0 0 2px rgba(16,22,19,.16),inset 0 -14px 28px rgba(206,193,168,.08)}
+.phone-screen::before{content:"";position:absolute;z-index:8;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.23) 0%,rgba(255,255,255,.04) 24%,transparent 39%,transparent 72%,rgba(255,255,255,.08) 100%);mix-blend-mode:screen}
+.phone-screen::after{content:"";position:absolute;z-index:8;top:1.7%;right:8%;width:1.7%;aspect-ratio:1;border-radius:50%;background:#122019;box-shadow:-4px 0 0 #202a25;opacity:.72}
+.phone-home{height:.85%;background:#0a0e0c;box-shadow:0 1px 0 rgba(255,255,255,.45)}
+</style>
 </head>
 <body>
   <main class="art-shell">
