@@ -22,10 +22,19 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
 .hotspot:active{transform:translateY(1px) scale(.985);box-shadow:0 2px 5px rgba(41,61,48,.18),inset 0 1px 2px rgba(41,61,48,.12)}
 .hotspot:focus-visible{outline:4px solid var(--focus);outline-offset:3px;background:rgba(255,255,255,.18)}
 
-/* Persistent raised treatment for visible CTA buttons */
-.nav-demo,.nav-apply,.hero-apply,.hero-demo,.demo-launch,.bottom-stories,.bottom-apply,.bottom-demo,.footer-email{box-shadow:0 5px 0 rgba(91,58,20,.18),0 10px 22px rgba(41,61,48,.18),inset 0 1px 0 rgba(255,255,255,.72);border:1px solid rgba(157,102,29,.22)}
-.nav-demo:hover,.nav-apply:hover,.hero-apply:hover,.hero-demo:hover,.demo-launch:hover,.bottom-stories:hover,.bottom-apply:hover,.bottom-demo:hover,.footer-email:hover{filter:saturate(1.12) brightness(1.025);box-shadow:0 7px 0 rgba(91,58,20,.18),0 15px 28px rgba(41,61,48,.24),inset 0 1px 0 rgba(255,255,255,.86);transform:translateY(-3px)}
-.nav-demo:active,.nav-apply:active,.hero-apply:active,.hero-demo:active,.demo-launch:active,.bottom-stories:active,.bottom-apply:active,.bottom-demo:active,.footer-email:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(91,58,20,.2),0 4px 9px rgba(41,61,48,.18)}
+/* Real buttons replace the CTA artwork beneath them */
+.nav-demo,.nav-apply,.hero-apply,.hero-demo,.demo-launch,.bottom-stories,.bottom-apply,.bottom-demo{display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid transparent;border-radius:5px;font-family:Arial,Helvetica,sans-serif;font-weight:700;letter-spacing:.035em;text-transform:uppercase;text-decoration:none;line-height:1;color:#fff;box-shadow:0 4px 9px rgba(45,55,44,.16),inset 0 1px 0 rgba(255,255,255,.42)}
+.nav-demo::after{content:"Try the Demo"}.nav-apply::after,.hero-apply::after,.bottom-apply::after{content:"Apply Now"}.hero-demo::after,.bottom-demo::after{content:"◉  Try the Demo"}.demo-launch::after{content:"Try the Demo Now  →"}.bottom-stories::after{content:"Read Their Stories  →"}
+.nav-apply,.hero-apply,.bottom-apply{background:linear-gradient(180deg,#cf963e 0%,#b97b23 100%);border-color:#ad711f;color:#fff}
+.nav-demo,.hero-demo,.bottom-demo{background:#fffaf2;border-color:#b9853d;color:#253f32}
+.demo-launch,.bottom-stories{background:linear-gradient(180deg,#315943 0%,#1f4231 100%);border-color:#173829;color:#fff}
+.nav-demo,.nav-apply{font-size:clamp(5px,.53vw,9px)}
+.hero-apply,.hero-demo{font-size:clamp(6px,.67vw,11px)}
+.demo-launch{font-size:clamp(6px,.62vw,10px)}
+.bottom-stories{font-size:clamp(5px,.5vw,8px)}
+.bottom-apply,.bottom-demo{font-size:clamp(6px,.61vw,10px)}
+.nav-demo:hover,.nav-apply:hover,.hero-apply:hover,.hero-demo:hover,.demo-launch:hover,.bottom-stories:hover,.bottom-apply:hover,.bottom-demo:hover{filter:saturate(1.08) brightness(1.035);box-shadow:0 7px 14px rgba(41,61,48,.22),inset 0 1px 0 rgba(255,255,255,.58);transform:translateY(-2px)}
+.nav-demo:active,.nav-apply:active,.hero-apply:active,.hero-demo:active,.demo-launch:active,.bottom-stories:active,.bottom-apply:active,.bottom-demo:active{transform:translateY(1px);box-shadow:0 2px 4px rgba(41,61,48,.18),inset 0 1px 2px rgba(20,30,24,.16)}
 .nav-programs,.nav-courses,.nav-simulator,.nav-why,.nav-stories,.nav-resources{border-radius:4px}
 .middle-pillar,.journey,.path,.footer-programs,.footer-courses,.footer-resources,.footer-company{border-radius:10px}
 /* Header and hero */
