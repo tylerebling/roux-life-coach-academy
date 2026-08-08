@@ -19,7 +19,11 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
 .slice,.middle-art{position:relative;overflow:hidden}
 .top-art{height:calc(min(100vw,1536px) * .932)}
 .top-art>img{position:absolute;inset:0 auto auto 0}
-.top-art>.hero-phone-replacement{position:absolute;inset:auto auto auto auto;z-index:4;left:71.95%;top:31.25%;width:14.9%;height:auto;display:block;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(20,28,23,.24));pointer-events:none}
+.top-art>.hero-phone-ui{position:absolute;inset:auto;z-index:4;left:71.75%;top:31.1%;width:15.15%;aspect-ratio:.465;box-sizing:border-box;padding:1.15%;overflow:hidden;border:clamp(2px,.38vw,6px) solid #111815;border-radius:15%/7%;background:linear-gradient(145deg,#29302d 0%,#080b0a 48%,#2a302d 100%);color:#15271f;box-shadow:0 13px 25px rgba(20,28,23,.32),inset 0 0 0 1px rgba(255,255,255,.24);font-family:Montserrat,"Segoe UI",sans-serif;pointer-events:none}
+.hero-phone-ui::before{content:"";position:absolute;z-index:3;left:34%;top:1.2%;width:32%;height:4.4%;border-radius:0 0 18px 18px;background:#080b0a}
+.phone-screen{position:relative;width:100%;height:100%;box-sizing:border-box;overflow:hidden;padding:8.5% 7% 6%;border-radius:12%/5.4%;background:linear-gradient(180deg,#fffefb 0%,#fbf7ee 100%);box-shadow:inset 0 0 0 1px rgba(21,39,31,.13)}
+.phone-status,.phone-heading,.phone-progress-row,.phone-activity{display:flex;align-items:center}.phone-status{justify-content:space-between;font-size:clamp(3px,.33vw,5.5px);font-weight:800}.phone-brand{margin-top:5%;color:#b47724;font-size:clamp(3px,.31vw,5.2px);font-weight:800;letter-spacing:.12em}.phone-heading{justify-content:space-between;margin-top:3%;font:700 clamp(5px,.54vw,9px)/1.1 "Cormorant Garamond",Georgia,serif}.phone-rule{height:1px;margin:5% 0;background:#d9d0c1}.phone-progress-row{gap:7%}.phone-ring{display:grid;place-items:center;width:34%;aspect-ratio:1;border-radius:50%;background:conic-gradient(#174d38 0 78%,#e5e0d5 78% 100%);font-size:clamp(5px,.62vw,10px);font-weight:800}.phone-ring::before{content:"";position:absolute;width:24%;aspect-ratio:1;border-radius:50%;background:#fffdf8}.phone-ring span{position:relative;z-index:1}.phone-progress-copy{font-size:clamp(3px,.31vw,5.3px);font-weight:800;line-height:1.3}.phone-next{margin-top:7%;padding:7%;border-radius:7%;background:linear-gradient(135deg,#d99a31,#bc7419);color:#fff;box-shadow:0 3px 7px rgba(129,78,20,.22)}.phone-label{font-size:clamp(3px,.28vw,4.8px);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.phone-next-title{margin-top:3%;font:700 clamp(4px,.46vw,7.8px)/1.15 "Cormorant Garamond",Georgia,serif}.phone-pill{display:inline-block;margin-top:5%;padding:2.5% 6%;border-radius:999px;background:#fff;color:#965b15;font-size:clamp(2.5px,.25vw,4.3px);font-weight:800}.phone-recent{margin:7% 0 3%;font-size:clamp(3px,.3vw,5px);font-weight:800;text-transform:uppercase}.phone-activity{gap:5%;padding:4% 0;border-top:1px solid #e6dfd3}.phone-dot{flex:0 0 13%;aspect-ratio:1;border-radius:50%;background:#f0e4cf;box-shadow:inset 0 0 0 1px #d8c5a3}.phone-activity strong{display:block;font-size:clamp(3px,.28vw,4.8px);line-height:1.2}.phone-activity small{display:block;margin-top:2%;color:#7a817d;font-size:clamp(2px,.22vw,3.8px)}.phone-home{position:absolute;left:35%;bottom:2.2%;width:30%;height:1%;border-radius:99px;background:#101411}
+@media(max-width:700px){.top-art>.hero-phone-ui{left:71.5%;top:30.8%;width:15.7%}}
 .bottom-art{height:calc(min(100vw,1536px) * 1.033)}
 .bottom-art>img{position:absolute;left:0;top:calc(min(100vw,1536px) * -1.075)}
 .hotspot{position:absolute;z-index:10;display:block;border-radius:7px;cursor:pointer;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:rgba(200,139,43,.24);transition:background-color .2s ease,box-shadow .2s ease,transform .2s ease,filter .2s ease}
@@ -110,7 +114,23 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
     <h1 class="sr">Roux Life Coach Academy</h1>
     <section class="slice top-art" aria-label="Roux Life Coach Academy introduction and demo">
       <img src="https://raw.githubusercontent.com/tylerebling/roux-life-coach-academy/fa1674213dd51b8c7d0970c1782dde28b4ad07cf/public-assets/roux-master-full-v3.webp" alt="Roux Life Coach Academy landing page introduction and demo experience">
-      <img class="hero-phone-replacement" src="https://raw.githubusercontent.com/tylerebling/roux-life-coach-academy/fa1674213dd51b8c7d0970c1782dde28b4ad07cf/public-assets/hero-phone-crisp.svg" alt="Student dashboard showing course progress and recent activity">
+      <div class="hero-phone-ui" aria-label="Student dashboard showing course progress and recent activity">
+        <div class="phone-screen">
+          <div class="phone-status"><span>9:41</span><span>● Wi-Fi ▰</span></div>
+          <div class="phone-brand">MY DASHBOARD</div>
+          <div class="phone-heading"><span>Welcome back, Coach.</span><span>⌁</span></div>
+          <div class="phone-rule"></div>
+          <div class="phone-progress-row">
+            <div class="phone-ring"><span>78%</span></div>
+            <div class="phone-progress-copy">Certification<br>in progress</div>
+          </div>
+          <div class="phone-next"><div class="phone-label">Next up</div><div class="phone-next-title">Business Building Workshop</div><span class="phone-pill">Continue →</span></div>
+          <div class="phone-recent">Recent activity</div>
+          <div class="phone-activity"><span class="phone-dot"></span><span><strong>Lesson completed</strong><small>Smart Coach Framework</small></span></div>
+          <div class="phone-activity"><span class="phone-dot"></span><span><strong>Quiz passed</strong><small>Life Coach Certification</small></span></div>
+          <span class="phone-home"></span>
+        </div>
+      </div>
       <a class="hotspot nav-programs" href="/academy/?action=programs"><span class="sr">Programs</span></a>
       <a class="hotspot nav-courses" href="/academy/?action=courses"><span class="sr">Courses</span></a>
       <a class="hotspot nav-simulator" href="/academy/?action=demo"><span class="sr">Smart Coach Simulator</span></a>
