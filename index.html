@@ -133,6 +133,14 @@ img{display:block;width:100%;height:auto;user-select:none;filter:saturate(1.09) 
 .backend-stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:5%;border:1px solid #e2d9ca;border-radius:7%;background:#fff}.backend-stats div{padding:7% 4%;text-align:center;border-right:1px solid #e8e0d4}.backend-stats div:last-child{border:0}.backend-stats b,.backend-stats small{display:block}.backend-stats b{color:#184532;font:700 clamp(5px,.55vw,9px) "Cormorant Garamond",serif}.backend-stats small{margin-top:2%;color:#747c77;font-size:clamp(2px,.19vw,3.3px)}
 .backend-next{margin-top:5%;padding:5%;border-radius:6%;background:#173e2e;color:#fff}.backend-next span,.backend-next strong,.backend-next small{display:block}.backend-next span{color:#dfb66f;font-size:clamp(2px,.2vw,3.5px);font-weight:800;letter-spacing:.06em}.backend-next strong{margin-top:3%;font:700 clamp(4px,.43vw,7.3px) "Cormorant Garamond",serif}.backend-next small{margin-top:2%;font-size:clamp(2px,.18vw,3.1px);opacity:.7}
 .backend-week{display:grid;grid-template-columns:1fr 1fr;gap:3%;margin-top:5%;font-size:clamp(2px,.2vw,3.5px)}.backend-week strong{grid-column:1/-1;color:#173e2e}.backend-week span{padding:3%;border-radius:4px;background:#f0eadf;color:#626b65}
+
+/* Replace baked header labels with crisp real navigation tabs */
+.nav-programs,.nav-courses,.nav-simulator,.nav-why,.nav-stories,.nav-resources{display:flex;align-items:center;justify-content:center;z-index:12;overflow:visible;border-radius:3px;background:#fffdf9;color:#101d18;font-family:Montserrat,"Segoe UI",sans-serif;font-size:clamp(5px,.58vw,9.5px);font-weight:800;letter-spacing:-.015em;line-height:1;text-decoration:none;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;box-shadow:0 0 0 4px #fffdf9;transition:color .18s ease,box-shadow .18s ease,transform .18s ease}
+.nav-programs::after{content:"Programs  ⌄"}.nav-courses::after{content:"Courses  ⌄"}.nav-simulator::after{content:"Smart Simulator™"}.nav-why::after{content:"Why Roux Life"}.nav-stories::after{content:"Success Stories"}.nav-resources::after{content:"Resources  ⌄"}
+.nav-programs:hover,.nav-courses:hover,.nav-simulator:hover,.nav-why:hover,.nav-stories:hover,.nav-resources:hover{background:#fffdf9;color:#a96e20;box-shadow:0 0 0 4px #fffdf9,0 3px 0 #c58a35;transform:translateY(-1px)}
+.nav-programs:focus-visible,.nav-courses:focus-visible,.nav-simulator:focus-visible,.nav-why:focus-visible,.nav-stories:focus-visible,.nav-resources:focus-visible{outline:2px solid #b77a27;outline-offset:4px;background:#fffdf9}
+.top-art>img:first-child{filter:contrast(1.035) saturate(1.025);image-rendering:auto}
+.hero-phone-ui,.hero-phone-ui *{text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased}
 </style>
 </head>
 <body>
