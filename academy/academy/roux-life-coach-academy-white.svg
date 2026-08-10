@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 170" role="img" aria-labelledby="title description">
+  <title id="title">Roux Life Coach Academy</title>
+  <desc id="description">White Roux Life Coach Academy wordmark</desc>
+  <g fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" opacity=".96">
+    <path d="M280 40c-2-18 0-31 6-38 7 10 8 23 2 39"/>
+    <path d="M282 33c-13-6-22-14-27-25 14 1 24 8 30 21"/>
+    <path d="M287 27c11-6 19-14 23-24-13 2-21 9-25 20"/>
+  </g>
+  <text x="280" y="104" fill="#fff" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="55" letter-spacing="8">ROUX LIFE</text>
+  <line x1="76" y1="124" x2="484" y2="124" stroke="#fff" stroke-width="1" opacity=".48"/>
+  <text x="280" y="153" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="8">COACH ACADEMY</text>
+</svg>
+
