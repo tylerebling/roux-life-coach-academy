@@ -21,7 +21,7 @@
   }
   function renderLessons(){
     const grid=$("#lessonQaGrid");if(!grid)return;
-    grid.innerHTML=LESSONS.map((title,index)=>{const lesson=index+1,pad=String(lesson).padStart(2,"0");return `<article class="lesson-qa-card"><span class="lesson-qa-number">${pad}</span><div class="lesson-qa-copy"><span>LESSON ${pad} · ADMIN REVIEW</span><h3>${esc(title)}</h3><div class="lesson-qa-actions"><button data-open-lesson="${pad}">Open lesson</button><button data-open-lab="${pad}">Learning lab</button></div></div></article>`}).join("");
+    grid.innerHTML=LESSONS.map((title,index)=>{const lesson=index+1,pad=String(lesson).padStart(2,"0");return `<article class="lesson-qa-card"><span class="lesson-qa-number">${pad}</span><div class="lesson-qa-copy"><span>LESSON ${pad} · ADMIN REVIEW</span><h3>${esc(title)}</h3><div class="lesson-qa-actions"><button data-open-lesson="${pad}">Open lesson</button>${lesson===1?`<button data-open-lesson="${pad}">Workbook & quiz</button>`:`<button data-open-lab="${pad}">Learning lab</button>`}</div></div></article>`}).join("");
   }
   function openAdminLesson(pad,lab=false){const file=lab?"LEARNING_LAB.html":"index.html";window.open(`/academy/lessons/lesson-${pad}/${file}?adminPreview=1`,"_blank","noopener")}
   function renderLearners(){
