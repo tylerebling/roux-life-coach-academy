@@ -1,0 +1,65 @@
+/* Roux Life Coach Academy course palette - color only */
+:root{
+  --forest:#52654C;
+  --forest2:#7D936D;
+  --green:#52654C;
+  --cream:#FBF8F2;
+  --linen:#DECDB7;
+  --sage:#7D936D;
+  --terra:#B87928;
+  --gold:#D29A3A;
+  --ink:#202820;
+  --good:#7D936D;
+  --bad:#B87928;
+}
+
+/* Interactive masterclass shell: Lessons 2-19 */
+html,body{background:#202820;color:#FBF8F2}
+.stage{background:#52654C}
+.veil{background:linear-gradient(90deg,rgba(32,40,32,.76) 0%,rgba(82,101,76,.62) 43%,rgba(125,147,109,.22) 72%,rgba(32,40,32,.08) 100%)}
+.stage:after{background:linear-gradient(112deg,transparent 38%,rgba(232,199,124,.14) 48%,transparent 58%)}
+.brand,.kicker,.lens-label,.focus-label{color:#E8C77C}
+.rule,.intro-line{background:#D29A3A}
+.card{border-color:#D4C9B9;background:#FBF8F2;color:#202820}
+.card.revealed:hover,.card.is-active{border-color:#D29A3A}
+.card.is-active{box-shadow:0 0 0 2px rgba(210,154,58,.22),0 16px 38px rgba(32,40,32,.18)}
+.marker,.answer .letter{border-color:#D29A3A;background:#D29A3A;color:#202820}
+.diagram,.lens-panel,.concept-focus,.question-panel{border-color:#D4C9B9;background:rgba(251,248,242,.94);color:#202820}
+.diagram-inner,.lens-support,.prompt,.feedback{border-color:#D4C9B9;background:#F3EFE7;color:#202820}
+.lens-insight,.focus-text,.question-panel h1{color:#202820}
+.answer{border-color:#D4C9B9;background:#FBF8F2;color:#202820}
+.answer:hover{border-color:#D29A3A;background:#F3EFE7}
+.answer:focus-visible,.round:focus-visible{outline-color:#D29A3A}
+.answer.selected.correct{border-color:#7D936D;background:#DCE5D5;color:#202820}
+.answer.selected.wrong{border-color:#B87928;background:#E6D9C7;color:#202820}
+.feedback strong{color:#52654C}
+.continue,.start-card button{border-color:#7D936D;background:#7D936D;color:#FFFDF8}
+.continue:hover,.start-card button:hover{background:#52654C;color:#FFFDF8}
+.controls{border-color:#D4C9B9;background:#202820;color:#FBF8F2}
+.round{border-color:#D4C9B9;background:#52654C;color:#FBF8F2}
+.round:hover{border-color:#D29A3A;background:#7D936D}
+.meta,.small{color:#FBF8F2}
+.track{background:#E6D9C7}
+.fill{background:#D29A3A}
+.caption{border-color:#D4C9B9;background:rgba(32,40,32,.94);color:#FBF8F2}
+.start-vignette{background:linear-gradient(90deg,rgba(32,40,32,.88),rgba(82,101,76,.56),rgba(32,40,32,.2))}
+.start-card{border-color:#D29A3A;background:rgba(32,40,32,.9);color:#FBF8F2}
+.start-card p,.intro-copy{color:#FBF8F2}
+
+/* Lesson 1 learning page */
+body:has(.wrap){background:#52654C;color:#FBF8F2}
+body:has(.wrap) header{border-color:rgba(232,199,124,.36)}
+body:has(.wrap) header a,body:has(.wrap) .lede{color:#FBF8F2}
+body:has(.wrap) .eyebrow{color:#E8C77C}
+body:has(.wrap) .panel{background:#FBF8F2;color:#202820;box-shadow:0 22px 60px rgba(32,40,32,.26)}
+body:has(.wrap) .workbook-intro,body:has(.wrap) .field .guidance,body:has(.wrap) .field .word-guide{color:#5F665D}
+body:has(.wrap) .field{border-color:#D4C9B9;background:#F3EFE7}
+body:has(.wrap) .field-number{background:#7D936D;color:#FFFDF8}
+body:has(.wrap) .field textarea{border-color:#D4C9B9;background:#FBF8F2;color:#202820}
+body:has(.wrap) .field textarea:focus{border-color:#D29A3A;box-shadow:0 0 0 3px rgba(210,154,58,.18)}
+body:has(.wrap) .autosave-note,body:has(.wrap) .req.done{color:#52654C}
+body:has(.wrap) .q{border-color:#D4C9B9;background:#F3EFE7;color:#202820}
+body:has(.wrap) .button{border-color:#7D936D;background:#7D936D;color:#FFFDF8}
+body:has(.wrap) .button:hover{background:#52654C;color:#FFFDF8}
+body:has(.wrap) .result,body:has(.wrap) .requirements{border-color:#D4C9B9;background:#F3EFE7;color:#202820}
+
