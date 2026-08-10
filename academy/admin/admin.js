@@ -3,6 +3,9 @@
   const SUPABASE_KEY="sb_publishable_KyYzYYxFcf7icqODS0WEcw_mBmEvb-_";
   const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
   let data=null,session=null;
+  const LESSONS=[
+    "What Is a Life Coach?","The ROUX Coaching Method","Stories, Beliefs, and Protective Patterns","Values, Identity, and Authentic Direction","Vulnerability and Emotional Armor","Practicing Courage in Real Life","Shame, Guilt, and the Inner Critic","Self-Compassion, Repair, and Resilience","Attachment Patterns, Emotional Safety, and Choice","Emotional Connection and Healthy Communication","Healthy Boundaries Without Guilt","Conflict, Requests, and Difficult Conversations","Navigating Change, Grief, and Uncertainty","Rediscovering Purpose and Direction","Values-Based Goals and Practical Roadmaps","Habits, Setbacks, and Sustainable Change","Core Coaching Skills and Powerful Questions","Structuring an Effective Coaching Session","Scope, Ethics, Referral, and Client Safety"
+  ];
   const $=selector=>document.querySelector(selector);
   const esc=value=>String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
   const date=value=>value?new Date(value).toLocaleString():"—";
@@ -14,8 +17,13 @@
   function render(){
     const learners=data.learners||[],enrolled=learners.filter(x=>x.enrollment),active=learners.filter(x=>x.enrollment?.status==="active"),completed=learners.filter(x=>x.enrollment?.status==="completed"),valid=(data.certificates||[]).filter(x=>x.status==="valid");
     $("#metrics").innerHTML=metric(learners.length,"Accounts")+metric(enrolled.length,"Enrolled")+metric(active.length,"Active learners")+metric(completed.length,"Graduates")+metric(valid.length,"Valid certificates");
-    renderLearners();renderCertificates();renderBilling();renderCourse();renderAudit();
+    renderLessons();renderLearners();renderCertificates();renderBilling();renderCourse();renderAudit();
   }
+  function renderLessons(){
+    const grid=$("#lessonQaGrid");if(!grid)return;
+    grid.innerHTML=LESSONS.map((title,index)=>{const lesson=index+1,pad=String(lesson).padStart(2,"0");return `<article class="lesson-qa-card"><span class="lesson-qa-number">${pad}</span><div class="lesson-qa-copy"><span>LESSON ${pad} · ADMIN REVIEW</span><h3>${esc(title)}</h3><div class="lesson-qa-actions"><button data-open-lesson="${pad}">Open lesson</button><button data-open-lab="${pad}">Learning lab</button></div></div></article>`}).join("");
+  }
+  function openAdminLesson(pad,lab=false){const file=lab?"LEARNING_LAB.html":"index.html";window.open(`/academy/lessons/lesson-${pad}/${file}?adminPreview=1`,"_blank","noopener")}
   function renderLearners(){
     const query=$("#learnerSearch").value.trim().toLowerCase();
     const rows=(data.learners||[]).filter(x=>`${x.fullName} ${x.email}`.toLowerCase().includes(query));
@@ -29,6 +37,9 @@
   async function act(body,success){await invoke(body);toast(success);await load()}
   document.addEventListener("click",async event=>{const b=event.target.closest("button");if(!b)return;try{
     if(b.dataset.tab){document.querySelectorAll(".tabs button,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.getElementById(b.dataset.tab).classList.add("active")}
+    if(b.dataset.openLesson)openAdminLesson(b.dataset.openLesson,false);
+    if(b.dataset.openLab)openAdminLesson(b.dataset.openLab,true);
+    if(b.dataset.learnerView)window.open("/academy/","_blank","noopener");
     if(b.dataset.resetEmail){const result=await client.auth.resetPasswordForEmail(b.dataset.resetEmail,{redirectTo:location.origin+location.pathname});if(result.error)throw result.error;toast("Password recovery email sent.")}
     if(b.dataset.status)await act({action:"update-enrollment",enrollmentId:b.dataset.status,status:b.dataset.value},"Learner access updated.");
     if(b.dataset.resetProgress){if(await confirmAction("Reset all lesson progress?","This permanently removes the learner’s saved lesson progress. Type confirmation is handled securely." )!==null)await act({action:"reset-progress",enrollmentId:b.dataset.resetProgress,confirm:"RESET"},"Learner progress reset.")}
@@ -39,9 +50,10 @@
   $("#signInForm").addEventListener("submit",async event=>{event.preventDefault();$("#authMessage").textContent="Signing in…";const result=await client.auth.signInWithPassword({email:$("#email").value.trim(),password:$("#password").value});if(result.error){$("#authMessage").textContent=result.error.message;return}session=result.data.session;await start()});
   $("#forgotPassword").onclick=async()=>{const email=$("#email").value.trim();if(!email){$("#authMessage").textContent="Enter your email first.";return}const result=await client.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});$("#authMessage").textContent=result.error?result.error.message:"Recovery email sent."};
   $("#signOut").onclick=async()=>{await client.auth.signOut();location.reload()};
+  $("#learnerViewToggle").onclick=()=>window.open("/academy/","_blank","noopener");
   $("#refresh").onclick=()=>load().then(()=>toast("Records refreshed.")).catch(error=>toast(error.message));
   $("#learnerSearch").oninput=renderLearners;
   $("#courseForm").onsubmit=async event=>{event.preventDefault();try{await act({action:"update-course",priceCents:Math.round(Number($("#coursePrice").value||0)*100),stripePriceId:$("#stripePriceId").value,isPublished:$("#coursePublished").checked},"Course settings saved.")}catch(error){toast(error.message)}};
-  async function start(){try{await load();$("#accessPanel").hidden=true;$("#adminApp").hidden=false;$("#signOut").hidden=false;$("#adminIdentity").textContent=session.user.email||"Administrator"}catch(error){$("#authMessage").textContent=error.message==="ADMIN_REQUIRED"?"This account does not have administrator access.":error.message;await client.auth.signOut()}}
+  async function start(){try{await load();$("#accessPanel").hidden=true;$("#adminApp").hidden=false;$("#signOut").hidden=false;$("#learnerViewToggle").hidden=false;$("#adminIdentity").textContent=session.user.email||"Administrator"}catch(error){$("#authMessage").textContent=error.message==="ADMIN_REQUIRED"?"This account does not have administrator access.":error.message;await client.auth.signOut()}}
   client.auth.getSession().then(({data})=>{session=data.session;if(session)start();else $("#adminIdentity").textContent="Administrator sign-in"});
 })();
