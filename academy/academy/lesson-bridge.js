@@ -58,6 +58,43 @@
     }
     bar.querySelector("[data-status]").textContent = record.complete ? `Lesson ${lesson} complete ✓` : `Lesson ${lesson} · requirements in progress`;
   };
+  const renderAdminPreview = () => {
+    if (!window.ROUX_ADMIN_PREVIEW || document.getElementById("rouxAdminPreviewBar")) return;
+    const bar = document.createElement("aside");
+    bar.id = "rouxAdminPreviewBar";
+    bar.setAttribute("aria-label", "Administrator lesson preview controls");
+    bar.innerHTML = `<strong>ADMIN QA</strong><label>Lesson <select aria-label="Choose lesson">${Array.from({length:19},(_,i)=>`<option value="${i+1}" ${i+1===lesson?"selected":""}>${String(i+1).padStart(2,"0")}</option>`).join("")}</select></label><button data-qa="back">Previous</button><button data-qa="play">Play / pause</button><button data-qa="next">Next</button><button data-qa="learner">Learner view</button><a href="/academy/admin/">Exit QA</a>`;
+    document.body.appendChild(bar);
+    const style = document.createElement("style");
+    style.textContent = `#rouxAdminPreviewBar{position:fixed;z-index:100000;top:10px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:7px;padding:7px 9px;border:1px solid #d4c9b9;border-radius:12px;background:#fbf8f2f2;color:#202820;box-shadow:0 10px 30px #20282033;backdrop-filter:blur(14px);font:700 12px/1.1 Arial,sans-serif}#rouxAdminPreviewBar strong{color:#52654c;letter-spacing:.1em;font-size:10px}#rouxAdminPreviewBar label{display:flex;align-items:center;gap:5px}#rouxAdminPreviewBar select,#rouxAdminPreviewBar button,#rouxAdminPreviewBar a{min-height:32px;border:1px solid #d4c9b9;border-radius:8px;background:#fff;color:#202820;padding:6px 8px;text-decoration:none;font:700 11px Arial,sans-serif;cursor:pointer}#rouxAdminPreviewBar button:hover,#rouxAdminPreviewBar a:hover{background:#52654c;color:#fff;border-color:#52654c}#rouxAdminPreviewBar [data-qa="learner"]{background:#e8c77c;border-color:#e8c77c}@media(max-width:760px){#rouxAdminPreviewBar{top:5px;max-width:calc(100vw - 10px);overflow-x:auto;justify-content:flex-start}#rouxAdminPreviewBar strong,#rouxAdminPreviewBar label{display:none}}`;
+    document.head.appendChild(style);
+    bar.querySelector("select").onchange = event => {
+      location.href = `../lesson-${String(event.target.value).padStart(2,"0")}/index.html?adminPreview=1`;
+    };
+    bar.querySelector('[data-qa="back"]').onclick = () => {
+      const control = document.getElementById("back");
+      if (control) control.click();
+      else if (lesson > 1) location.href = `../lesson-${String(lesson-1).padStart(2,"0")}/index.html?adminPreview=1`;
+    };
+    bar.querySelector('[data-qa="next"]').onclick = () => {
+      const control = document.getElementById("next");
+      if (control) control.click();
+      else if (lesson < 19) location.href = `../lesson-${String(lesson+1).padStart(2,"0")}/index.html?adminPreview=1`;
+    };
+    bar.querySelector('[data-qa="play"]').onclick = () => {
+      const control = document.getElementById("toggle");
+      if (control) { control.click(); return; }
+      const media = document.querySelector("video,audio");
+      if (media) media.paused ? media.play().catch(()=>{}) : media.pause();
+    };
+    bar.querySelector('[data-qa="learner"]').onclick = () => {
+      const clean = new URL(location.href);
+      clean.searchParams.delete("adminPreview");
+      location.href = clean.pathname + clean.search + clean.hash;
+    };
+  };
+  window.addEventListener("roux-admin-preview-ready", renderAdminPreview);
+  if (window.ROUX_ADMIN_PREVIEW) renderAdminPreview();
   document.addEventListener("input", () => setTimeout(sync, 0));
   document.addEventListener("change", () => setTimeout(sync, 0));
   document.addEventListener("click", () => setTimeout(sync, 150));
