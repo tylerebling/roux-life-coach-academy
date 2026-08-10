@@ -9,7 +9,7 @@
 <body>
   <header class="topbar">
     <a class="brand" href="../"><img src="../academy/roux-logo.webp" alt="Roux Life Coaching"><span>Academy Administration</span></a>
-    <div class="top-actions"><span id="adminIdentity">Verifying access…</span><button id="signOut" hidden>Sign out</button></div>
+    <div class="top-actions"><button id="learnerViewToggle" class="view-toggle" hidden><span aria-hidden="true">◉</span> Learner view</button><span id="adminIdentity">Verifying access…</span><button id="signOut" hidden>Sign out</button></div>
   </header>
 
   <main>
@@ -35,14 +35,24 @@
       <div class="metrics" id="metrics"></div>
 
       <nav class="tabs" aria-label="Administration sections">
-        <button class="active" data-tab="learners">Learners</button>
+        <button class="active" data-tab="lessons">Lesson QA</button>
+        <button data-tab="learners">Learners</button>
         <button data-tab="certificates">Certificates</button>
         <button data-tab="billing">Billing</button>
         <button data-tab="course">Course settings</button>
         <button data-tab="audit">Audit log</button>
       </nav>
 
-      <section class="panel active" id="learners">
+      <section class="panel active" id="lessons">
+        <div class="panel-heading">
+          <div><p class="eyebrow">QUALITY CONTROL</p><h2>Review every lesson</h2><p class="helper">Administrators can open any lesson, move freely through scenes, pause narration, inspect interactions, and switch to the learner experience.</p></div>
+          <button class="learner-preview-button" data-learner-view="true">Open learner dashboard</button>
+        </div>
+        <div class="qa-legend"><span><i class="status-dot ready"></i> Available for review</span><span>Admin preview does not change learner progress</span></div>
+        <div class="lesson-qa-grid" id="lessonQaGrid"></div>
+      </section>
+
+      <section class="panel" id="learners">
         <div class="panel-heading"><div><p class="eyebrow">LEARNER DIRECTORY</p><h2>Accounts and progress</h2></div><input id="learnerSearch" type="search" placeholder="Search name or email"></div>
         <div class="table-wrap"><table><thead><tr><th>Learner</th><th>Access</th><th>Progress</th><th>Final exam</th><th>Last sign-in</th><th>Actions</th></tr></thead><tbody id="learnerRows"></tbody></table></div>
       </section>
