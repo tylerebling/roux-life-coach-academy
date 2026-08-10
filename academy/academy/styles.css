@@ -664,68 +664,68 @@ footer span { font-size: 12px; }
 
 /* Roux Life Academy dashboard palette - color-only override */
 .student-dashboard{
-  --dash-forest:#3E4939;
-  --dash-deep:#3E4939;
-  --dash-cream:#F7F3F0;
-  --dash-ivory:#FFFFFF;
-  --dash-gold:#B89E80;
-  background:#F7F3F0;
-  color:#261F15;
+  --dash-forest:#52654C;
+  --dash-deep:#52654C;
+  --dash-cream:#F3EFE7;
+  --dash-ivory:#FBF8F2;
+  --dash-gold:#D29A3A;
+  background:#F3EFE7;
+  color:#202820;
 }
-.dashboard-canvas{background:#F7F3F0;color:#261F15}
-.dashboard-sidebar{background:#F2EDE7;color:#261F15;border-color:#DFD9CE;box-shadow:12px 0 34px rgba(38,31,21,.06)}
-.dashboard-logo img{filter:brightness(0) saturate(100%) invert(25%) sepia(12%) saturate(606%) hue-rotate(61deg) brightness(93%) contrast(88%)}
-.dashboard-sidebar nav a,.sidebar-lower>a{color:#3E4939}
-.dashboard-sidebar nav a .nav-icon,.sidebar-lower>a .nav-icon{color:#AB9E8E}
-.dashboard-sidebar nav a .nav-copy small,.sidebar-lower>a .nav-copy small{color:#AB9E8E}
-.dashboard-sidebar nav a.active{border-color:#3E4939;background:#3E4939;color:#FFFFFF}
-.dashboard-sidebar nav a.active .nav-icon,.dashboard-sidebar nav a.active .nav-copy small{color:#D8C599}
-.dashboard-sidebar nav a:hover,.sidebar-lower>a:hover{background:#FFFFFF;color:#3E4939}
-.dashboard-sidebar nav a.active:hover{background:#3E4939;color:#FFFFFF}
-.sidebar-lower{border-color:#DFD9CE}
-.sidebar-lower button{border-color:#DFD9CE;background:#FFFFFF;color:#261F15}
-.sidebar-lower button small{color:#AB9E8E}
-.sidebar-motto{border-color:#DFD9CE;color:#B89E80}
-.logout-link,.logout-icon{color:#3E4939}
-.mobile-nav-toggle{border-color:#DFD9CE;background:#F2EDE7;color:#261F15}
-.dashboard-welcome h1,.dashboard-welcome>div>p:last-child,.panel-heading h2,.lower-journey-heading h2,.lower-journey-heading span{color:#261F15}
-.dashboard-kicker,.card-label,.lesson-card-top p,.practice-banner>div>p{color:#B89E80}
-.mentor-welcome{border-color:#DFD9CE;background:#FFFFFF;box-shadow:0 10px 28px rgba(38,31,21,.06)}
-.mentor-quote{color:#B89E80}
-.mentor-welcome blockquote,.mentor-welcome cite{color:#261F15}
-.dashboard-card,.journey-panel,.info-card,.up-next-card{border-color:#DFD9CE;background:#FFFFFF;box-shadow:0 8px 24px rgba(38,31,21,.05)}
-.current-lesson-card{border-color:#3E4939;background:#3E4939;color:#FFFFFF}
-.lesson-card-top p,.lesson-number{color:#D8C599}
-.lesson-card-top span,.lesson-purpose,.lesson-progress-action small{color:#F2EDE7}
-.activity-row span{border-color:rgba(216,197,153,.38);color:#F2EDE7}
-.activity-row .done{border-color:#D8C599;color:#D8C599}
-.lesson-ring{background:conic-gradient(#B89E80 0 var(--lesson-progress,0%),#AB9E8E var(--lesson-progress,0%) 100%)}
-.lesson-ring:after{background:#3E4939}
-.lesson-progress-action .resume-button,.resume-button,.practice-banner>a{background:#B89E80;color:#261F15}
-.lesson-progress-action .resume-button:hover,.resume-button:hover,.practice-banner>a:hover{background:#D8C599;color:#261F15}
-.up-next-card>span:not(.lock-pill),.up-next-card>a,.panel-heading>span,.info-card>a,.empty-state>span,.task-list>div>span{color:#B89E80}
-.up-next-card h3,.progress-stat strong{color:#261F15}
-.up-next-card>p:not(.card-label),.progress-stat span,.split-stat small,.task-list small,.empty-state,.achievement-empty p,.dashboard-route-note{color:#3E4939}
-.lock-pill{background:#F2EDE7;color:#AB9E8E}
-.up-next-card>a{background:#F2EDE7}
-.up-next-card>a:after,.up-next-card>a:before{border-color:#B89E80}
-.up-next-illustration,.achievement-empty>span{background:#F2EDE7;color:#B89E80}
-.milestone-track:before{background:#DFD9CE}
-.task-list>div,.dashboard-lower-reference .split-stat,.dashboard-lower-reference .split-stat>span+span{border-color:#DFD9CE}
-.milestone i{border-color:#DFD9CE;background:#FFFFFF;color:#AB9E8E}
-.milestone b,.milestone small,.milestone span{color:#261F15}
-.milestone.complete i{border-color:#3E4939;background:#3E4939;color:#FFFFFF}
-.milestone.current i{border-color:#B89E80;background:#FFFFFF;color:#B89E80;box-shadow:0 0 0 5px rgba(216,197,153,.28)}
-.milestone.current b{color:#3E4939}
-.thin-progress{background:#F2EDE7}
-.thin-progress span{background:#3E4939}
-.progress-stat strong{border-color:#F2EDE7}
-.progress-ring-stat{background:conic-gradient(#3E4939 var(--dashboard-progress,0%),#F2EDE7 0)}
-.progress-ring-stat:before{background:#FFFFFF}
-.progress-ring-stat strong,.progress-ring-stat>span{color:#261F15}
-.practice-banner{background:#F2EDE7;color:#261F15}
-.practice-banner>.practice-seal{border-color:#B89E80;color:#B89E80}
-.community-support-strip,.next-step-banner{border-color:#DFD9CE;background-color:#F2EDE7;color:#261F15}
-.community-support-strip>a,.community-support-strip>.live-session{border-color:#DFD9CE;color:#3E4939}
-.dashboard-footer{border-color:#DFD9CE;color:#AB9E8E}
-.student-dashboard a:focus-visible,.student-dashboard button:focus-visible{outline-color:#B89E80}
+.dashboard-canvas{background:#F3EFE7;color:#202820}
+.dashboard-sidebar{background:#F3EFE7;color:#202820;border-color:#D4C9B9;box-shadow:12px 0 34px rgba(32,40,32,.06)}
+.dashboard-logo img{filter:brightness(0) saturate(100%) invert(36%) sepia(10%) saturate(742%) hue-rotate(62deg) brightness(91%) contrast(87%)}
+.dashboard-sidebar nav a,.sidebar-lower>a{color:#52654C}
+.dashboard-sidebar nav a .nav-icon,.sidebar-lower>a .nav-icon{color:#7D936D}
+.dashboard-sidebar nav a .nav-copy small,.sidebar-lower>a .nav-copy small{color:#5F665D}
+.dashboard-sidebar nav a.active{border-color:#52654C;background:#52654C;color:#FFFDF8}
+.dashboard-sidebar nav a.active .nav-icon,.dashboard-sidebar nav a.active .nav-copy small{color:#E8C77C}
+.dashboard-sidebar nav a:hover,.sidebar-lower>a:hover{background:#DCE5D5;color:#52654C}
+.dashboard-sidebar nav a.active:hover{background:#52654C;color:#FFFDF8}
+.sidebar-lower{border-color:#D4C9B9}
+.sidebar-lower button{border-color:#D4C9B9;background:#FBF8F2;color:#202820}
+.sidebar-lower button small{color:#5F665D}
+.sidebar-motto{border-color:#D4C9B9;color:#D29A3A}
+.logout-link,.logout-icon{color:#52654C}
+.mobile-nav-toggle{border-color:#D4C9B9;background:#FBF8F2;color:#202820}
+.dashboard-welcome h1,.dashboard-welcome>div>p:last-child,.panel-heading h2,.lower-journey-heading h2,.lower-journey-heading span{color:#202820}
+.dashboard-kicker,.card-label,.lesson-card-top p,.practice-banner>div>p{color:#D29A3A}
+.mentor-welcome{border-color:#D4C9B9;background:#FBF8F2;box-shadow:0 10px 28px rgba(32,40,32,.06)}
+.mentor-quote{color:#D29A3A}
+.mentor-welcome blockquote,.mentor-welcome cite{color:#202820}
+.dashboard-card,.journey-panel,.info-card,.up-next-card{border-color:#D4C9B9;background:#FBF8F2;box-shadow:0 8px 24px rgba(32,40,32,.05)}
+.current-lesson-card{border-color:#52654C;background:#52654C;color:#FFFDF8}
+.lesson-card-top p,.lesson-number{color:#E8C77C}
+.lesson-card-top span,.lesson-purpose,.lesson-progress-action small{color:#FFFDF8}
+.activity-row span{border-color:rgba(232,199,124,.48);color:#FFFDF8}
+.activity-row .done{border-color:#E8C77C;color:#E8C77C}
+.lesson-ring{background:conic-gradient(#E8C77C 0 var(--lesson-progress,0%),#DCE5D5 var(--lesson-progress,0%) 100%)}
+.lesson-ring:after{background:#52654C}
+.lesson-progress-action .resume-button,.resume-button,.practice-banner>a{background:#7D936D;color:#FFFDF8}
+.lesson-progress-action .resume-button:hover,.resume-button:hover,.practice-banner>a:hover{background:#E8C77C;color:#202820}
+.up-next-card>span:not(.lock-pill),.up-next-card>a,.panel-heading>span,.info-card>a,.empty-state>span,.task-list>div>span{color:#D29A3A}
+.up-next-card h3,.progress-stat strong{color:#202820}
+.up-next-card>p:not(.card-label),.progress-stat span,.split-stat small,.task-list small,.empty-state,.achievement-empty p,.dashboard-route-note{color:#5F665D}
+.lock-pill{background:#E6D9C7;color:#5F665D}
+.up-next-card>a{background:#E6D9C7;color:#52654C}
+.up-next-card>a:after,.up-next-card>a:before{border-color:#D29A3A}
+.up-next-illustration,.achievement-empty>span{background:#DCE5D5;color:#52654C}
+.milestone-track:before{background:#D4C9B9}
+.task-list>div,.dashboard-lower-reference .split-stat,.dashboard-lower-reference .split-stat>span+span{border-color:#D4C9B9}
+.milestone i{border-color:#D4C9B9;background:#F3EFE7;color:#52654C}
+.milestone b,.milestone small,.milestone span{color:#202820}
+.milestone.complete i{border-color:#7D936D;background:#7D936D;color:#FFFDF8}
+.milestone.current i{border-color:#D29A3A;background:#FBF8F2;color:#52654C;box-shadow:0 0 0 5px rgba(232,199,124,.28)}
+.milestone.current b{color:#52654C}
+.thin-progress{background:#DCE5D5}
+.thin-progress span{background:#7D936D}
+.progress-stat strong{border-color:#E6D9C7}
+.progress-ring-stat{background:conic-gradient(#7D936D var(--dashboard-progress,0%),#DCE5D5 0)}
+.progress-ring-stat:before{background:#FBF8F2}
+.progress-ring-stat strong,.progress-ring-stat>span{color:#202820}
+.practice-banner{background:#DCE5D5;color:#202820}
+.practice-banner>.practice-seal{border-color:#D29A3A;color:#D29A3A}
+.community-support-strip,.next-step-banner{border-color:#D4C9B9;background-color:#FBF8F2;color:#202820}
+.community-support-strip>a,.community-support-strip>.live-session{border-color:#D4C9B9;color:#52654C}
+.dashboard-footer{border-color:#D4C9B9;color:#5F665D}
+.student-dashboard a:focus-visible,.student-dashboard button:focus-visible{outline-color:#D29A3A}
