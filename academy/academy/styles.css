@@ -674,7 +674,7 @@ footer span { font-size: 12px; }
 }
 .dashboard-canvas{background:#F7F3F0;color:#261F15}
 .dashboard-sidebar{background:#F2EDE7;color:#261F15;border-color:#DFD9CE;box-shadow:12px 0 34px rgba(38,31,21,.06)}
-.dashboard-logo img{filter:none}
+.dashboard-logo img{filter:brightness(0) saturate(100%) invert(25%) sepia(12%) saturate(606%) hue-rotate(61deg) brightness(93%) contrast(88%)}
 .dashboard-sidebar nav a,.sidebar-lower>a{color:#3E4939}
 .dashboard-sidebar nav a .nav-icon,.sidebar-lower>a .nav-icon{color:#AB9E8E}
 .dashboard-sidebar nav a .nav-copy small,.sidebar-lower>a .nav-copy small{color:#AB9E8E}
