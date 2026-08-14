@@ -740,3 +740,27 @@ footer span { font-size: 12px; }
     width: calc(113.636vw - 293px);
   }
 }
+
+
+/* Lesson card action hierarchy v52 — primary resume, stacked activities */
+@media (min-width: 761px) {
+  .current-lesson-card .activity-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .current-lesson-card .activity-row span {
+    min-width: 0;
+    padding: 8px 6px;
+    white-space: nowrap;
+  }
+  .current-lesson-card .lesson-progress-action {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .current-lesson-card .lesson-progress-action .resume-button {
+    width: 100%;
+    min-width: 0;
+    justify-content: space-between;
+  }
+}
