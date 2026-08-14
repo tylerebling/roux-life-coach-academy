@@ -730,3 +730,13 @@ footer span { font-size: 12px; }
 .community-support-strip>a,.community-support-strip>.live-session{border-color:#D4C9B9;color:#52654C}
 .dashboard-footer{border-color:#D4C9B9;color:#5F665D}
 .student-dashboard a:focus-visible,.student-dashboard button:focus-visible{outline-color:#D29A3A}
+
+
+/* Main dashboard canvas scale v51 — keep navigation full size */
+@media (min-width: 1200px) {
+  .dashboard-canvas {
+    zoom: .88;
+    margin-left: 293px;
+    width: calc(113.636vw - 293px);
+  }
+}
