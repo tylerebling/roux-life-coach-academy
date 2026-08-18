@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Roux Life Academy Administration</title>
-  <link rel="stylesheet" href="styles.css?release=admin-qa-v2">
+  <link rel="stylesheet" href="styles.css?release=admin-invites-v3">
 </head>
 <body>
   <header class="topbar">
@@ -41,6 +41,7 @@
         <button data-tab="billing">Billing</button>
         <button data-tab="course">Course settings</button>
         <button data-tab="audit">Audit log</button>
+        <button data-tab="admins">Invite administrator</button>
       </nav>
 
       <section class="panel active" id="lessons">
@@ -81,13 +82,34 @@
         <div class="panel-heading"><div><p class="eyebrow">SECURITY HISTORY</p><h2>Administrator audit log</h2></div></div>
         <div class="table-wrap"><table><thead><tr><th>Time</th><th>Action</th><th>Target</th><th>Administrator</th><th>Details</th></tr></thead><tbody id="auditRows"></tbody></table></div>
       </section>
+
+      <section class="panel" id="admins">
+        <div class="panel-heading"><div><p class="eyebrow">ADMINISTRATOR ACCESS</p><h2>Invite an administrator</h2><p class="helper">Send a secure invitation to a trusted administrator. Their email becomes their sign-in name, and they create their own password from the invitation.</p></div></div>
+        <div class="admin-invite-layout">
+          <article class="invite-card">
+            <p class="eyebrow">SEND INVITATION</p>
+            <form id="inviteAdminForm" class="admin-invite-form">
+              <label>Full name<input id="inviteAdminName" type="text" autocomplete="name" required></label>
+              <label>Email address<input id="inviteAdminEmail" type="email" autocomplete="email" required></label>
+              <button type="submit">Send administrator invite</button>
+            </form>
+            <p id="invitePermissionNote" class="helper"></p>
+          </article>
+          <article class="administrator-list">
+            <div><p class="eyebrow">AUTHORIZED TEAM</p><h3>Administrator accounts</h3></div>
+            <div class="table-wrap"><table><thead><tr><th>Administrator</th><th>Role</th><th>Status</th><th>Invited</th><th>Last sign-in</th></tr></thead><tbody id="administratorRows"></tbody></table></div>
+          </article>
+        </div>
+      </section>
     </section>
   </main>
+
+  <dialog id="inviteSetupDialog" class="setup-dialog"><form id="inviteSetupForm"><p class="eyebrow">ADMINISTRATOR INVITATION</p><h2>Create your administrator password</h2><p>Choose a secure password to finish activating your Roux Life Coach Academy administrator account.</p><label>New password<input id="invitePassword" type="password" autocomplete="new-password" minlength="8" required></label><label>Confirm password<input id="invitePasswordConfirm" type="password" autocomplete="new-password" minlength="8" required></label><p class="message" id="inviteSetupMessage"></p><div><button type="submit">Activate administrator account</button></div></form></dialog>
 
   <dialog id="confirmDialog"><form method="dialog"><h2 id="dialogTitle">Confirm action</h2><p id="dialogMessage"></p><label id="reasonLabel" hidden>Reason<textarea id="dialogReason"></textarea></label><div><button value="cancel">Cancel</button><button class="danger" id="dialogConfirm" value="confirm">Confirm</button></div></form></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script>
-  <script src="admin.js?release=admin-qa-v2"></script>
+  <script src="admin.js?release=admin-invites-v3"></script>
 </body>
 </html>
