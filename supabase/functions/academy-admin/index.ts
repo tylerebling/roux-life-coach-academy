@@ -36,11 +36,13 @@ async function getCourse(admin: ReturnType<typeof serviceClient>) {
 
 const allowedStatuses = new Set(["pending_payment", "active", "completed", "refunded", "revoked"]);
 
+const bootstrapAdminEmails = () => (Deno.env.get("ACADEMY_ADMIN_EMAILS") || "")
+  .split(",").map(value => value.trim().toLowerCase()).filter(Boolean);
+
 async function requireAdmin(req: Request) {
   const context = await requireUser(req);
   const record = await context.admin.from("academy_admins").select("role").eq("user_id", context.user.id).maybeSingle();
-  const bootstrapped = (Deno.env.get("ACADEMY_ADMIN_EMAILS") || "")
-    .split(",").map(value => value.trim().toLowerCase()).filter(Boolean);
+  const bootstrapped = bootstrapAdminEmails();
   const emailAllowed = !!context.user.email && bootstrapped.includes(context.user.email.toLowerCase());
   if (!record.data && !emailAllowed) throw new Error("ADMIN_REQUIRED");
   return { ...context, role: record.data?.role || "owner" };
@@ -103,15 +105,25 @@ Deno.serve(async (req) => {
           finalAttempt,
         };
       });
-      const userMap = new Map(users.map((authUser: any) => [authUser.id, authUser]));
-      const administrators = (adminRecords.data || []).map((record: any) => {
-        const authUser: any = userMap.get(record.user_id);
+      const recordMap = new Map((adminRecords.data || []).map((record: any) => [record.user_id, record]));
+      const bootstrapEmails = bootstrapAdminEmails();
+      const adminCandidates = users.filter((authUser: any) =>
+        recordMap.has(authUser.id) ||
+        authUser.user_metadata?.academy_admin_invitation === true ||
+        bootstrapEmails.includes(String(authUser.email || "").toLowerCase())
+      );
+      const administrators = adminCandidates.map((authUser: any) => {
+        const record: any = recordMap.get(authUser.id);
+        const isBootstrapOwner = bootstrapEmails.includes(String(authUser.email || "").toLowerCase());
         return {
-          userId: record.user_id,
+          userId: authUser.id,
           email: authUser?.email || "",
           fullName: authUser?.user_metadata?.full_name || authUser?.user_metadata?.name || "",
-          role: record.role,
-          invitedAt: record.created_at,
+          role: isBootstrapOwner ? "owner" : record?.role || "admin",
+          accessEnabled: isBootstrapOwner || Boolean(record),
+          protectedOwner: isBootstrapOwner,
+          isCurrentUser: authUser.id === user.id,
+          invitedAt: record?.created_at || authUser?.invited_at || authUser?.created_at || null,
           lastSignInAt: authUser?.last_sign_in_at || null,
           confirmedAt: authUser?.email_confirmed_at || authUser?.confirmed_at || null,
         };
@@ -150,6 +162,36 @@ Deno.serve(async (req) => {
 
       await audit(admin, user.id, "invite_administrator", "academy_admin", invited.data.user.id, { email, role: "admin" });
       return json({ invited: true, email, userId: invited.data.user.id });
+    }
+
+    if (action === "set-admin-access") {
+      if (role !== "owner") throw new Error("OWNER_REQUIRED");
+      const targetUserId = String(body.userId || "").trim();
+      const enabled = Boolean(body.enabled);
+      if (!targetUserId) return json({ error: "Choose an administrator account." }, 400);
+      if (targetUserId === user.id) return json({ error: "The owner cannot disable their own administrator access." }, 400);
+
+      const targetResult = await admin.auth.admin.getUserById(targetUserId);
+      const target = targetResult.data?.user;
+      if (targetResult.error || !target) return json({ error: "Administrator account not found." }, 404);
+      const targetEmail = String(target.email || "").toLowerCase();
+      if (bootstrapAdminEmails().includes(targetEmail)) return json({ error: "The protected owner account cannot be disabled." }, 400);
+
+      if (enabled) {
+        const restored = await admin.from("academy_admins").upsert({
+          user_id: targetUserId,
+          role: "admin",
+          created_by: user.id,
+          updated_at: new Date().toISOString(),
+        }, { onConflict: "user_id" });
+        if (restored.error) throw restored.error;
+      } else {
+        const disabled = await admin.from("academy_admins").delete().eq("user_id", targetUserId);
+        if (disabled.error) throw disabled.error;
+      }
+
+      await audit(admin, user.id, enabled ? "restore_administrator" : "disable_administrator", "academy_admin", targetUserId, { email: targetEmail });
+      return json({ updated: true, enabled, userId: targetUserId });
     }
 
     if (action === "update-enrollment") {
