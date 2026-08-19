@@ -5,44 +5,162 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Create Administrator Account | Roux Life Coach Academy</title>
   <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#F7F3F0">
   <style>
-    :root{--ivory:#f7f3f0;--cream:#f2ede7;--sage:#3e4939;--gold:#b89e80;--light-gold:#d8c599;--line:#dfd9ce;--ink:#261f15;--muted:#756d63;--white:#fff}
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 78% 12%,rgba(216,197,153,.28),transparent 32%),linear-gradient(145deg,var(--ivory),var(--cream));color:var(--ink);font-family:Inter,Arial,sans-serif}
-    main{width:min(980px,100%);display:grid;grid-template-columns:.82fr 1.18fr;overflow:hidden;border:1px solid var(--line);border-radius:28px;background:rgba(255,255,255,.86);box-shadow:0 28px 80px rgba(62,73,57,.16)}
-    .brand-panel{position:relative;min-height:620px;padding:54px 44px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;background:linear-gradient(155deg,rgba(62,73,57,.96),rgba(38,48,34,.98))}
-    .brand-panel:after{content:"";position:absolute;right:-100px;bottom:-135px;width:360px;height:360px;border:1px solid rgba(216,197,153,.45);border-radius:50%}
-    .leaf{font-size:2rem;color:var(--light-gold)}.wordmark{font:500 2rem Georgia,serif;letter-spacing:.14em}.wordmark span{display:block;margin-top:10px;font:800 .72rem Inter,Arial,sans-serif;letter-spacing:.26em;color:var(--light-gold)}
-    .brand-copy{position:relative;z-index:1}.brand-copy p{color:#e8e3d9;line-height:1.7}.brand-copy strong{display:block;font:500 2rem/1.08 Georgia,serif}
-    .setup{padding:54px 52px}.eyebrow{margin:0 0 14px;color:#8b7156;font-size:.72rem;font-weight:900;letter-spacing:.16em}.setup h1{margin:0;font:600 clamp(2.3rem,5vw,4rem)/.98 Georgia,serif}.intro{color:var(--muted);line-height:1.6}
-    form{display:grid;gap:14px;margin-top:28px}label{display:grid;gap:7px;font-size:.8rem;font-weight:800}input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:var(--white);color:var(--ink);font:inherit}input[readonly]{background:var(--cream);color:var(--sage)}input:focus{outline:3px solid rgba(216,197,153,.55);border-color:var(--gold)}
-    button{min-height:50px;margin-top:5px;border:0;border-radius:999px;background:var(--sage);color:#fff;font-weight:900;cursor:pointer}button:disabled{opacity:.58;cursor:wait}.message{min-height:1.5em;margin:14px 0 0;color:#7b3f36;line-height:1.45}.message.success{color:var(--sage)}
-    .signin{display:inline-block;margin-top:18px;color:var(--sage);font-weight:800}.security{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.75rem;line-height:1.5}
+    :root{
+      --ivory:#f7f3f0;--cream:#f2ede7;--sage:#3e4939;--sage-deep:#273125;
+      --gold:#b89e80;--light-gold:#d8c599;--line:#dfd9ce;--ink:#261f15;
+      --muted:#6f685e;--white:#fff;--error:#8d3f35;
+      --serif:Georgia,"Times New Roman",serif;--sans:Inter,Aptos,"Segoe UI",Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{min-width:320px;background:var(--ivory)}
+    body{
+      margin:0;min-height:100vh;display:grid;place-items:center;padding:clamp(16px,3vw,42px);
+      background:
+        radial-gradient(circle at 86% 8%,rgba(216,197,153,.26),transparent 27rem),
+        linear-gradient(135deg,var(--ivory),var(--cream));
+      color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+    }
+    .invitation-shell{
+      width:min(1080px,100%);min-height:min(720px,calc(100vh - 48px));display:grid;
+      grid-template-columns:minmax(360px,.88fr) minmax(480px,1.12fr);overflow:hidden;
+      border:1px solid rgba(171,158,142,.42);border-radius:30px;background:rgba(255,255,255,.9);
+      box-shadow:0 32px 90px rgba(38,31,21,.13),0 2px 0 rgba(255,255,255,.8) inset;
+    }
+    .brand-panel{
+      position:relative;isolation:isolate;padding:46px 44px 42px;display:flex;flex-direction:column;
+      justify-content:space-between;overflow:hidden;color:#fff;
+      background:linear-gradient(148deg,var(--sage) 0%,var(--sage-deep) 100%);
+    }
+    .brand-panel::before{
+      content:"";position:absolute;inset:0;z-index:-2;opacity:.16;
+      background:
+        radial-gradient(circle at 80% 18%,rgba(216,197,153,.9) 0 1px,transparent 2px),
+        radial-gradient(circle at 22% 70%,rgba(255,255,255,.7) 0 1px,transparent 2px);
+      background-size:42px 42px,58px 58px;
+    }
+    .brand-panel::after{
+      content:"";position:absolute;z-index:-1;width:420px;height:420px;right:-218px;bottom:-128px;
+      border:1px solid rgba(216,197,153,.52);border-radius:50%;
+      box-shadow:0 0 0 42px rgba(216,197,153,.045),0 0 0 88px rgba(216,197,153,.025);
+    }
+    .brand-plaque{
+      width:min(290px,100%);padding:18px 20px 16px;border-radius:16px;
+      background:rgba(247,243,240,.97);border:1px solid rgba(216,197,153,.72);
+      box-shadow:0 14px 34px rgba(18,26,16,.18);
+    }
+    .brand-plaque img{display:block;width:100%;height:auto;object-fit:contain}
+    .invitation-mark{
+      display:flex;align-items:center;gap:14px;margin-top:34px;color:var(--light-gold);
+      font-size:.69rem;font-weight:850;letter-spacing:.2em;text-transform:uppercase;
+    }
+    .invitation-mark::before{content:"";width:44px;height:1px;background:currentColor}
+    .brand-copy{position:relative;z-index:1;max-width:330px}
+    .brand-copy .quote-mark{display:block;margin-bottom:10px;color:var(--light-gold);font:400 3rem/.7 var(--serif)}
+    .brand-copy h2{margin:0;font:500 clamp(2.15rem,4vw,3.35rem)/.98 var(--serif);letter-spacing:-.035em}
+    .brand-copy p{margin:20px 0 0;color:rgba(247,243,240,.82);font-size:.95rem;line-height:1.7}
+    .access-sequence{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px}
+    .access-sequence span{padding-top:11px;border-top:1px solid rgba(216,197,153,.32);color:rgba(247,243,240,.68);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase}
+    .access-sequence b{display:block;margin-bottom:6px;color:var(--light-gold);font-size:.64rem}
+    .setup{display:flex;flex-direction:column;justify-content:center;padding:clamp(42px,6vw,74px)}
+    .setup-inner{width:min(500px,100%);margin-inline:auto}
+    .eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 18px;color:#876c51;font-size:.68rem;font-weight:900;letter-spacing:.19em;text-transform:uppercase}
+    .eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
+    .setup h1{max-width:460px;margin:0;font:600 clamp(2.5rem,5vw,4.45rem)/.92 var(--serif);letter-spacing:-.045em}
+    .intro{max-width:470px;margin:22px 0 0;color:var(--muted);font-size:.96rem;line-height:1.7}
+    .trust-row{display:flex;flex-wrap:wrap;gap:10px 18px;margin:22px 0 0;padding:15px 0;border-block:1px solid var(--line);color:var(--sage);font-size:.72rem;font-weight:750}
+    .trust-row span{display:flex;align-items:center;gap:7px}
+    .trust-row svg{width:16px;height:16px;fill:none;stroke:var(--gold);stroke-width:1.7}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:15px 14px;margin-top:26px}
+    label{display:grid;gap:8px;color:var(--ink);font-size:.76rem;font-weight:800}
+    label:first-child,label:nth-child(2),button{grid-column:1/-1}
+    input{
+      width:100%;min-height:48px;padding:12px 14px;border:1px solid var(--line);border-radius:11px;
+      background:rgba(255,255,255,.92);color:var(--ink);font:500 .92rem var(--sans);
+      box-shadow:0 1px 0 rgba(38,31,21,.02);transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+    }
+    input[readonly]{background:var(--cream);color:var(--sage)}
+    input:hover{border-color:#c9beaf}
+    input:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 4px rgba(216,197,153,.35);background:#fff}
+    button{
+      min-height:52px;margin-top:4px;padding:0 22px;border:1px solid var(--sage);border-radius:12px;
+      background:var(--sage);color:#fff;font:850 .86rem var(--sans);letter-spacing:.015em;cursor:pointer;
+      box-shadow:0 12px 26px rgba(62,73,57,.16);transition:background .2s ease,transform .2s ease,box-shadow .2s ease;
+    }
+    button:hover{background:var(--sage-deep);box-shadow:0 15px 30px rgba(39,49,37,.22)}
+    button:active{transform:translateY(1px)}
+    button:focus-visible,.signin:focus-visible{outline:3px solid var(--light-gold);outline-offset:3px}
+    button:disabled{opacity:.58;cursor:wait;transform:none}
+    .message{min-height:1.4em;margin:16px 0 0;color:var(--error);font-size:.8rem;line-height:1.5}
+    .message.success{color:var(--sage)}
+    .signin{display:inline-flex;align-items:center;min-height:44px;margin-top:8px;color:var(--sage);font-size:.78rem;font-weight:850;text-underline-offset:4px}
+    .security{margin:16px 0 0;padding-left:25px;position:relative;color:var(--muted);font-size:.7rem;line-height:1.55}
+    .security svg{position:absolute;left:0;top:1px;width:16px;height:16px;fill:none;stroke:var(--gold);stroke-width:1.7}
     [hidden]{display:none!important}
-    @media(max-width:760px){main{grid-template-columns:1fr}.brand-panel{min-height:230px;padding:34px}.brand-copy strong{font-size:1.55rem}.setup{padding:38px 28px}}
+    @media(max-width:860px){
+      body{padding:0;display:block}.invitation-shell{min-height:100vh;grid-template-columns:1fr;border:0;border-radius:0}
+      .brand-panel{min-height:330px;padding:34px}.brand-plaque{width:250px}.brand-copy{margin-top:52px}.brand-copy h2{max-width:520px}
+      .brand-copy p{max-width:500px}.access-sequence{max-width:540px}.setup{padding:48px 32px 60px}
+    }
+    @media(max-width:540px){
+      .brand-panel{min-height:300px;padding:28px 24px}.brand-plaque{width:224px;padding:14px 16px}
+      .invitation-mark{margin-top:24px}.brand-copy{margin-top:38px}.brand-copy p{font-size:.86rem}.access-sequence{display:none}
+      .setup{padding:40px 24px 54px}.setup h1{font-size:2.65rem}.trust-row{display:grid;gap:9px}
+      form{grid-template-columns:1fr}label,button{grid-column:1/-1}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
 <body>
-  <main>
-    <section class="brand-panel">
-      <div><div class="leaf" aria-hidden="true">⌁</div><div class="wordmark">ROUX LIFE™<span>COACH ACADEMY</span></div></div>
-      <div class="brand-copy"><strong>Your invitation is personal.</strong><p>Create the credentials you will use to access protected academy administration.</p></div>
+  <main class="invitation-shell">
+    <section class="brand-panel" aria-label="Roux Life Coach Academy">
+      <div>
+        <div class="brand-plaque">
+          <img src="/academy/academy/roux-life-coach-academy-logo-green-bold-v55.png?release=v55" alt="Roux Life Coach Academy">
+        </div>
+        <div class="invitation-mark">Private administrator invitation</div>
+      </div>
+      <div>
+        <div class="brand-copy">
+          <span class="quote-mark" aria-hidden="true">“</span>
+          <h2>Your invitation is personal.</h2>
+          <p>Create the credentials you will use to review the academy, support learners, and protect the integrity of the RLC certification experience.</p>
+        </div>
+        <div class="access-sequence" aria-label="Administrator activation steps">
+          <span><b>01</b>Invitation</span>
+          <span><b>02</b>Credentials</span>
+          <span><b>03</b>Academy access</span>
+        </div>
+      </div>
     </section>
+
     <section class="setup">
-      <p class="eyebrow">ADMINISTRATOR INVITATION</p>
-      <h1>Create your admin account.</h1>
-      <p class="intro">Confirm your name and choose your private password. Your email address is your administrator username.</p>
-      <form id="setupForm" hidden>
-        <label>Administrator username<input id="username" type="email" readonly></label>
-        <label>Full name<input id="fullName" type="text" autocomplete="name" required></label>
-        <label>Create password<input id="password" type="password" autocomplete="new-password" minlength="8" required></label>
-        <label>Confirm password<input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required></label>
-        <button id="activateButton" type="submit">Create administrator account</button>
-      </form>
-      <p class="message" id="message">Validating your secure invitation…</p>
-      <a class="signin" href="../">Already activated? Sign in →</a>
-      <p class="security">Administrator registration is invitation-only. Passwords are encrypted and are never visible to Roux Life Coach Academy administrators.</p>
+      <div class="setup-inner">
+        <p class="eyebrow">Administrator access</p>
+        <h1>Create your admin account.</h1>
+        <p class="intro">Confirm your name and choose a private password. Your invitation email will become your administrator username.</p>
+
+        <div class="trust-row" aria-label="Account security details">
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Invitation-only access</span>
+          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Encrypted password</span>
+        </div>
+
+        <form id="setupForm" hidden>
+          <label>Administrator username<input id="username" type="email" readonly></label>
+          <label>Full name<input id="fullName" type="text" autocomplete="name" required></label>
+          <label>Create password<input id="password" type="password" autocomplete="new-password" minlength="8" required></label>
+          <label>Confirm password<input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required></label>
+          <button id="activateButton" type="submit">Create administrator account</button>
+        </form>
+
+        <p class="message" id="message" role="status" aria-live="polite">Validating your secure invitation…</p>
+        <a class="signin" href="../">Already activated? Sign in&nbsp; →</a>
+        <p class="security"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.8 2.8 8.3 7 10 4.2-1.7 7-5.2 7-10V6Z"/><path d="m9 12 2 2 4-4"/></svg>Administrator registration is invitation-only. Passwords are encrypted and are never visible to Roux Life Coach Academy administrators.</p>
+      </div>
     </section>
   </main>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script>
   <script>
   (() => {
