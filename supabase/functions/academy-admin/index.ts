@@ -36,8 +36,11 @@ async function getCourse(admin: ReturnType<typeof serviceClient>) {
 
 const allowedStatuses = new Set(["pending_payment", "active", "completed", "refunded", "revoked"]);
 
-const bootstrapAdminEmails = () => (Deno.env.get("ACADEMY_ADMIN_EMAILS") || "")
-  .split(",").map(value => value.trim().toLowerCase()).filter(Boolean);
+const bootstrapAdminEmails = () => Array.from(new Set([
+  "tylerebling@gmail.com",
+  ...(Deno.env.get("ACADEMY_ADMIN_EMAILS") || "")
+    .split(",").map(value => value.trim().toLowerCase()).filter(Boolean),
+]));
 
 async function requireAdmin(req: Request) {
   const context = await requireUser(req);
