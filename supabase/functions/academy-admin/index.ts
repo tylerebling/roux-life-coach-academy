@@ -128,7 +128,7 @@ Deno.serve(async (req) => {
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "Enter a valid email address." }, 400);
       if (fullName.length < 2) return json({ error: "Enter the administrator's name." }, 400);
 
-      const redirectTo = "https://www.rouxlifecoachacademy.com/academy/admin/?invited=1";
+      const redirectTo = "https://www.rouxlifecoachacademy.com/academy/admin/accept-invite/";
       const invited = await admin.auth.admin.inviteUserByEmail(email, {
         redirectTo,
         data: { full_name: fullName, academy_admin_invitation: true },
