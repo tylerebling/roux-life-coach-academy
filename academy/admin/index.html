@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Roux Life Academy Administration</title>
-  <link rel="stylesheet" href="styles.css?release=admin-invites-v3">
+  <link rel="stylesheet" href="styles.css?release=admin-invites-v4">
 </head>
 <body>
   <header class="topbar">
@@ -23,6 +23,7 @@
         <button type="submit">Open administration</button>
       </form>
       <button class="text-button" id="forgotPassword">Send me a recovery email</button>
+      <a class="text-button invite-link" href="accept-invite/">Accept an administrator invitation</a>
       <p class="message" id="authMessage"></p>
     </section>
 
@@ -110,6 +111,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script>
-  <script src="admin.js?release=admin-invites-v3"></script>
+  <script src="admin.js?release=admin-invites-v4"></script>
 </body>
 </html>
