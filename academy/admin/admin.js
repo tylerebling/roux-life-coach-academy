@@ -36,8 +36,15 @@
   function renderAdministrators(){
     const rows=data.administrators||[],isOwner=data.role==="owner",form=$("#inviteAdminForm"),note=$("#invitePermissionNote");
     form.hidden=!isOwner;
-    note.textContent=isOwner?"Invitations expire according to your Supabase authentication settings. Only invite people who should see protected learner and certification records.":"Only the academy owner can send administrator invitations.";
-    $("#administratorRows").innerHTML=rows.length?rows.map(x=>`<tr><td><strong>${esc(x.fullName||"Name not supplied")}</strong><small>${esc(x.email||"")}</small></td><td><span class="badge ${esc(x.role)}">${esc(x.role)}</span></td><td><span class="badge ${x.confirmedAt?"active":"pending"}">${x.confirmedAt?"Active":"Invitation pending"}</span></td><td>${date(x.invitedAt)}</td><td>${date(x.lastSignInAt)}</td></tr>`).join(""):`<tr><td class="empty" colspan="5">No administrator accounts found.</td></tr>`;
+    note.textContent=isOwner?"Invitations expire according to your Supabase authentication settings. Invited administrators create their own password; their email address is their sign-in username.":"Only the academy owner can send invitations or change administrator access.";
+    $("#administratorRows").innerHTML=rows.length?rows.map(x=>{
+      const status=x.accessEnabled?(x.confirmedAt?"Active":"Invitation pending"):"Disabled";
+      const statusClass=x.accessEnabled?(x.confirmedAt?"active":"pending"):"revoked";
+      const action=!isOwner||x.protectedOwner?"—":x.accessEnabled
+        ?`<button class="danger" data-admin-access="${esc(x.userId)}" data-enabled="false" data-admin-name="${esc(x.fullName||x.email)}">Disable</button>`
+        :`<button data-admin-access="${esc(x.userId)}" data-enabled="true" data-admin-name="${esc(x.fullName||x.email)}">Restore</button>`;
+      return `<tr><td><strong>${esc(x.fullName||"Name not supplied")}</strong><small>${esc(x.email||"")}</small></td><td><span class="badge ${esc(x.role)}">${esc(x.role)}</span></td><td><span class="badge ${statusClass}">${status}</span>${x.protectedOwner?"<small>Protected owner account</small>":""}</td><td>${date(x.invitedAt)}</td><td>${date(x.lastSignInAt)}</td><td><div class="row-actions">${action}</div></td></tr>`;
+    }).join(""):`<tr><td class="empty" colspan="6">No administrator accounts found.</td></tr>`;
   }
   function confirmAction(title,message,needsReason=false){return new Promise(resolve=>{const d=$("#confirmDialog");$("#dialogTitle").textContent=title;$("#dialogMessage").textContent=message;$("#reasonLabel").hidden=!needsReason;$("#dialogReason").value="";d.onclose=()=>resolve(d.returnValue==="confirm"?$("#dialogReason").value.trim():null);d.showModal()})}
   async function act(body,success){await invoke(body);toast(success);await load()}
@@ -52,6 +59,12 @@
     if(b.dataset.revokeCert){const reason=await confirmAction("Revoke this certificate?","Public verification will immediately show the credential as revoked.",true);if(reason!==null)await act({action:"certificate-status",certificateId:b.dataset.revokeCert,status:"revoked",reason},"Certificate revoked.")}
     if(b.dataset.restoreCert){if(await confirmAction("Restore this certificate?","The credential will return to valid status.")!==null)await act({action:"certificate-status",certificateId:b.dataset.restoreCert,status:"valid"},"Certificate restored.")}
     if(b.dataset.refund){if(await confirmAction("Issue a Stripe refund?","This is a real financial action and will revoke paid enrollment access.")!==null)await act({action:"refund-payment",enrollmentId:b.dataset.refund},"Refund submitted.")}
+    if(b.dataset.adminAccess){
+      const enabled=b.dataset.enabled==="true",name=b.dataset.adminName||"this administrator";
+      const title=enabled?"Restore administrator access?":"Disable administrator access?";
+      const message=enabled?`${name} will regain access to protected administration.`:`${name} will immediately lose access to protected administration. Their identity and learner data will remain intact.`;
+      if(await confirmAction(title,message)!==null)await act({action:"set-admin-access",userId:b.dataset.adminAccess,enabled},enabled?"Administrator access restored.":"Administrator access disabled.");
+    }
   }catch(error){toast(error.message||"Unable to complete the action.")}});
   $("#signInForm").addEventListener("submit",async event=>{event.preventDefault();$("#authMessage").textContent="Signing in…";const result=await client.auth.signInWithPassword({email:$("#email").value.trim(),password:$("#password").value});if(result.error){$("#authMessage").textContent=result.error.message;return}session=result.data.session;await start()});
   $("#forgotPassword").onclick=async()=>{const email=$("#email").value.trim();if(!email){$("#authMessage").textContent="Enter your email first.";return}const result=await client.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});$("#authMessage").textContent=result.error?result.error.message:"Recovery email sent."};
