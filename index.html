@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script>
+    (()=>{const query=new URLSearchParams(location.search),hash=new URLSearchParams(location.hash.slice(1));if(query.get("type")==="invite"||hash.get("type")==="invite"){location.replace("/academy/admin/accept-invite/"+location.search+location.hash)}})();
+  </script>
   <title>Roux Life Coach Academy</title>
   <meta name="description" content="World-class life coach education, real-life practice, and business support on your terms.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
