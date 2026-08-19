@@ -30,7 +30,7 @@
     }
     .brand-panel{
       position:relative;isolation:isolate;padding:46px 44px 42px;display:flex;flex-direction:column;
-      justify-content:space-between;overflow:hidden;color:#fff;
+      justify-content:flex-start;overflow:hidden;color:#fff;
       background:linear-gradient(148deg,var(--sage) 0%,var(--sage-deep) 100%);
     }
     .brand-panel::before{
@@ -56,7 +56,7 @@
       font-size:.69rem;font-weight:850;letter-spacing:.2em;text-transform:uppercase;
     }
     .invitation-mark::before{content:"";width:44px;height:1px;background:currentColor}
-    .brand-copy{position:relative;z-index:1;max-width:330px}
+    .brand-panel>div:last-child{margin-top:clamp(44px,7vh,72px)}\n    .brand-copy{position:relative;z-index:1;max-width:330px}
     .brand-copy .quote-mark{display:block;margin-bottom:10px;color:var(--light-gold);font:400 3rem/.7 var(--serif)}
     .brand-copy h2{margin:0;font:500 clamp(2.15rem,4vw,3.35rem)/.98 var(--serif);letter-spacing:-.035em}
     .brand-copy p{margin:20px 0 0;color:rgba(247,243,240,.82);font-size:.95rem;line-height:1.7}
@@ -100,12 +100,12 @@
     [hidden]{display:none!important}
     @media(max-width:860px){
       body{padding:0;display:block}.invitation-shell{min-height:100vh;grid-template-columns:1fr;border:0;border-radius:0}
-      .brand-panel{min-height:330px;padding:34px}.brand-plaque{width:250px}.brand-copy{margin-top:52px}.brand-copy h2{max-width:520px}
+      .brand-panel{min-height:330px;padding:34px}.brand-plaque{width:250px}.brand-panel>div:last-child{margin-top:34px}.brand-copy{margin-top:0}.brand-copy h2{max-width:520px}
       .brand-copy p{max-width:500px}.access-sequence{max-width:540px}.setup{padding:48px 32px 60px}
     }
     @media(max-width:540px){
       .brand-panel{min-height:300px;padding:28px 24px}.brand-plaque{width:224px;padding:14px 16px}
-      .invitation-mark{margin-top:24px}.brand-copy{margin-top:38px}.brand-copy p{font-size:.86rem}.access-sequence{display:none}
+      .invitation-mark{margin-top:24px}.brand-panel>div:last-child{margin-top:30px}.brand-copy{margin-top:0}.brand-copy p{font-size:.86rem}.access-sequence{display:none}
       .setup{padding:40px 24px 54px}.setup h1{font-size:2.65rem}.trust-row{display:grid;gap:9px}
       form{grid-template-columns:1fr}label,button{grid-column:1/-1}
     }
