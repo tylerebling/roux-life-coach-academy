@@ -48,7 +48,7 @@ async function requireAdmin(req: Request) {
   const bootstrapped = bootstrapAdminEmails();
   const emailAllowed = !!context.user.email && bootstrapped.includes(context.user.email.toLowerCase());
   if (!record.data && !emailAllowed) throw new Error("ADMIN_REQUIRED");
-  return { ...context, role: record.data?.role || "owner" };
+  // A protected bootstrap owner must always resolve as owner, even when an older\n  // academy_admins row accidentally stores the account as "admin".\n  return { ...context, role: emailAllowed ? "owner" : record.data?.role };
 }
 
 async function audit(admin: any, actor: string, action: string, targetType: string, targetId?: string, details: Record<string, unknown> = {}) {
