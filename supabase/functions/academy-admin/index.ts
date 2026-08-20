@@ -197,6 +197,17 @@ Deno.serve(async (req) => {
       return json({ updated: true, enabled, userId: targetUserId });
     }
 
+    if (action === "activate-admin-account") {
+      const activated = await admin.auth.admin.updateUserById(user.id, {
+        email_confirm: true,
+      });
+      if (activated.error) throw activated.error;
+      await audit(admin, user.id, "activate_administrator", "academy_admin", user.id, {
+        email: user.email || "",
+      });
+      return json({ activated: true, userId: user.id });
+    }
+
     if (action === "update-enrollment") {
       const enrollmentId = String(body.enrollmentId || "");
       const status = String(body.status || "");
