@@ -187,6 +187,12 @@
       button.disabled=true;button.textContent="Creating account…";
       const result=await client.auth.updateUser({password,data:{full_name:name,academy_admin_invitation:true}});
       if(result.error){showError(result.error.message);button.disabled=false;button.textContent="Create administrator account";return}
+      const activation=await client.functions.invoke("academy-admin",{body:{action:"activate-admin-account"}});
+      if(activation.error||activation.data?.error){
+        let detail=activation.data?.error||activation.error?.message||"Unable to activate administrator access.";
+        try{const payload=await activation.error?.context?.json?.();detail=payload?.error||payload?.message||detail}catch{}
+        showError(detail);button.disabled=false;button.textContent="Create administrator account";return
+      }
       message.className="message success";message.textContent="Your administrator account is ready. Opening administration…";form.hidden=true;
       setTimeout(()=>location.replace("../"),900);
     });
