@@ -11,7 +11,16 @@
   const date=value=>value?new Date(value).toLocaleString():"—";
   const short=value=>value?`${String(value).slice(0,10)}…`:"—";
   const toast=message=>{const el=$("#toast");el.textContent=message;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),3000)};
-  async function invoke(body){const {data,error}=await client.functions.invoke("academy-admin",{body});if(error)throw error;if(data?.error)throw new Error(data.error);return data}
+  async function invoke(body){
+    const {data,error}=await client.functions.invoke("academy-admin",{body});
+    if(error){
+      let detail="";
+      try{const payload=await error.context?.json?.();detail=payload?.error||payload?.message||""}catch{}
+      throw new Error(detail||error.message||"The administrator service could not be reached.");
+    }
+    if(data?.error)throw new Error(data.error);
+    return data;
+  }
   async function load(){data=await invoke({action:"overview"});render();}
   function metric(value,label){return `<article class="metric"><strong>${esc(value)}</strong><span>${esc(label)}</span></article>`}
   function render(){
