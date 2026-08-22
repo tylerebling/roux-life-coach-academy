@@ -43,7 +43,9 @@
   function renderCourse(){const c=data.course||{};$("#coursePrice").value=(Number(c.price_cents||0)/100).toFixed(2);$("#stripePriceId").value=c.stripe_price_id||"";$("#coursePublished").checked=!!c.is_published}
   function renderAudit(){const rows=data.auditLog||[];$("#auditRows").innerHTML=rows.length?rows.map(x=>`<tr><td>${date(x.created_at)}</td><td>${esc(x.action)}</td><td>${esc(x.target_type)}<small>${esc(x.target_id||"")}</small></td><td>${short(x.actor_user_id)}</td><td><small>${esc(JSON.stringify(x.details||{}))}</small></td></tr>`).join(""):`<tr><td class="empty" colspan="5">No administrator actions recorded.</td></tr>`}
   function renderAdministrators(){
-    const rows=data.administrators||[],isOwner=data.role==="owner",canInvite=["owner","admin"].includes(data.role),form=$("#inviteAdminForm"),note=$("#invitePermissionNote");\n    form.hidden=!canInvite;\n    note.textContent=canInvite?"You can invite trusted administrators. Invitations expire according to Supabase authentication settings; each person creates their own password and can invite additional administrators. Only the protected owner can disable or restore administrator access.":"Your support role does not include administrator invitation privileges.";
+    const rows=data.administrators||[],isOwner=data.role==="owner",canInvite=["owner","admin"].includes(data.role),form=$("#inviteAdminForm"),note=$("#invitePermissionNote");
+    form.hidden=!canInvite;
+    note.textContent=canInvite?"You can invite trusted administrators. Invitations expire according to Supabase authentication settings; each person creates their own password and can invite additional administrators. Only the protected owner can disable or restore administrator access.":"Your support role does not include administrator invitation privileges.";
     $("#administratorRows").innerHTML=rows.length?rows.map(x=>{
       const status=x.accessEnabled?(x.confirmedAt?"Active":"Invitation pending"):"Disabled";
       const statusClass=x.accessEnabled?(x.confirmedAt?"active":"pending"):"revoked";
