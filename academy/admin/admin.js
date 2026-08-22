@@ -83,8 +83,24 @@
   $("#learnerSearch").oninput=renderLearners;
   $("#courseForm").onsubmit=async event=>{event.preventDefault();try{await act({action:"update-course",priceCents:Math.round(Number($("#coursePrice").value||0)*100),stripePriceId:$("#stripePriceId").value,isPublished:$("#coursePublished").checked},"Course settings saved.")}catch(error){toast(error.message)}};
   $("#inviteAdminForm").onsubmit=async event=>{event.preventDefault();const button=event.submitter;button.disabled=true;button.textContent="Sending invitation…";try{await act({action:"invite-admin",fullName:$("#inviteAdminName").value.trim(),email:$("#inviteAdminEmail").value.trim()},"Administrator invitation sent.");event.target.reset()}catch(error){toast(error.message||"Unable to send the invitation.")}finally{button.disabled=false;button.textContent="Send administrator invite"}};
+  $("#passwordRecoveryForm").onsubmit=async event=>{event.preventDefault();const password=$("#recoveryPassword").value,confirmation=$("#recoveryPasswordConfirm").value,message=$("#passwordRecoveryMessage"),button=event.submitter;message.textContent="";if(password.length<8){message.textContent="Use at least 8 characters.";return}if(password!==confirmation){message.textContent="The passwords do not match.";return}button.disabled=true;button.textContent="Saving new password…";const result=await client.auth.updateUser({password});if(result.error){message.textContent=result.error.message;button.disabled=false;button.textContent="Save New Password";return}message.textContent="Your password has been updated securely.";setTimeout(async()=>{const url=new URL(location.href);url.hash="";url.searchParams.delete("code");url.searchParams.delete("type");history.replaceState({},"",url.pathname+url.search);$("#passwordRecoveryDialog").close();toast("Your new password is ready.");session=(await client.auth.getSession()).data.session;if(session)await start()},700)};
+
   $("#inviteSetupForm").onsubmit=async event=>{event.preventDefault();const password=$("#invitePassword").value,confirmation=$("#invitePasswordConfirm").value,message=$("#inviteSetupMessage");message.textContent="";if(password.length<8){message.textContent="Use at least 8 characters.";return}if(password!==confirmation){message.textContent="The passwords do not match.";return}const result=await client.auth.updateUser({password});if(result.error){message.textContent=result.error.message;return}message.textContent="Administrator account activated.";setTimeout(()=>{const url=new URL(location.href);url.searchParams.delete("invited");history.replaceState({},"",url);$("#inviteSetupDialog").close();toast("Your administrator password is ready.")},700)};
   function maybeShowInviteSetup(){const invited=new URLSearchParams(location.search).get("invited")==="1";if(invited&&session&&!$("#inviteSetupDialog").open)$("#inviteSetupDialog").showModal()}
   async function start(){try{await load();$("#accessPanel").hidden=true;$("#adminApp").hidden=false;$("#signOut").hidden=false;$("#learnerViewToggle").hidden=false;$("#adminIdentity").textContent=session.user.email||"Administrator";maybeShowInviteSetup()}catch(error){$("#authMessage").textContent=error.message==="ADMIN_REQUIRED"?"This account does not have administrator access.":error.message;await client.auth.signOut()}}
-  client.auth.getSession().then(({data})=>{session=data.session;if(session)start();else $("#adminIdentity").textContent="Administrator sign-in"});
+  let recoveryMode=false;
+  client.auth.onAuthStateChange((event,nextSession)=>{
+    session=nextSession;
+    if(event==="PASSWORD_RECOVERY"){
+      recoveryMode=true;
+      $("#accessPanel").hidden=false;
+      $("#adminApp").hidden=true;
+      $("#adminIdentity").textContent="Create a new password";
+      $("#passwordRecoveryMessage").textContent="";
+      $("#recoveryPassword").value="";
+      $("#recoveryPasswordConfirm").value="";
+      if(!$("#passwordRecoveryDialog").open)$("#passwordRecoveryDialog").showModal();
+    }
+  });
+  client.auth.getSession().then(({data})=>{session=data.session;if(session&&!recoveryMode)start();else if(!session)$("#adminIdentity").textContent="Administrator sign-in"});
 })();
