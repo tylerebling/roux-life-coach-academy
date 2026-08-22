@@ -107,10 +107,22 @@
 
   <dialog id="inviteSetupDialog" class="setup-dialog"><form id="inviteSetupForm"><p class="eyebrow">ADMINISTRATOR INVITATION</p><h2>Create Your Administrator Password</h2><p>Choose a secure password to finish activating your Roux Life Coach Academy administrator account.</p><label>New password<input id="invitePassword" type="password" autocomplete="new-password" minlength="8" required></label><label>Confirm password<input id="invitePasswordConfirm" type="password" autocomplete="new-password" minlength="8" required></label><p class="message" id="inviteSetupMessage"></p><div><button type="submit">Activate administrator account</button></div></form></dialog>
 
+  <dialog id="passwordRecoveryDialog" class="setup-dialog">
+    <form id="passwordRecoveryForm">
+      <p class="eyebrow">SECURE PASSWORD RECOVERY</p>
+      <h2>Create a New Password</h2>
+      <p>Your recovery link has been verified. Choose a new password for your Roux Life Coach Academy administrator account.</p>
+      <label>New password<input id="recoveryPassword" type="password" autocomplete="new-password" minlength="8" required></label>
+      <label>Confirm password<input id="recoveryPasswordConfirm" type="password" autocomplete="new-password" minlength="8" required></label>
+      <p class="message" id="passwordRecoveryMessage"></p>
+      <div><button type="submit">Save New Password</button></div>
+    </form>
+  </dialog>
+
   <dialog id="confirmDialog"><form method="dialog"><h2 id="dialogTitle">Confirm action</h2><p id="dialogMessage"></p><label id="reasonLabel" hidden>Reason<textarea id="dialogReason"></textarea></label><div><button value="cancel">Cancel</button><button class="danger" id="dialogConfirm" value="confirm">Confirm</button></div></form></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script>
-  <script src="admin.js?release=admin-delegated-invites-v12"></script>
+  <script src="admin.js?release=admin-password-recovery-v13"></script>
 </body>
 </html>
