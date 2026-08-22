@@ -227,3 +227,27 @@ dialog button{min-height:40px;padding:8px 14px;border:1px solid var(--line);bord
   .tabs{top:72px}.invite-link{margin-left:0;display:flex}.panel-heading h2{font-size:1.7rem}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* Password recovery dialog — keep labels, entries, and primary action unobstructed. */
+#passwordRecoveryDialog{max-height:min(680px,calc(100dvh - 32px));overflow:auto}
+#passwordRecoveryForm{display:grid;gap:16px;padding:30px 32px}
+#passwordRecoveryForm>p,#passwordRecoveryForm>h2,#passwordRecoveryForm>label{margin:0}
+#passwordRecoveryForm>label{display:grid;gap:8px;color:var(--ink);font-size:.8rem;font-weight:850}
+#passwordRecoveryForm input{
+  display:block;margin:0;min-height:54px;padding:13px 15px;
+  background:var(--white);color:var(--ink);caret-color:var(--sage);
+  border:1px solid #cfc5b8;border-radius:11px;
+  -webkit-text-fill-color:var(--ink);
+}
+#passwordRecoveryForm input:focus{
+  outline:2px solid var(--light-gold);outline-offset:2px;
+  border-color:var(--gold);box-shadow:0 0 0 5px rgba(216,197,153,.22);
+}
+#passwordRecoveryForm .message{min-height:0;margin:0;color:var(--danger)}
+#passwordRecoveryForm>div{margin-top:2px;justify-content:stretch}
+#passwordRecoveryForm button[type="submit"]{width:100%;min-height:50px}
+#passwordRecoveryForm button[type="submit"]:disabled{opacity:.62;cursor:wait}
+@media(max-width:620px){
+  #passwordRecoveryForm{gap:14px;padding:24px 20px}
+  #passwordRecoveryDialog{width:calc(100vw - 20px)}
+}
