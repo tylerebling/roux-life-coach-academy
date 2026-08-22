@@ -136,8 +136,7 @@ Deno.serve(async (req) => {
 
     if (role === "support" && !["reset-password-email"].includes(action)) throw new Error("OWNER_OR_ADMIN_REQUIRED");
 
-    if (action === "invite-admin") {
-      if (role !== "owner") throw new Error("OWNER_REQUIRED");
+    if (action === "invite-admin") {\n      if (!["owner", "admin"].includes(String(role))) throw new Error("OWNER_OR_ADMIN_REQUIRED");
       const email = String(body.email || "").trim().toLowerCase();
       const fullName = String(body.fullName || "").trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "Enter a valid email address." }, 400);
