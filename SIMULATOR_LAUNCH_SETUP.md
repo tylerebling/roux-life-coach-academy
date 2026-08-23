@@ -30,7 +30,7 @@ supabase secrets set --project-ref dwkjwzissuaahieapkxo LCIQ_SIM_LAUNCH_PRIVATE_
 ```
 
 ```bash
-supabase secrets set --project-ref dwkjwzissuaahieapkxo LCIQ_SIM_LAUNCH_KID=roux-2026-01 LCIQ_SIM_ORIGIN=https://simulator.clientgatehq.com ACADEMY_ORIGIN=https://rouxlife.com
+supabase secrets set --project-ref dwkjwzissuaahieapkxo LCIQ_SIM_LAUNCH_KID=roux-2026-01 LCIQ_SIM_ORIGIN=https://simulator.clientgatehq.com ACADEMY_ORIGIN=https://www.rouxlife.com
 ```
 
 Deploy:

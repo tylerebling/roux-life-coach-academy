@@ -129,7 +129,7 @@ Deno.serve(async (req) => {
       // Empty means "whatever the simulator offers this tenant". A scope is a
       // narrowing, never a widening.
       scenarioScope: [] as string[],
-      returnUrl: `${Deno.env.get("ACADEMY_ORIGIN") ?? "https://rouxlife.com"}/academy/#practice-lab`,
+      returnUrl: `${Deno.env.get("ACADEMY_ORIGIN") ?? "https://www.rouxlife.com"}/academy/#practice-lab`,
       issuedAtSec: nowSec,
       expiresAtSec: nowSec + TTL_SEC,
     };
