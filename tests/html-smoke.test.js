@@ -10,7 +10,13 @@ for (const target of targets) {
   const clean = target.split(/[?#]/)[0];
   if (!fs.existsSync(path.join(__dirname, "../academy", clean))) throw new Error(`Missing local target: ${target}`);
 }
-for (const required of ["studentDashboard", "dashboardSidebar", "resumeLesson", "nextLessonAction", "milestoneTrack", "practiceLabAction"]) {
+// "practiceLabAction" used to be on this list. No element of that id has ever
+// existed in academy/index.html, and the Practice Lab action it belonged to is
+// now the Life Coach Simulator. The dead wiring that referenced it has been
+// removed from app.js; app-id-wiring.test.js proves nothing references it any
+// more, so requiring the element here would be requiring a control the product
+// does not have.
+for (const required of ["studentDashboard", "dashboardSidebar", "resumeLesson", "nextLessonAction", "milestoneTrack"]) {
   if (!ids.includes(required)) throw new Error(`Missing dashboard control: ${required}`);
 }
 console.log("html-smoke: local targets, unique IDs, and dashboard controls passed");
