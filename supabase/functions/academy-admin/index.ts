@@ -48,7 +48,9 @@ async function requireAdmin(req: Request) {
   const bootstrapped = bootstrapAdminEmails();
   const emailAllowed = !!context.user.email && bootstrapped.includes(context.user.email.toLowerCase());
   if (!record.data && !emailAllowed) throw new Error("ADMIN_REQUIRED");
-  // A protected bootstrap owner must always resolve as owner, even when an older\n  // academy_admins row accidentally stores the account as "admin".\n  return { ...context, role: emailAllowed ? "owner" : record.data?.role };
+  // A protected bootstrap owner must always resolve as owner, even when an
+  // older academy_admins row accidentally stores the account as "admin".
+  return { ...context, role: emailAllowed ? "owner" : record.data?.role };
 }
 
 async function audit(admin: any, actor: string, action: string, targetType: string, targetId?: string, details: Record<string, unknown> = {}) {
@@ -73,6 +75,14 @@ Deno.serve(async (req) => {
     const { user, admin, role } = await requireAdmin(req);
     const body = await req.json().catch(() => ({}));
     const action = String(body.action || "overview");
+
+    // Lesson previews only need a lightweight authorization decision. Keeping
+    // this independent from the full overview prevents an unrelated reporting
+    // query from blocking every lesson in administrator review mode.
+    if (action === "authorize-preview") {
+      return json({ authorized: true, role, userId: user.id });
+    }
+
     const course = await getCourse(admin);
 
     if (action === "overview") {
@@ -142,6 +152,15 @@ Deno.serve(async (req) => {
       const fullName = String(body.fullName || "").trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "Enter a valid email address." }, 400);
       if (fullName.length < 2) return json({ error: "Enter the administrator's name." }, 400);
+
+      const existingUser = (await listAllUsers(admin)).find((candidate: any) =>
+        String(candidate.email || "").toLowerCase() === email
+      );
+      if (existingUser) {
+        return json({
+          error: "This email already has an academy account. If they are already an administrator, use Restore Administrator Access. Otherwise, have them sign in with their existing password before granting access.",
+        }, 409);
+      }
 
       const redirectTo = "https://www.rouxlifecoachacademy.com/academy/admin/accept-invite/";
       const invited = await admin.auth.admin.inviteUserByEmail(email, {
@@ -271,4 +290,3 @@ Deno.serve(async (req) => {
     return json({ error: message }, status);
   }
 });
-
