@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/academy/index.html",
+      "destination": "/academy/?view=dashboard",
+      "permanent": false
+    }
+  ]
+}
