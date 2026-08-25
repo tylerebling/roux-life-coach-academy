@@ -61,7 +61,7 @@
     if(b.dataset.tab){document.querySelectorAll(".tabs button,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.getElementById(b.dataset.tab).classList.add("active")}
     if(b.dataset.openLesson)openAdminLesson(b.dataset.openLesson,false);
     if(b.dataset.openLab)openAdminLesson(b.dataset.openLab,true);
-    if(b.dataset.learnerView)window.open("/academy/","_blank","noopener");
+    if(b.dataset.learnerView)window.location.assign("/academy/?view=dashboard#journey");
     if(b.dataset.resetEmail){const result=await client.auth.resetPasswordForEmail(b.dataset.resetEmail,{redirectTo:location.origin+location.pathname});if(result.error)throw result.error;toast("Password recovery email sent.")}
     if(b.dataset.status)await act({action:"update-enrollment",enrollmentId:b.dataset.status,status:b.dataset.value},"Learner access updated.");
     if(b.dataset.resetProgress){if(await confirmAction("Reset all lesson progress?","This permanently removes the learner’s saved lesson progress. Type confirmation is handled securely." )!==null)await act({action:"reset-progress",enrollmentId:b.dataset.resetProgress,confirm:"RESET"},"Learner progress reset.")}
@@ -78,7 +78,7 @@
   $("#signInForm").addEventListener("submit",async event=>{event.preventDefault();$("#authMessage").textContent="Signing in…";const result=await client.auth.signInWithPassword({email:$("#email").value.trim(),password:$("#password").value});if(result.error){$("#authMessage").textContent=result.error.message;return}session=result.data.session;await start()});
   $("#forgotPassword").onclick=async()=>{const email=$("#email").value.trim();if(!email){$("#authMessage").textContent="Enter your email first.";return}const result=await client.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});$("#authMessage").textContent=result.error?result.error.message:"Recovery email sent."};
   $("#signOut").onclick=async()=>{await client.auth.signOut();location.reload()};
-  $("#learnerViewToggle").onclick=()=>window.open("/academy/","_blank","noopener");
+  $("#learnerViewToggle").onclick=()=>window.location.assign("/academy/?view=dashboard#journey");
   $("#refresh").onclick=()=>load().then(()=>toast("Records refreshed.")).catch(error=>toast(error.message));
   $("#learnerSearch").oninput=renderLearners;
   $("#courseForm").onsubmit=async event=>{event.preventDefault();try{await act({action:"update-course",priceCents:Math.round(Number($("#coursePrice").value||0)*100),stripePriceId:$("#stripePriceId").value,isPublished:$("#coursePublished").checked},"Course settings saved.")}catch(error){toast(error.message)}};
