@@ -99,7 +99,7 @@
       bar.classList.toggle("is-admin-preview", isAdminPreview);
       bar.classList.toggle("is-presentation", !isLab);
       bar.setAttribute("aria-label", "Academy lesson navigation");
-      bar.innerHTML = `<a data-nav="academy">Academy</a><span data-status></span><nav><a data-nav="previous">â† Previous</a><a data-nav="next">Next â†’</a></nav>`;
+      bar.innerHTML = `<a data-nav="academy">Academy</a><span data-status></span><nav><a data-nav="previous">&larr; Previous</a><a data-nav="next">Next &rarr;</a></nav>`;
       document.body.appendChild(bar);
       const style = document.createElement("style");
       style.textContent = `
@@ -158,7 +158,7 @@
       next.style.opacity = sections[activeIndex + 1]?.disabled ? '.42' : '1';
       next.title = sections[activeIndex + 1]?.disabled ? 'Complete the lesson review to unlock the final quiz.' : '';
     }
-    bar.querySelector("[data-status]").textContent = record.complete ? `Lesson ${lesson} complete âœ“` : `Lesson ${lesson} Â· requirements in progress`;
+    bar.querySelector("[data-status]").textContent = record.complete ? `Lesson ${lesson} complete \u2713` : `Lesson ${lesson} \u00b7 requirements in progress`;
   };
   document.addEventListener("input", () => setTimeout(sync, 0));
   document.addEventListener("change", () => setTimeout(sync, 0));
