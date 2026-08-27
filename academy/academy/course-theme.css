@@ -63,3 +63,36 @@ body:has(.wrap) .button{border-color:#7D936D;background:#7D936D;color:#FFFDF8}
 body:has(.wrap) .button:hover{background:#52654C;color:#FFFDF8}
 body:has(.wrap) .result,body:has(.wrap) .requirements{border-color:#D4C9B9;background:#F3EFE7;color:#202820}
 
+
+/* ROUX BEGIN LESSON VISIBILITY
+   Keep the opening action visible on every lesson and every common laptop height. */
+.start {
+  min-height: 100svh;
+}
+.start-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: calc(100svh - 24px);
+  padding-bottom: max(32px, env(safe-area-inset-bottom)) !important;
+}
+.start-card #begin {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  flex: 0 0 auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative;
+  z-index: 4;
+}
+@media (max-height: 820px) {
+  .start-card { margin-top: 0 !important; padding-top: 4px !important; }
+  .start-card .intro-logo { width: auto !important; max-width: min(560px, 68vw) !important; max-height: 30vh !important; object-fit: contain; }
+  .start-card .intro-line { margin-bottom: 12px !important; }
+  .start-card h1 { margin-bottom: 8px !important; font-size: clamp(28px, 3.3vw, 46px) !important; }
+  .start-card p { font-size: 15px !important; line-height: 1.35 !important; }
+  .start-card #begin { margin-top: 14px !important; }
+}
