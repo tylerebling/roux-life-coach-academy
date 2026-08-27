@@ -1,0 +1,46 @@
+# Run the tests that already exist.
+#
+# THE REASON THIS FILE EXISTS is a production regression that the test suite
+# caught and nobody saw. On 2026-08-25 the commit "Keep simulator in sidebar and
+# lead certification journey with progress" deleted the Life Coach Simulator
+# card from the learner dashboard — and with it the `#openSimulator` button, the
+# `#simulatorStatus` line every launch message is written to, and the
+# `#life-coach-simulator` anchor the sidebar item points at. The button students
+# press was simply gone, and the surviving sidebar trigger failed in silence
+# because the element its status messages go to had gone with the card.
+#
+# `tests/simulator-entry.test.js` and `tests/app-id-wiring.test.js` BOTH failed
+# on that commit. They had failed from the moment it was written. There was no
+# CI, so nothing ever ran them, and the regression shipped and stayed shipped.
+#
+# Adding another assertion would not have helped: the assertions were already
+# there and already correct. What was missing was execution. That is all this
+# file adds.
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No package.json and no dependencies — every test is a plain Node script
+      # that reads the committed HTML and JS. Running them is one loop, and
+      # keeping it that way is deliberate: a test suite that needs an install
+      # step is a test suite that gets skipped "just this once".
+      - name: Run every test
+        run: |
+          status=0
+          for t in tests/*.test.js; do
+            echo "── $t"
+            node "$t" || status=1
+          done
+          exit $status
