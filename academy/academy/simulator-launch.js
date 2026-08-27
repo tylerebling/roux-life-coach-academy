@@ -13,13 +13,14 @@
    * request, and in every log between here and there. The POST body goes to
    * one place and is gone.
    *
-   * TWO things start this: the sidebar item and the card's button. They share
-   * one implementation deliberately — two copies of a signed handoff is one
-   * copy too many. Triggers opt in with `data-simulator-launch` rather than by
-   * id, because an id can only belong to one of them.
+   * ONE thing starts this: the sidebar item. There was a second — a card in the
+   * Certification Journey grid — and the simulator is not a step of that
+   * journey, so it no longer appears there. The trigger still opts in with
+   * `data-simulator-launch` rather than by id: the attribute is what makes a
+   * second entry point a markup change rather than a code change, and that is
+   * worth keeping even at one.
    */
   const status = () => document.getElementById("simulatorStatus");
-  const card = () => document.getElementById("life-coach-simulator");
 
   const say = (message) => {
     const el = status();
@@ -37,23 +38,16 @@
   };
 
   /**
-   * The status line lives inside the card. A launch started from the sidebar
-   * would otherwise write "Preparing your practice room…" — and any failure
-   * message — somewhere the student is not looking.
+   * The status line now sits directly beneath the sidebar item, so there is
+   * nothing to scroll to and nowhere else for a message to land. It used to
+   * live inside the dashboard card, which is why a launch had to drag that card
+   * into view first — and why deleting the card once made every message,
+   * including every failure, disappear in silence.
    */
-  const showTheCard = (trigger) => {
-    if (trigger && trigger.id === "openSimulator") return;
-    const el = card();
-    if (!el) return;
-    const motion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    el.scrollIntoView({ block: "center", behavior: motion ? "auto" : "smooth" });
-  };
 
   async function openSimulator(trigger) {
     if (launching) return;
     const cloud = window.rouxAcademyCloud;
-
-    showTheCard(trigger);
 
     if (!cloud) return say("The Academy is still loading. Try again in a moment.");
     if (!cloud.session) {
@@ -63,7 +57,7 @@
 
     launching = true;
     setBusy(trigger, true);
-    say("Preparing your practice room…");
+    say("Opening simulator…");
 
     let launch;
     try {
@@ -104,9 +98,12 @@
     const target =
       event.target instanceof Element ? event.target.closest("[data-simulator-launch]") : null;
     if (target === null) return;
-    // The sidebar trigger is an anchor to #life-coach-simulator. That href is
-    // the no-JavaScript fallback — it points at the card on this page, never
-    // at the simulator origin, so a naked link can never become the way in.
+    // The trigger is an anchor, and its href points at ITSELF — the sidebar
+    // item carries `id="life-coach-simulator"`. That keeps it keyboard-
+    // reachable and keeps the fallback honest: with JavaScript off it is a
+    // no-op rather than a dangling `#` or, far worse, a naked link to the
+    // simulator origin, which would drop an unauthenticated stranger on
+    // another product's front door with no signed statement.
     event.preventDefault();
     void openSimulator(target);
   });

@@ -764,3 +764,10 @@ footer span { font-size: 12px; }
     justify-content: space-between;
   }
 }
+
+/* The simulator launch status, beneath the sidebar item.
+   Empty is the normal state and must take no space: a permanent line under
+   one nav item reads as a fault nobody has fixed. It appears only when the
+   launcher has something to say. */
+.nav-status{margin:.3rem 0 0 3.05rem;font-size:.72rem;line-height:1.35;color:#6b6152;max-width:14rem}
+.nav-status:empty{display:none}

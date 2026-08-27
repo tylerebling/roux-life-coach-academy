@@ -110,30 +110,46 @@ assert.ok(
   );
 }
 
-// ── both simulator triggers still share the one signed launch ───────────────
+// ── the one simulator trigger, and the signed launch behind it ─────────────
+//
+// There were two: the sidebar item and a card in the Certification Journey
+// grid. The card is gone on purpose — the simulator is not a step of the
+// certification journey — so ONE is now the correct count, and a second
+// appearing is a product change rather than a fix.
 {
   const launcher = fs.readFileSync(
     path.join(root, "academy/academy/simulator-launch.js"),
     "utf8",
   );
   const triggers = html.match(/data-simulator-launch/g) || [];
-  assert.equal(triggers.length, 2, "expected the sidebar item and the card CTA");
+  assert.equal(triggers.length, 1, "expected exactly one trigger: the sidebar item");
   assert.ok(
-    html.includes('href="#life-coach-simulator" data-simulator-launch'),
-    "the sidebar trigger is gone or no longer points at the on-page card",
+    html.includes('id="life-coach-simulator" href="#life-coach-simulator" data-simulator-launch'),
+    "the sidebar trigger is gone, or its href no longer resolves to itself",
   );
   assert.ok(
-    html.includes('id="openSimulator" data-simulator-launch'),
-    "the card CTA is gone or is no longer a launch trigger",
+    !html.includes('id="openSimulator"'),
+    "the dashboard simulator card CTA is back in the certification journey",
   );
   assert.ok(
     launcher.includes('closest("[data-simulator-launch]")'),
-    "the triggers no longer share one delegated handler",
+    "the trigger no longer goes through the delegated handler",
   );
   assert.equal(
     (launcher.match(/invoke\("simulator-launch"/g) || []).length,
     1,
-    "expected exactly one signed-launch call for both triggers",
+    "expected exactly one signed-launch call",
+  );
+  // The status line moved out of the deleted card. Without somewhere to write,
+  // every message the launcher produces — including every failure — is lost,
+  // which is precisely how this broke the first time.
+  assert.ok(
+    /id="simulatorStatus"[^>]*role="status"[^>]*aria-live="polite"/.test(html),
+    "the sidebar status region is missing or is not a live region",
+  );
+  assert.ok(
+    !launcher.includes('getElementById("life-coach-simulator")'),
+    "the launcher still depends on a dashboard card that no longer exists",
   );
   assert.ok(
     !launcher.includes("simulator.clientgatehq.com") && launcher.includes("launch.simulatorUrl"),
