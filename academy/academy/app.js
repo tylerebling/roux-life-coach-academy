@@ -153,7 +153,7 @@ function renderDashboard(){
     reviewMenu.id="milestoneReviewMenu";
     reviewMenu.className="milestone-review-menu";
     reviewMenu.hidden=true;
-    milestoneTrack.insertAdjacentElement("afterend",reviewMenu);
+    document.body.appendChild(reviewMenu);
   }
   milestoneTrack.querySelectorAll("[data-review-phase]").forEach(button=>button.addEventListener("click",()=>{
     const index=Number(button.dataset.reviewPhase),item=dashboardPhases[index];
