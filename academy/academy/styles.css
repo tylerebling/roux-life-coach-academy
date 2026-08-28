@@ -831,3 +831,11 @@ body.review-gallery-open{overflow:hidden}
 .review-gallery-panel footer{display:flex;justify-content:space-between;gap:20px;padding:14px 30px;border-top:1px solid #DDD3C4;color:#857D72;font-size:9px;letter-spacing:.08em;text-transform:uppercase}
 .review-gallery-panel footer i{font-style:normal}
 @media(max-width:600px){.milestone-review-menu{padding:12px!important}.review-gallery-panel{width:100%;max-height:calc(100vh - 24px);border-radius:14px}.review-gallery-panel header{padding:22px 20px 18px}.review-gallery-panel nav{padding:15px 18px 20px!important}.review-gallery-panel nav a{grid-template-columns:46px minmax(0,1fr) 30px!important;gap:11px!important;padding:12px!important}.review-lesson-number{width:42px;height:42px}.review-lesson-copy b{font-size:15px}.review-gallery-panel footer{padding:12px 20px}}
+
+/* ROUX REVIEW GALLERY NATIVE TOP LAYER */
+dialog.milestone-review-menu{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;margin:0!important;padding:24px!important;border:0!important;background:transparent!important;overflow:hidden!important;box-sizing:border-box!important}
+dialog.milestone-review-menu::backdrop{background:transparent}
+dialog.milestone-review-menu:not([open]){display:none!important}
+dialog.milestone-review-menu[open]{display:grid!important;place-items:center!important}
+dialog.milestone-review-menu .review-gallery-panel{margin:0!important;transform:none!important}
+@media(max-width:600px){dialog.milestone-review-menu{padding:12px!important}}
