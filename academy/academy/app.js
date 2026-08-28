@@ -149,24 +149,23 @@ function renderDashboard(){
   }).join("");
   let reviewMenu=document.getElementById("milestoneReviewMenu");
   if(!reviewMenu){
-    reviewMenu=document.createElement("div");
+    reviewMenu=document.createElement("dialog");
     reviewMenu.id="milestoneReviewMenu";
     reviewMenu.className="milestone-review-menu";
-    reviewMenu.hidden=true;
     document.body.appendChild(reviewMenu);
   }
   milestoneTrack.querySelectorAll("[data-review-phase]").forEach(button=>button.addEventListener("click",()=>{
     const index=Number(button.dataset.reviewPhase),item=dashboardPhases[index];
     const completedLessons=lessons.filter(lesson=>item.range&&lesson.number>=item.range[0]&&lesson.number<=item.range[1]&&state.completed.includes(lesson.number));
-    const wasOpen=!reviewMenu.hidden&&reviewMenu.dataset.phase===String(index);
+    const wasOpen=reviewMenu.open&&reviewMenu.dataset.phase===String(index);
     milestoneTrack.querySelectorAll("[data-review-phase]").forEach(item=>item.setAttribute("aria-expanded","false"));
-    if(wasOpen){reviewMenu.hidden=true;reviewMenu.removeAttribute("data-phase");document.body.classList.remove("review-gallery-open");return;}
+    if(wasOpen){reviewMenu.close();reviewMenu.removeAttribute("data-phase");document.body.classList.remove("review-gallery-open");return;}
     reviewMenu.dataset.phase=String(index);
     reviewMenu.innerHTML=`<button type="button" class="review-gallery-backdrop" aria-label="Close completed lesson gallery"></button><section class="review-gallery-panel" role="dialog" aria-modal="true" aria-labelledby="reviewGalleryTitle"><header><div><span class="review-gallery-eyebrow">Completed curriculum</span><h3 id="reviewGalleryTitle">${item.name}</h3><p>Select any completed lesson to revisit it. Your progress remains saved.</p></div><button type="button" class="review-gallery-close" aria-label="Close completed lesson gallery">&times;</button></header><nav aria-label="Completed ${item.name} lessons">${completedLessons.map(lesson=>`<a href="${lesson.url}"><span class="review-lesson-number">${String(lesson.number).padStart(2,"0")}</span><span class="review-lesson-copy"><small>Lesson ${String(lesson.number).padStart(2,"0")} &middot; Completed</small><b>${lesson.title}</b><em>Review lesson</em></span><span class="review-lesson-seal" aria-hidden="true">&#10003;</span></a>`).join("")}</nav><footer><span>Roux Life Coach Academy</span><i>${completedLessons.length} completed lesson${completedLessons.length===1?"":"s"}</i></footer></section>`;
-    const closeReviewGallery=()=>{reviewMenu.hidden=true;reviewMenu.removeAttribute("data-phase");document.body.classList.remove("review-gallery-open");button.setAttribute("aria-expanded","false");};
+    const closeReviewGallery=()=>{if(reviewMenu.open)reviewMenu.close();reviewMenu.removeAttribute("data-phase");document.body.classList.remove("review-gallery-open");button.setAttribute("aria-expanded","false");};
     reviewMenu.querySelector(".review-gallery-backdrop").addEventListener("click",closeReviewGallery);
     reviewMenu.querySelector(".review-gallery-close").addEventListener("click",closeReviewGallery);
-    reviewMenu.hidden=false;
+    reviewMenu.showModal();
     document.body.classList.add("review-gallery-open");
     button.setAttribute("aria-expanded","true");
   }));
