@@ -839,3 +839,7 @@ dialog.milestone-review-menu:not([open]){display:none!important}
 dialog.milestone-review-menu[open]{display:grid!important;place-items:center!important}
 dialog.milestone-review-menu .review-gallery-panel{margin:0!important;transform:none!important}
 @media(max-width:600px){dialog.milestone-review-menu{padding:12px!important}}
+
+/* ROUX REVIEW GALLERY GRID RESET */
+dialog.milestone-review-menu[open]{grid-template-columns:1fr!important;grid-template-rows:1fr!important;justify-items:center!important;align-items:center!important}
+dialog.milestone-review-menu .review-gallery-panel{grid-column:1!important;grid-row:1!important;justify-self:center!important;align-self:center!important}
