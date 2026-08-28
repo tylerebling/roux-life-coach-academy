@@ -134,7 +134,38 @@ function renderDashboard(){
   if(view.next){dashboardText("nextLessonNumber",`LESSON ${String(view.next.number).padStart(2,"0")}`);dashboardText("nextLessonTitle",view.next.title);dashboardText("nextLessonMeta",view.nextUnlocked?`${view.next.minutes} min - Available now`:`Complete Lesson ${view.current.number} to unlock`);dashboardText("nextLock",view.nextUnlocked?"Available":"Locked");const nextAction=document.getElementById("nextLessonAction");nextAction.setAttribute("aria-disabled",String(!view.nextUnlocked));if(view.nextUnlocked){nextAction.href=view.nextUrl}else nextAction.removeAttribute("href");}
   else{dashboardText("nextLessonNumber","FINAL REVIEW");dashboardText("nextLessonTitle","Certification assessment");dashboardText("nextLessonMeta",view.currentRecord.complete?"Your final assessment is available.":"Complete Lesson 19 to unlock");dashboardText("nextLock",view.currentRecord.complete?"Available":"Locked");}
   dashboardText("journeyPercent",`${view.percent}% complete`);dashboardText("lessonsComplete",view.completed);dashboardText("progressPercentValue",view.percent);dashboardText("hoursLogged",view.hours);document.getElementById("dashboardProgressBar").style.width=`${view.percent}%`;document.getElementById("dashboardProgressRing")?.style.setProperty("--dashboard-progress",`${view.percent}%`);
-  document.getElementById("milestoneTrack").innerHTML=dashboardPhases.map((item,index)=>{const phaseLessons=item.range?lessons.filter(lesson=>lesson.number>=item.range[0]&&lesson.number<=item.range[1]):[],done=item.range?phaseLessons.every(lesson=>state.completed.includes(lesson.number)):finalPassed,current=index===phaseIndex&&!done,status=done?"Complete":current?"Current":"Locked",range=item.range?`${item.range[0]} - ${item.range[1]}`:"20";return `<div class="milestone ${done?"complete":current?"current":"locked"}"><i>${dashboardPhaseIcons[index]}</i><b>${item.name}</b><small>${range}</small><span>${status}</span></div>`}).join("");
+  const milestoneTrack=document.getElementById("milestoneTrack");
+  milestoneTrack.innerHTML=dashboardPhases.map((item,index)=>{
+    const phaseLessons=item.range?lessons.filter(lesson=>lesson.number>=item.range[0]&&lesson.number<=item.range[1]):[];
+    const done=item.range?phaseLessons.every(lesson=>state.completed.includes(lesson.number)):finalPassed;
+    const current=index===phaseIndex&&!done;
+    const reviewable=phaseLessons.filter(lesson=>state.completed.includes(lesson.number));
+    const status=done?"Review":current&&reviewable.length?"Review completed":current?"Current":"Locked";
+    const range=item.range?`${item.range[0]} - ${item.range[1]}`:"20";
+    const content=`<i>${dashboardPhaseIcons[index]}</i><b>${item.name}</b><small>${range}</small><span>${status}</span>`;
+    return reviewable.length
+      ? `<button type="button" class="milestone ${done?"complete":current?"current":"locked"} reviewable" data-review-phase="${index}" aria-label="Review completed ${item.name} lessons">${content}</button>`
+      : `<div class="milestone ${done?"complete":current?"current":"locked"}">${content}</div>`;
+  }).join("");
+  let reviewMenu=document.getElementById("milestoneReviewMenu");
+  if(!reviewMenu){
+    reviewMenu=document.createElement("div");
+    reviewMenu.id="milestoneReviewMenu";
+    reviewMenu.className="milestone-review-menu";
+    reviewMenu.hidden=true;
+    milestoneTrack.insertAdjacentElement("afterend",reviewMenu);
+  }
+  milestoneTrack.querySelectorAll("[data-review-phase]").forEach(button=>button.addEventListener("click",()=>{
+    const index=Number(button.dataset.reviewPhase),item=dashboardPhases[index];
+    const completedLessons=lessons.filter(lesson=>item.range&&lesson.number>=item.range[0]&&lesson.number<=item.range[1]&&state.completed.includes(lesson.number));
+    const wasOpen=!reviewMenu.hidden&&reviewMenu.dataset.phase===String(index);
+    milestoneTrack.querySelectorAll("[data-review-phase]").forEach(item=>item.setAttribute("aria-expanded","false"));
+    if(wasOpen){reviewMenu.hidden=true;reviewMenu.removeAttribute("data-phase");return;}
+    reviewMenu.dataset.phase=String(index);
+    reviewMenu.innerHTML=`<div><strong>Review ${item.name}</strong><span>Your completed lessons stay complete.</span></div><nav aria-label="Completed ${item.name} lessons">${completedLessons.map(lesson=>`<a href="${lesson.url}"><span>Lesson ${String(lesson.number).padStart(2,"0")}</span><b>${lesson.title}</b><i aria-hidden="true">&rarr;</i></a>`).join("")}</nav>`;
+    reviewMenu.hidden=false;
+    button.setAttribute("aria-expanded","true");
+  }));
   document.getElementById("weeklyTasks").innerHTML=Object.entries(view.activities).filter(([,done])=>!done).slice(0,3).map(([key])=>`<div><span class="task-icon" aria-hidden="true">${dashboardActivityIcons[key]}</span><p><b>${activityLabels[key]}</b><small>Lesson ${view.current.number}</small></p></div>`).join("")||'<div><span class="task-icon" aria-hidden="true">${dashboardActivityIcons.complete}</span><p><b>Lesson complete</b><small>Continue to your next lesson</small></p></div>';
   const progressRows=Array.isArray(remote.progress)?remote.progress:[],scores=progressRows.map(row=>Number(row.practice_score)).filter(Number.isFinite);dashboardText("practiceScore",scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):"--");
   const lowerAction=document.getElementById("lowerNextStepAction");if(lowerAction){lowerAction.href=view.resumeUrl;lowerAction.firstChild.textContent=view.completed===0?"Begin Lesson 1 ":"Continue Lesson ";dashboardText("nextStepTitle",view.completed===0?"Begin your first lesson.":`Continue Lesson ${view.current.number}.`);dashboardText("nextStepDescription",view.completed===0?"Start with Lesson 1 in Foundations and take the first step toward becoming the coach you're meant to be.":`Continue ${view.current.title} and keep building your coaching practice.`);dashboardText("nextStepTime",`About ${view.current.minutes} minutes`);}
