@@ -146,13 +146,19 @@ function makeDom() {
     addEventListener: (type, fn) => listeners.push({ type, fn }),
   };
 
-  return { document, listeners, created, status, El };
+  // The launcher now listens on `window` too, for the page being restored.
+  const windowListeners = [];
+
+  return { document, listeners, windowListeners, created, status, El };
 }
 
 /** Load the launcher into a fresh DOM, with a cloud of the caller's choosing. */
 function boot(cloud) {
   const dom = makeDom();
   const invocations = [];
+  const timers = new Map();
+  let timerId = 0;
+  let clockMs = 0;
   const context = {
     document: dom.document,
     Element: dom.El,
@@ -160,13 +166,46 @@ function boot(cloud) {
     window: {
       rouxAcademyCloud: cloud === undefined ? undefined : cloud(invocations),
       matchMedia: () => ({ matches: false }),
+      addEventListener: (type, fn) => dom.windowListeners.push({ type, fn }),
     },
+    /*
+     * Timers are the launcher's own, driven by hand.
+     *
+     * The bounded attempt is the fix being tested, so its clock cannot be the
+     * real one — a suite that waited fifteen real seconds for a timeout is a
+     * suite nobody runs. `tick` fires whatever is due.
+     */
+    setTimeout: (fn, ms) => {
+      const id = ++timerId;
+      timers.set(id, { fn, at: clockMs + (typeof ms === "number" ? ms : 0) });
+      return id;
+    },
+    clearTimeout: (id) => timers.delete(id),
   };
   vm.createContext(context);
   vm.runInContext(launcherSource, context);
   assert.equal(dom.listeners.length, 1, "the launcher did not register one delegated listener");
   assert.equal(dom.listeners[0].type, "click", "the launcher listens for something other than click");
-  return { ...dom, invocations };
+
+  /** Advance the launcher's clock and run whatever is due. */
+  const tick = (ms) => {
+    clockMs += ms;
+    for (const [id, timer] of [...timers]) {
+      if (timer.at <= clockMs) {
+        timers.delete(id);
+        timer.fn();
+      }
+    }
+  };
+
+  /** The browser showing this document again, as after a back-navigation. */
+  const pageshow = (persisted) => {
+    for (const listener of dom.windowListeners) {
+      if (listener.type === "pageshow") listener.fn({ persisted });
+    }
+  };
+
+  return { ...dom, invocations, tick, pageshow, pendingTimers: () => timers.size };
 }
 
 /** A click on the sidebar trigger, as the browser would deliver it. */
@@ -298,8 +337,232 @@ const signedLaunch = {
     );
   }
 
+  /* ── the bounded attempt: every path ends navigated or ready ───────────── */
+
+  /** A cloud whose invoke resolves, fails or hangs, on demand. */
+  const cloudWith = (invoke) => (invocations) => ({
+    session: { user: "student" },
+    client: {
+      functions: {
+        invoke: (name, options) => {
+          invocations.push({ name, options });
+          return invoke(invocations.length);
+        },
+      },
+    },
+  });
+
+  const forms = (dom) => dom.created.filter((el) => el.tagName === "FORM");
+  const busy = (trigger) => trigger.attributes["aria-busy"];
+
+  // ── a failed invoke resets, and the NEXT click launches for real ──
+  {
+    let calls = 0;
+    const dom = boot(
+      cloudWith(async () => {
+        calls += 1;
+        return calls === 1
+          ? { data: null, error: new Error("boom") }
+          : { data: signedLaunch, error: null };
+      }),
+    );
+
+    const first = clickTrigger(dom);
+    await settle();
+    await settle();
+    assert.equal(busy(first.trigger), "false", "a failed launch left the trigger busy");
+
+    clickTrigger(dom);
+    await settle();
+    await settle();
+    assert.equal(dom.invocations.length, 2, "the retry after a failure never asked for a launch");
+    assert.equal(forms(dom).length, 1, "the retry did not submit the handoff");
+  }
+
+  // ── an invoke that never settles must not hold the button forever ──
+  {
+    const dom = boot(cloudWith(() => new Promise(() => {})));
+    const { trigger } = clickTrigger(dom);
+    await settle();
+    assert.equal(busy(trigger), "true", "the attempt did not mark the trigger busy");
+
+    dom.tick(15000); // the invoke timeout
+    await settle();
+    await settle();
+    assert.equal(busy(trigger), "false", "a stalled launch never released the trigger");
+    assert.match(dom.status.textContent, /try again/i, "a stalled launch said nothing");
+
+    clickTrigger(dom);
+    await settle();
+    assert.equal(dom.invocations.length, 2, "after a timeout the next click was still latched out");
+  }
+
+  // ── a timed-out request that resolves LATER must not navigate anybody ──
+  {
+    let release;
+    const dom = boot(cloudWith(() => new Promise((r) => (release = r))));
+    clickTrigger(dom);
+    await settle();
+
+    dom.tick(15000);
+    await settle();
+    await settle();
+
+    // The student has their button back. The abandoned request now answers.
+    release({ data: signedLaunch, error: null });
+    await settle();
+    await settle();
+
+    assert.equal(
+      forms(dom).length,
+      0,
+      "a launch abandoned at timeout came back and navigated the student anyway",
+    );
+  }
+
+  // ── a submit that throws is a failure the student can retry ──
+  {
+    const dom = boot(cloudWith(async () => ({ data: signedLaunch, error: null })));
+    // Every form this DOM makes refuses to submit, as a blocked navigation does.
+    dom.El.prototype.submit = function submit() {
+      throw new Error("navigation blocked");
+    };
+
+    const { trigger } = clickTrigger(dom);
+    await settle();
+    await settle();
+
+    assert.equal(busy(trigger), "false", "a failed submit left the trigger busy forever");
+    assert.match(dom.status.textContent, /try again/i, "a failed submit said nothing");
+    delete dom.El.prototype.submit;
+  }
+
+  // ── a malformed launch is never POSTed ──
+  {
+    for (const bad of [
+      { ...signedLaunch, payload: "" },
+      { ...signedLaunch, signature: undefined },
+      { ...signedLaunch, simulatorUrl: null },
+      { ...signedLaunch, claims: "not-an-object" },
+      {},
+    ]) {
+      const dom = boot(cloudWith(async () => ({ data: bad, error: null })));
+      const { trigger } = clickTrigger(dom);
+      await settle();
+      await settle();
+
+      assert.equal(
+        forms(dom).length,
+        0,
+        `an incomplete launch was submitted: ${JSON.stringify(bad)}`,
+      );
+      assert.equal(busy(trigger), "false", "a malformed launch left the trigger busy");
+      assert.match(dom.status.textContent, /try again/i, "a malformed launch said nothing");
+    }
+  }
+
+  // ── submitted, but the page never left ──
+  {
+    const dom = boot(cloudWith(async () => ({ data: signedLaunch, error: null })));
+    const { trigger } = clickTrigger(dom);
+    await settle();
+    await settle();
+    assert.equal(forms(dom).length, 1, "the handoff was not submitted");
+    // Busy is CORRECT here: navigation is expected, and clearing it would let a
+    // second click mint a second statement for a student already leaving.
+    assert.equal(busy(trigger), "true", "the trigger was released mid-navigation");
+
+    dom.tick(12000);
+    assert.equal(busy(trigger), "false", "a navigation that never happened stayed busy forever");
+    assert.match(dom.status.textContent, /did not open/i, "a stuck navigation said nothing");
+  }
+
+  /* ── THE REPORTED DEFECT: coming back and clicking again ─────────────────── */
+
+  // ── bfcache restore clears the latch the success path used to leave ──
+  {
+    const dom = boot(cloudWith(async () => ({ data: signedLaunch, error: null })));
+    clickTrigger(dom);
+    await settle();
+    await settle();
+    assert.equal(dom.status.textContent, "Opening simulator…", "the transient message never showed");
+
+    dom.pageshow(true); // the student comes back
+
+    assert.notEqual(
+      dom.status.textContent,
+      "Opening simulator…",
+      "the stale transient message survived the return",
+    );
+
+    clickTrigger(dom);
+    await settle();
+    await settle();
+    assert.equal(dom.invocations.length, 2, "the click after returning was latched out");
+    assert.equal(forms(dom).length, 2, "the second launch built no handoff");
+  }
+
+  // ── an ordinary history restore, where persisted is false ──
+  {
+    const dom = boot(cloudWith(async () => ({ data: signedLaunch, error: null })));
+    clickTrigger(dom);
+    await settle();
+    await settle();
+
+    dom.pageshow(false);
+
+    clickTrigger(dom);
+    await settle();
+    await settle();
+    assert.equal(dom.invocations.length, 2, "a non-persisted restore left the launcher latched");
+  }
+
+  // ── repeated restores are idempotent ──
+  {
+    const dom = boot(cloudWith(async () => ({ data: signedLaunch, error: null })));
+    clickTrigger(dom);
+    await settle();
+    await settle();
+    dom.pageshow(true);
+    dom.pageshow(true);
+    dom.pageshow(false);
+
+    clickTrigger(dom);
+    await settle();
+    await settle();
+    assert.equal(dom.invocations.length, 2, "repeated restores broke the launcher");
+  }
+
+  // ── twenty complete launch → return → launch cycles ──
+  {
+    const dom = boot(cloudWith(async () => ({ data: signedLaunch, error: null })));
+    for (let cycle = 1; cycle <= 20; cycle += 1) {
+      const { trigger } = clickTrigger(dom);
+      await settle();
+      await settle();
+
+      assert.equal(dom.invocations.length, cycle, `cycle ${cycle} did not ask for a NEW launch`);
+      assert.equal(forms(dom).length, cycle, `cycle ${cycle} did not submit a handoff`);
+      assert.equal(busy(trigger), "true", `cycle ${cycle} released the trigger mid-navigation`);
+
+      // The student finishes and comes back.
+      dom.pageshow(cycle % 2 === 0);
+      assert.notEqual(
+        dom.status.textContent,
+        "Opening simulator…",
+        `cycle ${cycle} came back to a stale busy message`,
+      );
+    }
+    assert.equal(dom.invocations.length, 20, "twenty cycles did not produce twenty handoffs");
+
+    const names = new Set(dom.invocations.map((i) => i.name));
+    assert.deepEqual([...names], ["simulator-launch"], "something other than the launch was invoked");
+  }
+
   console.log(
-    "simulator-entry: one sidebar trigger, no journey card, click → single signed launch → POST",
+    "simulator-entry: one sidebar trigger, no journey card, click → single signed launch → POST; " +
+      "bounded attempt resets on failure, timeout, malformed response, blocked submit, stalled " +
+      "navigation and page restore; 20 launch→return→launch cycles",
   );
 })().catch((error) => {
   console.error(error);
