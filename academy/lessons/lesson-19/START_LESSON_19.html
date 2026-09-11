@@ -46,7 +46,7 @@ function render(autoplay=true){let s=scenes[index];manualConcept=-1;manualUntil=
 function bindAnswers(s){document.querySelectorAll('.answer').forEach(b=>b.onclick=()=>{if(answered)return;answered=true;let i=Number(b.dataset.i),ok=i===s.correct;b.classList.add('selected',ok?'correct':'wrong');document.querySelectorAll('.answer').forEach(x=>x.disabled=true);let f=document.getElementById('feedback'),detail=String(s.feedback[i]).replace(/^Correct\.\s*/,'');f.innerHTML=`<strong>${ok?'Correct':'Not quite'}.</strong> ${esc(detail)}`;f.classList.add('show');document.getElementById('continue').classList.add('show')});document.getElementById('continue').onclick=()=>advance()}
 function advance(){if(index<scenes.length-1){index++;render(true)}else{voice.pause();localStorage.setItem('rouxLesson19PresentationComplete','true');window.location.href='LEARNING_LAB.html'}}
 voice.ontimeupdate=()=>syncConcepts(false);voice.onloadedmetadata=()=>syncConcepts(false);
-voice.onended=()=>{syncConcepts(true);setPlaybackControl(false);if(scenes[index].kind!=='question')setTimeout(advance,700)};
+voice.onended=()=>{syncConcepts(true);setPlaybackControl(false);if(scenes[index].kind!=='question')advance()};
 document.getElementById('begin').onclick=()=>{document.getElementById('start').remove();render(true)};
 document.getElementById('toggle').onclick=()=>{if(voice.paused){voice.play();setPlaybackControl(true)}else{voice.pause();setPlaybackControl(false)}};
 document.getElementById('next').onclick=()=>advance();document.getElementById('back').onclick=()=>{if(index>0){index--;render(true)}};
