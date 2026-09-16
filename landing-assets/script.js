@@ -57,11 +57,6 @@
   const motionButton = document.querySelector('.motion-toggle');
   const notice = document.getElementById('video-notice');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const scenes = [
-    ['SMART COACH SIMULATOR', 'Practice from the place you call home.'],
-    ['YOUR ONLINE ACADEMY', 'Your learning. Your progress. Your next step.'],
-    ['LEARN FROM ANYWHERE', 'Your classroom goes where you go.']
-  ];
   let activeScene = 0, userPaused = reducedMotion.matches, heroVisible = true;
   const canPlay = () => !userPaused && heroVisible && !document.hidden && !document.querySelector('dialog[open]');
   const updateMotion = () => {
@@ -86,8 +81,6 @@
     if (!Number.isInteger(index) || index < 0 || index >= videos.length) return;
     videos.forEach(video => video.pause()); activeScene = index;
     videos.forEach((video, i) => video.classList.toggle('is-active', i === index));
-    document.getElementById('scene-kicker').textContent = scenes[index][0];
-    document.getElementById('scene-caption').textContent = scenes[index][1];
     notice.hidden = true;
     try { videos[index].currentTime = 0; } catch (_) { /* Metadata loads on demand. */ }
     updateMotion(); playActive();

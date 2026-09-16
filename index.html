@@ -18,8 +18,8 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2311372a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='45' text-anchor='middle' fill='%23ffffff'%3ER%3C/text%3E%3C/svg%3E">
   <link rel="preload" href="/landing-assets/font-0.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="/landing-assets/font-1.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" as="image" href="/landing-assets/hero-office-background.webp">
-  <link rel="stylesheet" href="/landing-assets/styles.css?v=hero-photo-visible-3">
+  <link rel="preload" as="image" href="/landing-assets/home-practice.webp">
+  <link rel="stylesheet" href="/landing-assets/styles.css?v=hero-background-video-1">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[{"@type":"EducationalOrganization","@id":"https://www.rouxlifecoachacademy.com/#organization","name":"Roux Life Coach Academy","url":"https://www.rouxlifecoachacademy.com/","email":"support@rouxlife.com","founder":{"@type":"Person","name":"Nicole Deslatte"}},{"@type":"Course","@id":"https://www.rouxlifecoachacademy.com/#course","name":"Roux Life Coach Certification","description":"A 40-hour, self-paced online life coach certification program with Smart Coach Simulator practice, workbooks, assessments, business-building education, and lifetime curriculum access.","provider":{"@id":"https://www.rouxlifecoachacademy.com/#organization"},"inLanguage":"en","timeRequired":"PT40H","educationalCredentialAwarded":"Roux Life Certified Coach — private academy certification","offers":{"@type":"Offer","price":"1295","priceCurrency":"USD","url":"https://www.rouxlifecoachacademy.com/academy/?action=enroll","category":"Paid"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT40H"}}]}
   </script>
@@ -39,6 +39,14 @@
 </header>
 <main id="main">
   <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-background" id="hero-cinema" aria-hidden="true">
+          <video class="hero-scene is-active" data-scene="0" muted playsinline preload="metadata" poster="/landing-assets/home-practice.webp" aria-hidden="true"><source src="/landing-assets/home-practice.mp4" type="video/mp4"></video>
+          <video class="hero-scene" data-scene="1" muted playsinline preload="none" poster="/landing-assets/studio-practice.webp" aria-hidden="true"><source src="/landing-assets/studio-practice.mp4" type="video/mp4"></video>
+          <video class="hero-scene" data-scene="2" muted playsinline preload="none" poster="/landing-assets/cafe-practice.webp" aria-hidden="true"><source src="/landing-assets/cafe-practice.mp4" type="video/mp4"></video>
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <button type="button" class="motion-toggle" aria-label="Play hero video"><span aria-hidden="true">▷</span></button>
+    <p id="video-notice" class="video-notice" aria-live="polite" hidden></p>
     <div class="container hero-grid">
       <div class="hero-copy">
         <p class="eyebrow"><span class="eyebrow-line"></span> ONLINE LIFE COACH CERTIFICATION</p>
@@ -47,17 +55,7 @@
         <div class="hero-actions"><a class="button" href="#tuition">Start my certification <span aria-hidden="true">↗</span></a><a class="button button-outline" href="/academy/?action=demo"><span aria-hidden="true">▷</span> Explore the demo</a></div>
         <p class="hero-assurance">$1,295 one-time tuition <span aria-hidden="true">·</span> Lifetime curriculum access</p>
       </div>
-      <div class="hero-product">
-        <div class="cinema-topline"><span class="product-mark" aria-hidden="true">R</span><span>YOUR CLASSROOM. YOUR LIFE.</span><span class="platform-label">THE ACADEMY EXPERIENCE</span></div>
-        <div class="hero-video-wrap" id="hero-cinema">
-          <video class="hero-scene is-active" data-scene="0" muted playsinline preload="metadata" poster="/landing-assets/home-practice.webp" aria-label="The original home practice video: a learner using the Smart Coach Simulator"><source src="/landing-assets/home-practice.mp4" type="video/mp4"></video>
-          <video class="hero-scene" data-scene="1" muted playsinline preload="none" poster="/landing-assets/studio-practice.webp" aria-label="The original studio video: learning with the Academy dashboard"><source src="/landing-assets/studio-practice.mp4" type="video/mp4"></video>
-          <video class="hero-scene" data-scene="2" muted playsinline preload="none" poster="/landing-assets/cafe-practice.webp" aria-label="The original café video: learning from a laptop"><source src="/landing-assets/cafe-practice.mp4" type="video/mp4"></video>
-          <button type="button" class="motion-toggle" aria-label="Play hero video"><span aria-hidden="true">▷</span></button>
-          <div class="cinema-caption"><span id="scene-kicker">SMART COACH SIMULATOR</span><strong id="scene-caption">Practice from the place you call home.</strong></div>
-        </div>
-        <p id="video-notice" class="video-notice" aria-live="polite" hidden></p>
-      </div>
+
     </div>
     <div class="container hero-benefits" aria-label="Academy highlights"><div><strong>40<span>hours</span></strong><span>A practical coaching foundation</span></div><div><strong>100<span>% online</span></strong><span>A classroom without the commute</span></div><div><strong>Your<span>pace</span></strong><span>Built around the life you have</span></div><div><strong>One<span>platform</span></strong><span>Learning, practice & business skills</span></div></div>
   </section>
@@ -205,6 +203,6 @@
 <div class="mobile-enroll" aria-label="Quick enrollment"><div><strong class="mobile-enroll-price"><span class="mobile-price-currency">$</span><span>1,295</span></strong><span>One-time tuition</span></div><a class="button button-small" href="#tuition">Explore certification <span aria-hidden="true">↗</span></a></div>
 <dialog id="dashboard-dialog" class="image-dialog" aria-labelledby="dashboard-dialog-title"><div class="dialog-header"><h2 id="dashboard-dialog-title">Inside your Academy</h2><button type="button" class="dialog-close" aria-label="Close dashboard preview">×</button></div><div class="dashboard-crop"><img src="/landing-assets/dashboard-original.png" alt="Actual Roux Life Academy student dashboard" width="1920" height="1160" loading="lazy"></div><p>Actual Academy screenshot. <a href="/academy/?action=demo">Explore the Academy demo ↗</a></p></dialog>
 <dialog id="simulator-dialog" class="image-dialog simulator-dialog" aria-labelledby="simulator-dialog-title"><div class="dialog-header"><h2 id="simulator-dialog-title">Meet Lauren</h2><button type="button" class="dialog-close" aria-label="Close simulator preview">×</button></div><div class="simulator-crop"><img src="/landing-assets/lauren-original.png" alt="Actual Smart Coach Simulator interface featuring Lauren and the workplace burnout scenario" width="1902" height="1085" loading="lazy"></div><p>Actual simulator screenshot. <a href="/academy/?action=signin#life-coach-simulator">Sign in to practice ↗</a></p></dialog>
-<script src="/landing-assets/script.js"></script>
+<script src="/landing-assets/script.js?v=hero-background-video-1"></script>
 </body>
 </html>

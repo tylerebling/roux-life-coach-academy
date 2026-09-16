@@ -193,9 +193,32 @@
 @media(max-width:360px){.path-kitchen .path-header h3{font-size:2.3rem}.path-kitchen .path-kicker{font-size:.55rem}.path-kitchen .path-investment>strong{font-size:2.7rem}}
 .path-footer>.path-as-of{font-size:.72rem;line-height:1.5;letter-spacing:0;text-transform:none;font-weight:400;color:#70715f}
 
-/* Keep playback control on the video, without the lower navigation strip. */
-.hero-video-wrap>.motion-toggle{position:absolute;top:14px;right:14px;z-index:3;width:40px;min-width:40px;height:40px;background:#fbf8f2ed;border-color:#ded5c4;color:#11372a;box-shadow:0 2px 8px #071f1814}
-
-/* Photograph painted directly into the hero background. */
-.hero{background-color:#fbf8f2;background-image:linear-gradient(90deg,#fbf8f299 0%,#fbf8f280 42%,#fbf8f233 100%),linear-gradient(0deg,#fbf8f2 0%,#fbf8f200 25%),url('/landing-assets/hero-office-background.webp');background-size:cover;background-position:center;background-repeat:no-repeat}
-@media(max-width:850px){.hero{background-image:linear-gradient(90deg,#fbf8f2bf,#fbf8f28c),linear-gradient(180deg,#fbf8f200 400px,#fbf8f2 760px),url('/landing-assets/hero-office-background.webp');background-size:100% 100%,100% 100%,auto 760px;background-position:center,center,58% top}}
+/* Full-width original Academy films, with a readable ivory text area. */
+.hero{background:#fbf8f2;padding-top:64px}
+.hero-background,.hero-overlay{position:absolute;inset:0;pointer-events:none}
+.hero-background{z-index:0;background:#e9e3d8 url('/landing-assets/home-practice.webp') center/cover no-repeat}
+.hero-background .hero-scene{object-fit:cover;object-position:center}
+.hero-overlay{z-index:2;background:linear-gradient(90deg,#fbf8f2f5 0%,#fbf8f2eb 29%,#fbf8f2b8 43%,#fbf8f21a 66%,#fbf8f200 100%),linear-gradient(0deg,#fbf8f2 0%,#fbf8f2eb 12%,#fbf8f200 36%)}
+.hero-grid{position:relative;z-index:3;display:block;min-height:500px}
+.hero-copy{max-width:550px;margin:0;text-align:left}
+.hero-copy>.eyebrow,.hero-actions{justify-content:flex-start}
+.hero-description{color:#414a3d}
+.hero-benefits{position:relative;z-index:3;margin-top:40px}
+.hero>.motion-toggle{position:absolute;top:22px;right:24px;z-index:4;width:44px;height:44px;background:#fbf8f2e8;color:#11372a;box-shadow:0 2px 8px #071f1814}
+.hero>.video-notice{position:relative;z-index:3;margin:0 80px 16px 24px;background:#fbf8f2}
+@media(max-width:850px){
+ .hero{padding-top:68px}
+ .hero-grid{min-height:480px}
+ .hero-copy{max-width:540px}
+ .hero-overlay{background:linear-gradient(90deg,#fbf8f2f2 0%,#fbf8f2d9 48%,#fbf8f259 100%),linear-gradient(0deg,#fbf8f2 0%,#fbf8f2cc 18%,#fbf8f200 45%)}
+ .hero h1 em br{display:block}
+ .hero-description{margin:22px 0 25px}
+}
+@media(max-width:640px){
+ .hero{padding-top:66px}
+ .hero-grid{min-height:0}
+ .hero-background .hero-scene{object-position:58% center}
+ .hero-overlay{background:linear-gradient(90deg,#fbf8f2e8 0%,#fbf8f2cc 55%,#fbf8f280 100%),linear-gradient(0deg,#fbf8f2 0%,#fbf8f2cc 23%,#fbf8f200 60%)}
+ .hero-benefits{margin-top:32px}
+ .hero>.motion-toggle{top:12px;right:20px}
+}
