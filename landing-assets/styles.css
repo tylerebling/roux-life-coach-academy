@@ -195,3 +195,9 @@
 
 /* Keep playback control on the video, without the lower navigation strip. */
 .hero-video-wrap>.motion-toggle{position:absolute;top:14px;right:14px;z-index:3;width:40px;min-width:40px;height:40px;background:#fbf8f2ed;border-color:#ded5c4;color:#11372a;box-shadow:0 2px 8px #071f1814}
+
+/* Sunlit office photography with an ivory scrim for legible hero copy. */
+.hero-light{background:none}
+.hero-light>img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-light::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#fbf8f2cf 0%,#fbf8f2b3 42%,#fbf8f259 100%),linear-gradient(0deg,#fbf8f2 0%,#fbf8f200 35%)}
+@media(max-width:850px){.hero-light>img{position:absolute;inset:0;height:760px;object-position:58% center}.hero-light::after{background:linear-gradient(90deg,#fbf8f2d9,#fbf8f2a6),linear-gradient(180deg,#fbf8f200 400px,#fbf8f2 760px)}}
