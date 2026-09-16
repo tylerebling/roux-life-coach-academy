@@ -60,6 +60,7 @@
   let activeScene = 0, userPaused = reducedMotion.matches, heroVisible = true;
   const canPlay = () => !userPaused && heroVisible && !document.hidden && !document.querySelector('dialog[open]');
   const updateMotion = () => {
+    if (!motionButton) return;
     const playing = !videos[activeScene].paused && !videos[activeScene].ended;
     motionButton.setAttribute('aria-label', playing ? 'Pause hero video' : 'Play hero video');
     motionButton.firstElementChild.textContent = playing ? 'Ⅱ' : '▷';
@@ -74,7 +75,7 @@
       if (video !== videos[activeScene] || !canPlay()) return;
       if (error.name === 'AbortError') return;
       userPaused = true; updateMotion();
-      if (error.name !== 'NotAllowedError') { notice.textContent = 'This video couldn’t play. Press play to retry.'; notice.hidden = false; }
+      if (error.name !== 'NotAllowedError') { notice.textContent = 'The background video is unavailable.'; notice.hidden = false; }
     });
   };
   const selectScene = index => {
@@ -85,7 +86,7 @@
     try { videos[index].currentTime = 0; } catch (_) { /* Metadata loads on demand. */ }
     updateMotion(); playActive();
   };
-  motionButton.addEventListener('click', () => {
+  motionButton?.addEventListener('click', () => {
     if (!videos[activeScene].paused) { userPaused = true; pauseAll(); }
     else { userPaused = false; notice.hidden = true; if (videos[activeScene].ended) videos[activeScene].currentTime = 0; playActive(); }
   });
