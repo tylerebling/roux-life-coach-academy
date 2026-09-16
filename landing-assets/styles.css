@@ -228,3 +228,24 @@
 @media(max-width:1100px){.navigation .brand img{width:220px}}
 @media(max-width:640px){.navigation .brand img{width:215px;height:auto}}
 @media(max-width:370px){.navigation .brand img{width:200px}}
+
+/* On compact screens, show the complete film instead of cropping it into a tall hero. */
+@media(max-width:1100px){
+ .hero{padding-top:0}
+ .hero-background{position:relative;inset:auto;width:100%;max-width:1100px;aspect-ratio:16/9;margin:0 auto;overflow:hidden;background-size:contain}
+ .hero-background .hero-scene{object-fit:contain;object-position:center}
+ .hero-overlay{display:none}
+ .hero-grid{min-height:0;padding-top:32px}
+ .hero-copy{max-width:680px;padding-bottom:0;margin:0 auto}
+ .hero h1{font-size:clamp(2.8rem,6vw,4.5rem)}
+ .hero h1 em br{display:none}
+ .hero-description{max-width:620px;margin:20px 0 24px}
+ .hero-benefits{margin-top:30px}
+}
+@media(max-width:640px){
+ .hero-grid{padding-top:26px}
+ .hero h1{font-size:clamp(2.4rem,9.2vw,3.5rem);line-height:1.08}
+ .hero-copy>.eyebrow{font-size:.66rem;letter-spacing:.055em;margin-bottom:16px}
+ .hero-description{font-size:.96rem;line-height:1.7;margin:18px 0 22px}
+ .hero-benefits{margin-top:26px}
+}
