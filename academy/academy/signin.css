@@ -1,7 +1,7 @@
 /* Scoped welcome screen: preserves the authenticated Academy and access flow. */
 .academy-gate{min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;place-items:stretch;padding:0;background:#fbf8f2;color:#263b2d;font-family:var(--sans)}
 .academy-gate-card{width:100%;max-width:690px;margin:auto;padding:clamp(32px,5vw,80px);text-align:left;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}
-.academy-gate-card>img{display:block;width:250px;max-width:85%;height:auto;margin:0 0 64px;object-fit:contain;mix-blend-mode:normal;filter:none}
+.academy-gate-card>img{display:block;width:310px;max-width:100%;height:auto;margin:0 0 64px;object-fit:contain;mix-blend-mode:normal;filter:none}
 .academy-gate-card>p:first-of-type{color:#68745e;font-size:11px;font-weight:600;letter-spacing:.15em;line-height:1.7}
 .academy-gate-card h1{color:#263b2d;font:400 clamp(38px,4.3vw,66px)/1.08 var(--serif);letter-spacing:-.035em;margin:20px 0 24px;max-width:550px}
 .academy-gate-copy{color:#626c5d;font-size:16px;line-height:1.8;max-width:480px}
@@ -17,4 +17,4 @@
 .academy-gate-caption{position:absolute;left:28px;right:28px;bottom:28px;padding:25px 28px;background:#fbf8f2ed;border:1px solid #ffffff99;border-radius:14px;color:#334632}
 .academy-gate-caption>span{font-size:10px;letter-spacing:.18em;font-weight:600}
 .academy-gate-caption>p{font:400 clamp(26px,2.3vw,36px)/1.2 var(--serif);margin:12px 0 0}
-@media(max-width:760px){.academy-gate{grid-template-columns:1fr}.academy-gate-card{padding:36px 26px 40px;max-width:560px}.academy-gate-card>img{width:210px;margin-bottom:34px}.academy-gate-card h1{font-size:clamp(38px,9vw,52px)}.academy-gate-copy{font-size:15px}.academy-gate-visual{min-height:320px}.academy-gate-visual>img{object-position:center 55%}.academy-gate-caption{left:20px;right:20px;bottom:20px;padding:19px 22px}.academy-gate-caption>p{font-size:27px}.academy-gate-actions{margin-top:26px}}
+@media(max-width:760px){.academy-gate{grid-template-columns:1fr}.academy-gate-card{padding:36px 26px 40px;max-width:560px}.academy-gate-card>img{width:265px;margin-bottom:34px}.academy-gate-card h1{font-size:clamp(38px,9vw,52px)}.academy-gate-copy{font-size:15px}.academy-gate-visual{min-height:320px}.academy-gate-visual>img{object-position:center 55%}.academy-gate-caption{left:20px;right:20px;bottom:20px;padding:19px 22px}.academy-gate-caption>p{font-size:27px}.academy-gate-actions{margin-top:26px}}
