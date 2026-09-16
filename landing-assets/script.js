@@ -54,9 +54,7 @@
 
   // Exact original hero clips. The source bytes are unchanged.
   const videos = [...document.querySelectorAll('.hero-scene')];
-  const sceneButtons = [...document.querySelectorAll('[data-select-scene]')];
   const motionButton = document.querySelector('.motion-toggle');
-  const progress = document.getElementById('cinema-progress');
   const notice = document.getElementById('video-notice');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const scenes = [
@@ -81,21 +79,19 @@
       if (video !== videos[activeScene] || !canPlay()) return;
       if (error.name === 'AbortError') return;
       userPaused = true; updateMotion();
-      if (error.name !== 'NotAllowedError') { notice.textContent = 'This video couldn’t play. Try another scene or press play to retry.'; notice.hidden = false; }
+      if (error.name !== 'NotAllowedError') { notice.textContent = 'This video couldn’t play. Press play to retry.'; notice.hidden = false; }
     });
   };
   const selectScene = index => {
     if (!Number.isInteger(index) || index < 0 || index >= videos.length) return;
     videos.forEach(video => video.pause()); activeScene = index;
     videos.forEach((video, i) => video.classList.toggle('is-active', i === index));
-    sceneButtons.forEach((button, i) => { button.classList.toggle('is-active', i === index); button.setAttribute('aria-pressed', String(i === index)); });
     document.getElementById('scene-kicker').textContent = scenes[index][0];
     document.getElementById('scene-caption').textContent = scenes[index][1];
-    progress.style.width = '0%'; notice.hidden = true;
+    notice.hidden = true;
     try { videos[index].currentTime = 0; } catch (_) { /* Metadata loads on demand. */ }
     updateMotion(); playActive();
   };
-  sceneButtons.forEach(button => button.addEventListener('click', () => selectScene(Number(button.dataset.selectScene))));
   motionButton.addEventListener('click', () => {
     if (!videos[activeScene].paused) { userPaused = true; pauseAll(); }
     else { userPaused = false; notice.hidden = true; if (videos[activeScene].ended) videos[activeScene].currentTime = 0; playActive(); }
@@ -104,9 +100,8 @@
     video.muted = true;
     video.addEventListener('play', () => { if (index === activeScene) { notice.hidden = true; updateMotion(); } });
     video.addEventListener('pause', () => { if (index === activeScene) updateMotion(); });
-    video.addEventListener('timeupdate', () => { if (index === activeScene && Number.isFinite(video.duration) && video.duration > 0) progress.style.width = `${Math.min(100, (video.currentTime / video.duration) * 100)}%`; });
     video.addEventListener('ended', () => { if (index === activeScene && canPlay()) selectScene((activeScene + 1) % videos.length); });
-    video.addEventListener('error', () => { if (index === activeScene) { notice.textContent = 'This video is unavailable. Choose another scene to continue.'; notice.hidden = false; userPaused = true; updateMotion(); } });
+    video.addEventListener('error', () => { if (index === activeScene) { notice.textContent = 'This video is unavailable. Please try again later.'; notice.hidden = false; userPaused = true; updateMotion(); } });
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden) pauseAll(); else playActive(); });
   reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) { userPaused = true; pauseAll(); document.querySelectorAll('.reveal-ready').forEach(element => element.classList.add('is-visible')); } });

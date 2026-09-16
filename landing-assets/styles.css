@@ -192,3 +192,6 @@
 @media(max-width:640px){.path-kitchen .path-investment>strong{font-size:3rem}}
 @media(max-width:360px){.path-kitchen .path-header h3{font-size:2.3rem}.path-kitchen .path-kicker{font-size:.55rem}.path-kitchen .path-investment>strong{font-size:2.7rem}}
 .path-footer>.path-as-of{font-size:.72rem;line-height:1.5;letter-spacing:0;text-transform:none;font-weight:400;color:#70715f}
+
+/* Keep playback control on the video, without the lower navigation strip. */
+.hero-video-wrap>.motion-toggle{position:absolute;top:14px;right:14px;z-index:3;width:40px;min-width:40px;height:40px;background:#fbf8f2ed;border-color:#ded5c4;color:#11372a;box-shadow:0 2px 8px #071f1814}
