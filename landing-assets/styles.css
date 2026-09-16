@@ -70,7 +70,7 @@
 .comparison-controls{display:none}
 .comparison-viewport{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#a29270 #e9e2d4;border-radius:4px}
 .comparison-paths{position:relative;display:grid;grid-template-columns:1.08fr 1fr 1fr;gap:22px;padding:29px 7px 30px}
-.path-card{position:relative;min-width:0;display:grid;align-self:start;grid-template-rows:145px 105px 1fr 116px;border:1px solid #ded5c4;border-radius:22px;background:linear-gradient(140deg,#fffdf9,#f8f4ec);box-shadow:0 10px 24px #3f352508;scroll-snap-align:start}
+.path-card{position:relative;min-width:0;display:grid;align-self:stretch;grid-template-rows:145px 105px 1fr 116px;border:1px solid #ded5c4;border-radius:22px;background:linear-gradient(140deg,#fffdf9,#f8f4ec);box-shadow:0 10px 24px #3f352508;scroll-snap-align:start}
 .path-header{padding:25px 19px 19px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;border-radius:21px 21px 0 0}
 .path-kicker{font-size:.66rem;font-weight:600;letter-spacing:.11em;color:#6d6c5b;line-height:1.5}
 .path-header h3{font-family:var(--serif);font-size:3.15rem;font-weight:500;line-height:1;letter-spacing:-.04em;color:var(--forest)}
