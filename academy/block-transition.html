@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Roux Life Academy · Your Next Chapter</title>
+  <link rel="stylesheet" href="academy/block-transition.css">
+</head>
+<body>
+  <main class="transition-shell">
+    <header class="brand-row">
+      <img src="academy/roux-life-coach-academy-logo-green-bold-v55.png" alt="Roux Life Coach Academy">
+      <span id="stepLabel">Curriculum Transition</span>
+    </header>
+    <section class="transition-card">
+      <div class="video-column">
+        <div class="video-frame" id="videoFrame">
+          <video id="transitionVideo" playsinline preload="metadata"></video>
+          <img id="transitionPoster" alt="Lauren in the coaching studio">
+          <div class="video-shade"></div>
+          <button id="playButton" class="play-button" type="button" aria-label="Play transition video">
+            <span class="play-icon" aria-hidden="true"></span>
+            <b>Hear From Lauren</b>
+          </button>
+          <div class="preparing" id="preparing" hidden>
+            <span></span>
+            <strong>Your transition video is being prepared.</strong>
+            <small>The written message is available beside the player.</small>
+          </div>
+        </div>
+        <div class="video-progress"><span id="progressBar"></span></div>
+        <div class="video-meta"><span id="durationLabel"></span><button id="captionsButton" type="button">Read Transcript</button></div>
+      </div>
+      <article class="message-column">
+        <p class="eyebrow" id="eyebrow"></p>
+        <h1 id="title"></h1>
+        <p class="intro">A personal note from Lauren before you begin the next part of your certification.</p>
+        <div class="transcript" id="transcript" hidden></div>
+        <div class="actions">
+          <a id="nextLesson" class="primary-action" aria-disabled="true">Continue to the Next Block <span>→</span></a>
+          <a href="index.html#journey" class="secondary-action">Return to Your Journey</a>
+        </div>
+        <p class="gate-note" id="gateNote">Watch Lauren’s message to continue.</p>
+      </article>
+    </section>
+  </main>
+  <script src="academy/lauren-transition-videos.js"></script>
+  <script src="academy/block-transition.js"></script>
+</body>
+</html>

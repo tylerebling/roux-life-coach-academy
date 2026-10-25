@@ -6,6 +6,13 @@
   const recordKey = `rouxAcademyLesson${lesson}Record`;
   const presentationKey = `rouxLesson${lesson}PresentationComplete`;
   const isLab = /LEARNING_LAB/i.test(location.pathname);
+  const transitionAfter = {
+    2: "foundations-to-self-knowledge",
+    6: "self-knowledge-to-resilience",
+    10: "resilience-to-communication",
+    14: "communication-to-practice",
+    18: "practice-to-ethics"
+  };
   if (lesson >= 3) {
     const polish = document.createElement("style");
     polish.id = "rouxLessonEditorialPolish";
@@ -140,6 +147,11 @@
       const move = direction => event => {
         const current = Math.max(0, sections.findIndex(button => button.classList.contains('active')));
         const target = sections[current + direction];
+        if (!target && direction > 0 && record.complete && transitionAfter[lesson]) {
+          event.preventDefault();
+          location.href = `../../block-transition.html?id=${transitionAfter[lesson]}`;
+          return;
+        }
         if (!target) return;
         event.preventDefault();
         if (target.disabled) {
@@ -157,6 +169,12 @@
       previous.style.opacity = activeIndex === 0 ? '.42' : '1';
       next.style.opacity = sections[activeIndex + 1]?.disabled ? '.42' : '1';
       next.title = sections[activeIndex + 1]?.disabled ? 'Complete the lesson review to unlock the final quiz.' : '';
+      if (!sections[activeIndex + 1] && record.complete && transitionAfter[lesson]) {
+        next.textContent = 'Meet Lauren →';
+        next.setAttribute('aria-disabled','false');
+        next.style.opacity = '1';
+        next.title = 'Continue to your block transition with Lauren.';
+      }
     }
     bar.querySelector("[data-status]").textContent = record.complete ? `Lesson ${lesson} complete \u2713` : `Lesson ${lesson} \u00b7 requirements in progress`;
   };
