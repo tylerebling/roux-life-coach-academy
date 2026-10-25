@@ -17,7 +17,7 @@ assert.deepEqual(
 for (const [id, item] of Object.entries(transitions)) {
   const words = item.transcript.trim().split(/\s+/).length;
   assert.ok(words >= 160 && words <= 225, `${id} should be meaningful without becoming long (${words} words)`);
-  assert.equal(item.video, `media/lauren-transitions/${id}.mp4`);
+  assert.match(item.video, new RegExp(`^media/lauren-transitions/${id}\\.mp4\\?release=[a-f0-9]+$`));
   assert.ok(!/score|percent|passed with/i.test(item.transcript), `${id} must not fabricate a performance result`);
 }
 assert.match(transitions['foundations-to-self-knowledge'].transcript, /begin working with me/i);
