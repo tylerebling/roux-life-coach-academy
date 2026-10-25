@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en" data-lesson-number="19"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Roux Life Academy · Lesson 19 Interactive Masterclass</title><style>
 :root{--forest:#172a20;--forest2:#294333;--cream:#f5ecda;--linen:#dfcfb5;--sage:#9baa8a;--terra:#bd7654;--gold:#cdb078;--ink:#1f251f;--good:#b8d6b9;--bad:#e8b0a0}
 *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#101a14;color:var(--cream);font-family:Arial,Helvetica,sans-serif}
@@ -46,7 +46,8 @@ function syncConcepts(forceAll=false){let s=scenes[index];if(!s||s.kind==='quest
 function bindConceptCards(s){document.querySelectorAll('.card').forEach((card,i)=>card.onclick=()=>activateConcept(i,s,true))}
 function render(autoplay=true){let s=scenes[index];manualConcept=-1;manualUntil=0;stage.querySelectorAll(':scope > :not(#start):not(#caption)').forEach(x=>x.remove());stage.insertAdjacentHTML('afterbegin',s.kind==='question'?quiz(s):(s.kind==='legacy'?legacy(s):teaching(s)));document.getElementById('counter').textContent=`${index+1} / ${scenes.length}`;document.getElementById('label').textContent=s.title||'Scope, Ethics, Referral, and Client Safety';document.getElementById('fill').style.width=`${((index+1)/scenes.length)*100}%`;caption.textContent=s.narration||'';caption.classList.toggle('show',captionOn&&s.kind!=='question');voice.src=s.audio;voice.load();setPlaybackControl(false);if(s.kind==='question')bindAnswers(s);else bindConceptCards(s);if(autoplay)voice.play().then(()=>setPlaybackControl(true)).catch(()=>{})}
 function bindAnswers(s){document.querySelectorAll('.answer').forEach(b=>b.onclick=()=>{if(answered)return;answered=true;let i=Number(b.dataset.i),ok=i===s.correct;b.classList.add('selected',ok?'correct':'wrong');document.querySelectorAll('.answer').forEach(x=>x.disabled=true);let f=document.getElementById('feedback'),detail=String(s.feedback[i]).replace(/^Correct\.\s*/,'');f.innerHTML=`<strong>${ok?'Correct':'Not quite'}.</strong> ${esc(detail)}`;f.classList.add('show');document.getElementById('continue').classList.add('show')});document.getElementById('continue').onclick=()=>advance()}
-function advance(){if(index<scenes.length-1){index++;render(true)}else{voice.pause();localStorage.setItem('rouxLesson19PresentationComplete','true');window.location.href='LEARNING_LAB.html'}}
+window.rouxLessonSceneIndex=()=>index;
+async function advance(){if(index<scenes.length-1){index++;render(true)}else{voice.pause();localStorage.setItem('rouxLesson19PresentationComplete','true');await window.rouxAcademyCloud?.pushLesson?.({lesson:19,presentationComplete:true}).catch(()=>{});window.location.href='../../block-practice.html?checkpoint=lesson-19-capstone'}}
 voice.ontimeupdate=()=>syncConcepts(false);voice.onloadedmetadata=()=>syncConcepts(false);
 voice.onended=()=>{syncConcepts(true);setPlaybackControl(false);if(scenes[index].kind!=='question')advance()};
 document.getElementById('begin').onclick=()=>{document.getElementById('start').remove();render(true)};
@@ -56,6 +57,8 @@ document.getElementById('captions').onclick=()=>{captionOn=!captionOn;caption.cl
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')advance();if(e.key==='ArrowLeft'&&index>0){index--;render(true)}if(e.key===' '){e.preventDefault();document.getElementById('toggle').click()}});
 </script><script src="../../academy/lesson-bridge.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script><script src="../../academy/cloud.js"></script>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/dist/umd/supabase.min.js"></script>
   <script src="../../academy/guard.js"></script>
+  <script src="../../academy/lauren-checkpoints.js"></script>
+  <script src="../../academy/lauren-prewarm.js"></script>
 </body></html>
 
 
