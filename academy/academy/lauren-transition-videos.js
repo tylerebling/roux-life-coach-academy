@@ -5,7 +5,7 @@ window.ROUX_LAUREN_TRANSITIONS = {
     eyebrow: "Your Next Chapter",
     title: "From Foundations to Self-Knowledge",
     duration: "About 1½ minutes",
-    video: "media/lauren-transitions/foundations-to-self-knowledge.mp4",
+    video: "media/lauren-transitions/foundations-to-self-knowledge.mp4?release=b91420a",
     poster: "../landing-assets/lauren-office.png",
     transcript: `You are off to a strong start. In your first two lessons, you learned what coaching is, what it is not, and how the Roux Coaching Method gives a conversation direction without taking ownership away from the client. You have begun practicing the difference between giving an answer and helping someone hear their own answer more clearly.
 
@@ -21,7 +21,7 @@ Take a breath. You have the foundation. Now we are going to deepen it.`
     eyebrow: "Block Complete",
     title: "From Self-Knowledge to Resilience",
     duration: "About 1¾ minutes",
-    video: "media/lauren-transitions/self-knowledge-to-resilience.mp4",
+    video: "media/lauren-transitions/self-knowledge-to-resilience.mp4?release=b91420a",
     poster: "../landing-assets/lauren-office.png",
     transcript: `You have just completed an important block of your training. You learned to separate facts from the stories we attach to them, listen for the protective purpose behind a pattern, clarify values, and turn courage into a practical, client-owned action. In our simulation, you had the chance to practice staying curious instead of rushing to solve. That is real coaching work.
 
@@ -37,7 +37,7 @@ You are building that steadiness now. Carry your curiosity with you into the nex
     eyebrow: "Block Complete",
     title: "From Resilience to Communication",
     duration: "About 1¾ minutes",
-    video: "media/lauren-transitions/resilience-to-communication.mp4",
+    video: "media/lauren-transitions/resilience-to-communication.mp4?release=b91420a",
     poster: "../landing-assets/lauren-office.png",
     transcript: `You have completed the resilience block. You learned how shame differs from guilt, how self-compassion supports accountability, how attachment patterns influence emotional safety, and how healthy connection is built through honest, grounded communication. In our practice together, you worked on hearing the need beneath the reaction rather than treating the reaction as the whole story.
 
@@ -53,7 +53,7 @@ You have already shown that you can slow down and listen beneath the surface. In
     eyebrow: "Block Complete",
     title: "From Communication to Coaching Practice",
     duration: "About 1¾ minutes",
-    video: "media/lauren-transitions/communication-to-practice.mp4",
+    video: "media/lauren-transitions/communication-to-practice.mp4?release=b91420a",
     poster: "../landing-assets/lauren-office.png",
     transcript: `You have completed a demanding and meaningful block. You practiced boundaries that protect connection rather than punish, requests that are clear without becoming controlling, and conversations that make room for conflict, grief, change, and uncertainty. In our simulation, you worked on holding structure while allowing the client to decide what the experience meant and what should happen next.
 
@@ -69,7 +69,7 @@ You are ready for this. The next block will help you turn your presence into a d
     eyebrow: "Final Block Ahead",
     title: "From Coaching Practice to Professional Responsibility",
     duration: "About 2 minutes",
-    video: "media/lauren-transitions/practice-to-ethics.mp4",
+    video: "media/lauren-transitions/practice-to-ethics.mp4?release=b91420a",
     poster: "../landing-assets/lauren-office.png",
     transcript: `You have now practiced the core craft of coaching: shaping values into goals, designing realistic action, learning from setbacks, asking questions that create awareness, and guiding a session with a clear beginning, middle, and close. In our simulation, you brought those skills together in real time. The goal was never to sound perfect. It was to stay present, protect client ownership, and make the next useful choice.
 
