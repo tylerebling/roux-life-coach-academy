@@ -14,7 +14,7 @@ const CHECKPOINTS = Object.freeze({
   "block-07-10": { lesson: 10, assignmentId: "sim-relationship-disconnection", scenarioSlug: "relationship-disconnection", durationSeconds: 300 },
   "block-11-14": { lesson: 14, assignmentId: "sim-life-transition", scenarioSlug: "life-transition-identity", durationSeconds: 300 },
   "block-15-18": { lesson: 18, assignmentId: "sim-workplace-burnout", scenarioSlug: "workplace-burnout-identity", durationSeconds: 300 },
-  "lesson-19-capstone": { lesson: 19, assignmentId: "sim-capstone", scenarioSlug: "capstone-integrated", durationSeconds: 1200 },
+  "lesson-19-capstone": { lesson: 19, assignmentId: "sim-capstone", scenarioSlug: "capstone-integrated", durationSeconds: 600 },
 } as const);
 
 type CheckpointId = keyof typeof CHECKPOINTS;
@@ -161,7 +161,7 @@ Deno.serve(async req => {
     // allowed only after the preceding lesson is fully complete, which proves
     // the learner legitimately reached this block boundary. Launching remains
     // stricter and requires the trigger presentation itself to be complete.
-    if (body.action === "prewarm") {
+    if (body.action === "prewarm" || body.action === "cancel-prewarm") {
       if (!await lessonComplete(admin, auth.enrollment.id, cp.lesson - 1)) return json({error:"checkpoint_locked"},403);
     } else if (!await presentationComplete(admin, auth.enrollment.id, cp.lesson)) {
       return json({error:"lesson_incomplete"},403);
@@ -176,6 +176,19 @@ Deno.serve(async req => {
         {completed:false,ready:row.simulator_status === "ready",status:row.simulator_status});
     }
     const now = Math.floor(Date.now()/1000);
+    if (body.action === "cancel-prewarm") {
+      const claims = {contractVersion:"1.0.0",purpose:"cancel-prewarm",kid:PREWARM_KID,reservationId:row.reservation_id,
+        sourceProduct:SOURCE_PRODUCT,userId:auth.user.id,checkpointId:id,scenarioSlug:cp.scenarioSlug,durationSeconds:cp.durationSeconds,
+        issuedAtSec:now,expiresAtSec:now+300};
+      const payload = canonicalPrewarm(claims);
+      const response = await fetch(`${SIMULATOR_ORIGIN}/api/integrations/roux-academy/prewarm/cancel`,{method:"POST",headers:{"content-type":"application/json"},
+        body:JSON.stringify({payload,signature:await sign(payload,"LCIQ_SIM_PREWARM_PRIVATE_KEY"),claims})});
+      if (response.status === 409) return json({cancelled:false,claimed:true});
+      if (!response.ok) return json({error:"cancellation_unavailable"},503);
+      await admin.from("academy_lauren_reservations").update({reservation_id:crypto.randomUUID(),simulator_handle:null,
+        simulator_status:"cancelled",expires_at:null,updated_at:new Date().toISOString()}).eq("id",row.id);
+      return json({cancelled:true});
+    }
     if (body.action === "prewarm") {
       const claims = {contractVersion:"1.0.0",purpose:"prewarm",kid:PREWARM_KID,reservationId:row.reservation_id,
         sourceProduct:SOURCE_PRODUCT,userId:auth.user.id,checkpointId:id,scenarioSlug:cp.scenarioSlug,durationSeconds:cp.durationSeconds,

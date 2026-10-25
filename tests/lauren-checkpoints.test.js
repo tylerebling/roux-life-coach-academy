@@ -20,6 +20,7 @@ assert.deepEqual(
   [6, 10, 14, 18],
 );
 assert.ok(config.checkpoints.slice(0, 4).every((x) => x.durationSeconds === 300));
+assert.equal(config.checkpointForLesson(19).durationSeconds, 600);
 assert.equal(config.checkpointForLesson(6).scenarioSlug, "confidence-career-change");
 assert.equal(config.checkpointForLesson(9), null);
 assert.equal(config.checkpointForLesson(19).capstone, true);
@@ -62,10 +63,14 @@ for (const item of config.checkpoints) {
 }
 assert.ok(edge.includes('body.action === "prewarm"'), "prewarm action is missing");
 assert.ok(edge.includes('body.action === "launch"'), "launch action is missing");
+assert.ok(edge.includes('body.action === "cancel-prewarm"'), "pause cancellation action is missing");
 assert.ok(edge.includes('handleCallback(admin, body)'), "signed completion callback is missing");
 assert.ok(checkpointPage.includes("Continue to Review"), "checkpoint does not return to the existing learning lab");
 assert.ok(checkpointPage.includes("form.method='POST'"), "launch secret would be exposed in a URL");
 assert.ok(prewarmClient.includes('get("adminPreview") === "1"'), "admin preview could create billable capacity");
+assert.ok(prewarmClient.includes('60_000'), "paused playback does not release warm capacity after one minute");
+assert.ok(prewarmClient.includes('visibilitychange'), "hidden tabs do not release warm capacity");
+assert.ok(checkpointPage.includes("location.replace(lab)"), "completed practice does not continue into the Learning Lab");
 
 console.log("lauren-checkpoints: approved block map, five-minute policy, and one-way eight-minute crossing");
 

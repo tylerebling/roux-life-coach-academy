@@ -52,7 +52,7 @@
       triggerLesson: 19,
       assignmentId: "sim-capstone",
       scenarioSlug: null,
-      durationSeconds: null,
+      durationSeconds: 600,
       prewarmSceneIndex: 16,
       prewarmAtSeconds: 9,
       capstone: true,

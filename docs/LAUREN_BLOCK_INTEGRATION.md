@@ -11,7 +11,7 @@ contract tests and the complete learner journey has been reviewed.
 | `block-07-10` | 7–10 | `sim-relationship-disconnection` | `relationship-disconnection` | 5 minutes |
 | `block-11-14` | 11–14 | `sim-life-transition` | `life-transition-identity` | 5 minutes |
 | `block-15-18` | 15–18 | `sim-workplace-burnout` | `workplace-burnout-identity` | 5 minutes |
-| `lesson-19-capstone` | 19 | `sim-capstone` | server-selected capstone case | capstone policy |
+| `lesson-19-capstone` | 19 | `sim-capstone` | server-selected capstone case | 10 minutes |
 
 These assignments use only competencies taught at or before their checkpoint.
 Scenario text and evaluation rubrics remain owned by the simulator repository;
