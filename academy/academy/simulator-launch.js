@@ -170,7 +170,9 @@
     let launch;
     try {
       const { data, error } = await withTimeout(
-        cloud.client.functions.invoke("simulator-launch", { body: {} }),
+        // STAGING BRANCH ONLY (staging/new-lauren-test-route, never merged to main): the restricted
+        // test route to the NEW Lauren. Production main calls "simulator-launch", unchanged.
+        cloud.client.functions.invoke("simulator-launch-staging", { body: {} }),
         INVOKE_TIMEOUT_MS,
       );
       // Abandoned while we were waiting — by a timeout, or by the student

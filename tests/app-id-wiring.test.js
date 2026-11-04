@@ -136,7 +136,7 @@ assert.ok(
     "the trigger no longer goes through the delegated handler",
   );
   assert.equal(
-    (launcher.match(/invoke\("simulator-launch"/g) || []).length,
+    (launcher.match(/invoke\("simulator-launch-staging"/g) || []).length, // staging branch: the restricted test route
     1,
     "expected exactly one signed-launch call",
   );

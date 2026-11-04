@@ -247,7 +247,7 @@ const signedLaunch = {
     await settle();
 
     assert.equal(dom.invocations.length, 1, "expected exactly one signed-launch invocation");
-    assert.equal(dom.invocations[0].name, "simulator-launch", "the wrong function was invoked");
+    assert.equal(dom.invocations[0].name, "simulator-launch-staging", "the wrong function was invoked"); // staging branch
 
     // ── the top-level POST contract ──
     const form = dom.created.find((el) => el.tagName === "FORM");
@@ -556,7 +556,7 @@ const signedLaunch = {
     assert.equal(dom.invocations.length, 20, "twenty cycles did not produce twenty handoffs");
 
     const names = new Set(dom.invocations.map((i) => i.name));
-    assert.deepEqual([...names], ["simulator-launch"], "something other than the launch was invoked");
+    assert.deepEqual([...names], ["simulator-launch-staging"], "something other than the launch was invoked"); // staging branch
   }
 
   console.log(
