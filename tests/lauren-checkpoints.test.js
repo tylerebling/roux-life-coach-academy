@@ -72,5 +72,21 @@ assert.ok(prewarmClient.includes('60_000'), "paused playback does not release wa
 assert.ok(prewarmClient.includes('visibilitychange'), "hidden tabs do not release warm capacity");
 assert.ok(checkpointPage.includes("location.replace(lab)"), "completed practice does not continue into the Learning Lab");
 
+// ONE SIMULATOR (2026-11-07): block practice opens NEW Lauren and nothing else.
+assert.ok(!/clientgatehq|LCIQ_SIM_ORIGIN|LCIQ_SIM_LAUNCH|LCIQ_SIM_PREWARM|LCIQ_SIM_RESULT/.test(edge), "academy-lauren still names the legacy simulator");
+assert.ok(edge.includes('from "../simulator-launch/new-lauren-target.ts"'), "academy-lauren must use the same NEW Lauren target as simulator-launch");
+assert.ok(edge.includes('json({error:"simulator_unavailable"},503)'), "an unavailable NEW Lauren must be an honest 503, never a fallback");
+assert.ok(edge.includes('contractVersion:"1.1.0"'), "checkpoint launches use contract 1.1.0");
+{
+  const prewarm = edge.slice(edge.indexOf('if (body.action === "prewarm") {'), edge.indexOf('if (body.action === "cancel-prewarm") {', edge.indexOf('if (body.action === "prewarm") {')));
+  assert.ok(prewarm.length > 0 && !prewarm.includes("fetch("), "lesson warm-up must not call the simulator (no background GPU rental)");
+}
+assert.equal((edge.match(/fetch\(/g) || []).length, 0, "academy-lauren makes no outbound calls except the shared health check");
+for (const [id, slug] of [["block-03-06","lauren-career-change"],["block-07-10","lauren-relationship-disconnection"],["block-11-14","lauren-divorce-rebuilding"],["block-15-18","workplace-burnout-identity"]]) {
+  assert.ok(new RegExp(`"${id}":[^\n]*newLaurenCase: "${slug}"`).test(edge), `${id} must practise ${slug}`);
+}
+assert.ok(/"lesson-19-capstone":[^\r\n]*newLaurenCase: null/.test(edge), "the capstone draws from the student's rotation");
+assert.ok(checkpointPage.includes("typeof data.overallScore==='number'"), "a scoreless NEW Lauren completion must not render as 0%");
+
 console.log("lauren-checkpoints: approved block map, five-minute policy, and one-way eight-minute crossing");
 
