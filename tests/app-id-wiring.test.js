@@ -49,7 +49,17 @@ const idsInMarkup = new Set([...html.matchAll(/id="([^"]+)"/g)].map((m) => m[1])
   const bare = [...app.matchAll(/getElementById\("([^"]+)"\)(?!\s*\?\.)/g)].map((m) => m[1]);
   assert.ok(bare.length > 0, "no lookups found — the matcher has drifted from the source");
 
-  const dangling = [...new Set(bare)].filter((id) => !idsInMarkup.has(id));
+  // Ids app.js CREATES itself (`el.id = "x"` after a create-if-missing lookup, e.g. the milestone review
+  // dialog added 2026-08-27) exist by construction: the lookup is guarded by `if (!el) { createElement… }`.
+  // Exempt only those, and only when the creation is really there.
+  const createdByApp = new Set([...app.matchAll(/\.id\s*=\s*"([^"]+)"/g)].map((m) => m[1]));
+  for (const id of createdByApp) {
+    assert.ok(
+      new RegExp(`if\\s*\\(\\s*!\\s*\\w+\\s*\\)\\s*\\{[^}]*createElement[^}]*\\.id\\s*=\\s*"${id}"`).test(app),
+      `${id} is assigned in app.js without the create-if-missing guard`,
+    );
+  }
+  const dangling = [...new Set(bare)].filter((id) => !idsInMarkup.has(id) && !createdByApp.has(id));
   assert.deepEqual(
     dangling,
     [],
