@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2.95.0";
+import { betaInvited } from "./beta-invite.ts";
 
 /**
  * Hand an authenticated Academy student to the Life Coach Simulator.
@@ -76,9 +77,20 @@ function canonicalise(c: Record<string, unknown>): string {
   });
 }
 
+/*
+ * NEW LAUREN INVITATION-ONLY BETA (2026-11-07). A student whose CONFIRMED email is on NEW_LAUREN_BETA_EMAILS
+ * (comma-separated, case-insensitive) is launched into the NEW Lauren beta, signed with the beta's own key and kid.
+ * Everyone else is launched exactly as before, into the existing simulator. All three beta secrets must be set or
+ * nobody is routed to the beta.
+ *   invite:   add the email to NEW_LAUREN_BETA_EMAILS          revoke / back to OLD Lauren: remove it
+ *   stop the whole beta at once: unset NEW_LAUREN_BETA_EMAILS (or NEW_LAUREN_BETA_ORIGIN)
+ */
+const BETA_ORIGIN = (Deno.env.get("NEW_LAUREN_BETA_ORIGIN") ?? "").trim();
+const BETA_KID = (Deno.env.get("NEW_LAUREN_BETA_KID") ?? "roux-beta-2026-11").trim();
+
 /** Import the PKCS#8 PEM held as a function secret. Never logged, never returned. */
-async function signingKey(): Promise<CryptoKey> {
-  const pem = Deno.env.get("LCIQ_SIM_LAUNCH_PRIVATE_KEY") ?? "";
+async function signingKey(secretName = "LCIQ_SIM_LAUNCH_PRIVATE_KEY"): Promise<CryptoKey> {
+  const pem = Deno.env.get(secretName) ?? "";
   if (pem === "") throw new Error("LAUNCH_KEY_MISSING");
   const body = pem.replace(/-----[A-Z ]+-----/g, "").replace(/\s+/g, "");
   const der = Uint8Array.from(atob(body), (ch) => ch.charCodeAt(0));
@@ -115,12 +127,17 @@ Deno.serve(async (req) => {
       return json({ error: "not_entitled" }, 403);
     }
 
+    const beta =
+      BETA_ORIGIN !== "" &&
+      (Deno.env.get("NEW_LAUREN_BETA_PRIVATE_KEY") ?? "") !== "" &&
+      betaInvited(user.email, Boolean(user.email_confirmed_at), Deno.env.get("NEW_LAUREN_BETA_EMAILS"));
+
     const nowSec = Math.floor(Date.now() / 1000);
     const claims = {
       contractVersion: CONTRACT_VERSION,
       launchId: crypto.randomUUID(),
       sourceProduct: SOURCE_PRODUCT,
-      kid: KID,
+      kid: beta ? BETA_KID : KID,
       userId: user.id,
       // One Academy, one tenant. The field exists so the simulator can keep
       // products apart; it is not an Academy-side multi-tenancy feature.
@@ -136,11 +153,15 @@ Deno.serve(async (req) => {
 
     const payload = canonicalise(claims);
     const signature = new Uint8Array(
-      await crypto.subtle.sign({ name: "Ed25519" }, await signingKey(), new TextEncoder().encode(payload)),
+      await crypto.subtle.sign(
+        { name: "Ed25519" },
+        await signingKey(beta ? "NEW_LAUREN_BETA_PRIVATE_KEY" : "LCIQ_SIM_LAUNCH_PRIVATE_KEY"),
+        new TextEncoder().encode(payload),
+      ),
     );
 
     return json({
-      simulatorUrl: `${SIMULATOR_ORIGIN}/api/simulator/launch`,
+      simulatorUrl: `${beta ? BETA_ORIGIN : SIMULATOR_ORIGIN}/api/simulator/launch`,
       payload,
       signature: btoa(String.fromCharCode(...signature)),
       claims,
