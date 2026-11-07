@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2.95.0";
+import { newLaurenHealthy, newLaurenTarget } from "./new-lauren-target.ts";
 
 /**
  * Hand an authenticated Academy student to the Life Coach Simulator.
@@ -26,8 +27,6 @@ import { createClient } from "npm:@supabase/supabase-js@2.95.0";
  * use regardless, because the simulator burns the id.
  */
 
-const SIMULATOR_ORIGIN = Deno.env.get("LCIQ_SIM_ORIGIN") ?? "https://simulator.clientgatehq.com";
-const KID = Deno.env.get("LCIQ_SIM_LAUNCH_KID") ?? "roux-2026-01";
 const SOURCE_PRODUCT = "ROUX_LIFE_ACADEMY";
 const CONTRACT_VERSION = "1.0.0";
 /** Two minutes. The simulator clamps anything longer to five regardless. */
@@ -76,9 +75,15 @@ function canonicalise(c: Record<string, unknown>): string {
   });
 }
 
+/*
+ * ONE SIMULATOR (owner, 2026-11-07): every entitled student is launched into NEW Lauren Full-Duplex. No invitation
+ * list, no legacy destination, no fallback. If NEW Lauren is not configured or its /health does not answer, the
+ * student is told the simulator is unavailable (503) - they are never sent to the old simulator.
+ */
+
 /** Import the PKCS#8 PEM held as a function secret. Never logged, never returned. */
-async function signingKey(): Promise<CryptoKey> {
-  const pem = Deno.env.get("LCIQ_SIM_LAUNCH_PRIVATE_KEY") ?? "";
+async function signingKey(secretName: string): Promise<CryptoKey> {
+  const pem = Deno.env.get(secretName) ?? "";
   if (pem === "") throw new Error("LAUNCH_KEY_MISSING");
   const body = pem.replace(/-----[A-Z ]+-----/g, "").replace(/\s+/g, "");
   const der = Uint8Array.from(atob(body), (ch) => ch.charCodeAt(0));
@@ -115,12 +120,23 @@ Deno.serve(async (req) => {
       return json({ error: "not_entitled" }, 403);
     }
 
+    // WHERE. NEW Lauren, and only NEW Lauren. Unavailable is an honest answer; another simulator is not.
+    const target = newLaurenTarget((name) => Deno.env.get(name));
+    if (target === null) {
+      console.error("simulator-launch: NEW Lauren is not configured");
+      return json({ error: "simulator_unavailable" }, 503);
+    }
+    if (!(await newLaurenHealthy(target.origin))) {
+      console.error("simulator-launch: NEW Lauren health check failed");
+      return json({ error: "simulator_unavailable" }, 503);
+    }
+
     const nowSec = Math.floor(Date.now() / 1000);
     const claims = {
       contractVersion: CONTRACT_VERSION,
       launchId: crypto.randomUUID(),
       sourceProduct: SOURCE_PRODUCT,
-      kid: KID,
+      kid: target.kid,
       userId: user.id,
       // One Academy, one tenant. The field exists so the simulator can keep
       // products apart; it is not an Academy-side multi-tenancy feature.
@@ -136,11 +152,15 @@ Deno.serve(async (req) => {
 
     const payload = canonicalise(claims);
     const signature = new Uint8Array(
-      await crypto.subtle.sign({ name: "Ed25519" }, await signingKey(), new TextEncoder().encode(payload)),
+      await crypto.subtle.sign(
+        { name: "Ed25519" },
+        await signingKey(target.keySecret),
+        new TextEncoder().encode(payload),
+      ),
     );
 
     return json({
-      simulatorUrl: `${SIMULATOR_ORIGIN}/api/simulator/launch`,
+      simulatorUrl: `${target.origin}/api/simulator/launch`,
       payload,
       signature: btoa(String.fromCharCode(...signature)),
       claims,
