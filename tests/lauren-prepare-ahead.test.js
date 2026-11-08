@@ -36,6 +36,13 @@ const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
   assert.deepEqual(m.studentStatus({ status: "ready" }), { ready: true, status: "ready" });
   assert.deepEqual(m.studentStatus({ status: "preparing" }), { ready: false, status: "preparing" });
   assert.deepEqual(m.studentStatus({ status: "unavailable" }), { ready: false, status: "unavailable" });
+  assert.deepEqual(m.studentStatus({ status: "started" }), { ready: false, status: "started" });
+  assert.deepEqual(m.studentStatus({ status: "timed_out" }), { ready: false, status: "timed_out" });
+  // The window travels as NEW Lauren's own end time and clock - never invented, never a browser timer.
+  assert.deepEqual(m.studentStatus({ status: "ready", availableUntilMs: 2000, serverNowMs: 1000 }),
+    { ready: true, status: "ready", availableUntilMs: 2000, serverNowMs: 1000 });
+  assert.deepEqual(m.studentStatus({ status: "ready", availableUntilMs: "soon" }), { ready: true, status: "ready" });
+  assert.deepEqual([...m.PREPARE_PURPOSES], ["prepare", "status", "available", "hold", "restart", "cancel"]);
   for (const answer of [null, undefined, {}, { status: "on_demand" }, { status: "BOOTING" }, { status: 7 }]) {
     assert.deepEqual(m.studentStatus(answer), { ready: false, status: "on_demand" });
   }
@@ -48,7 +55,19 @@ const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
   for (const text of Object.values(m.STATUS_TEXT)) assert.ok(page.includes(text), `page shows: ${text}`);
   assert.ok(!page.includes("Lauren is ready when you are."), "no unconditional ready message");
   assert.ok(!page.includes("may already be ready"), "no claim that background warm-up happened");
-  assert.match(page, /if\(shown==='preparing'\)window\.rouxPracticePoll=setTimeout/);
+  // The completion screen and the two-minute window (owner directive 2026-11-08).
+  for (const words of [
+    "Ready to Practice with Lauren?",
+    "You’ve completed this learning block. Now it’s time to put your knowledge into practice with a realistic coaching conversation.",
+    "Simulator available for", "02:00", "START SIMULATOR", "Your session will begin when you click Start Simulator.",
+    "Your Simulator Has Timed Out",
+    "Your session was closed to conserve resources. Your lesson progress has been saved. You can restart your simulator whenever you’re ready.",
+    "RESTART SIMULATOR",
+  ]) assert.ok(page.includes(words), `page shows: ${words}`);
+  assert.match(page, /until=data\.availableUntilMs;offset=data\.serverNowMs-Date\.now\(\)/, "countdown follows the server's end and clock");
+  assert.match(page, /countdown\.classList\.toggle\('soon',left<=30000\)/, "final 30 seconds emphasised");
+  assert.match(page, /action:'restart'/);
+  assert.match(page, /if\(data\?\.timedOut\)\{showTimedOut\(\);return\}/, "a START after the window closed shows the timeout");
 
   // 4. The edge function: off by default, no false ready, cancel never ends a started session.
   const fn = read("supabase/functions/academy-lauren/index.ts");
@@ -57,6 +76,14 @@ const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
   assert.match(fn, /if \(!PREWARM_ENABLED\) return json\(\{ready:false,status:"on_demand"\}\);/);
   assert.match(fn, /\/api\/academy\/prewarm/);
   assert.match(fn, /answer\.cancelled !== false/);
+  assert.match(fn, /prepareAhead\("available", auth\.user\.id, id, row\.reservation_id\)/, "status opens the window (presentation complete)");
+  assert.match(fn, /prepareAhead\("hold", auth\.user\.id, id, row\.reservation_id\)/, "START holds the prepared GPU before signing the launch");
+  assert.match(fn, /return json\(\{timedOut:true\}\)/);
+  {
+    const restart = fn.slice(fn.indexOf('if (body.action === "restart") {'), fn.indexOf('if (body.action === "launch") {'));
+    assert.ok(restart.includes("if (!PREWARM_ENABLED) return json({ready:false,status:\"on_demand\"});"), "restart rents nothing when off");
+    assert.ok(restart.includes('prepareAhead("restart"'), "restart asks NEW Lauren to prepare again");
+  }
 
   // 5. The lesson warm-up still releases a preparation after a one-minute pause (the existing, tested rule).
   const warm = read("academy/academy/lauren-prewarm.js");

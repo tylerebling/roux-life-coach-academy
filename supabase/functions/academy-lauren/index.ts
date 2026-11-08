@@ -140,7 +140,7 @@ async function reservation(admin: Admin, userId: string, enrollmentId: string, i
  * Ask NEW Lauren to prepare / report / cancel this student's checkpoint session. Never throws; null = no answer
  * (not configured, unhealthy, timed out, refused) and the caller falls back to the on-demand behaviour.
  */
-async function prepareAhead(purpose: "prepare" | "status" | "cancel", userId: string, id: CheckpointId, reservationId: string) {
+async function prepareAhead(purpose: "prepare" | "status" | "available" | "hold" | "restart" | "cancel", userId: string, id: CheckpointId, reservationId: string) {
   if (!PREWARM_ENABLED) return null;
   const target = newLaurenTarget((name) => Deno.env.get(name));
   if (target === null) return null;
@@ -246,10 +246,23 @@ Deno.serve(async req => {
           summary:result.data.critical_safety_failure ? "Your evaluation needs a safety-focused review." : "Your block-practice evaluation has been saved."});
       }
       // Never a false "ready": only a session NEW Lauren reports as prepared is shown as ready; otherwise Lauren is
-      // prepared when the student presses Begin ("on_demand").
-      return json({completed:false,...studentStatus(await prepareAhead("status", auth.user.id, id, row.reservation_id))});
+      // prepared when the student clicks Start ("on_demand"). This page is reached only with the presentation complete
+      // (checked above), so it also opens the two-minute window as soon as Lauren is ready ("available").
+      return json({completed:false,...studentStatus(await prepareAhead("available", auth.user.id, id, row.reservation_id))});
+    }
+    if (body.action === "restart") {
+      // RESTART SIMULATOR after a timeout: prepares again only on this click (enrollment and presentation completion
+      // were checked above; nothing about progress changes). Off: Lauren is prepared at Start, as before.
+      if (!PREWARM_ENABLED) return json({ready:false,status:"on_demand"});
+      return json(studentStatus(await prepareAhead("restart", auth.user.id, id, row.reservation_id)));
     }
     if (body.action === "launch") {
+      // START SIMULATOR inside the two-minute window holds the prepared GPU for this student before the launch is
+      // signed. A window that already closed is a timeout (the page shows RESTART); no preparation -> on demand.
+      if (PREWARM_ENABLED) {
+        const held = await prepareAhead("hold", auth.user.id, id, row.reservation_id);
+        if (held !== null && held.held === false && held.status === "timed_out") return json({timedOut:true});
+      }
       const target = newLaurenTarget((name) => Deno.env.get(name));
       if (target === null) {
         console.error("academy-lauren: NEW Lauren is not configured");

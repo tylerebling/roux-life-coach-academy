@@ -19,6 +19,9 @@ export function canonicalPrepare(c) {
   })}`;
 }
 
+/** The purposes NEW Lauren accepts (src/integration/launch/prepare-request.ts PREPARE_PURPOSES). */
+export const PREPARE_PURPOSES = Object.freeze(["prepare", "status", "available", "hold", "restart", "cancel"]);
+
 export function prepareClaims({ purpose, requestId, sourceProduct, kid, userId, tenantId, checkpoint, reservationId, nowSec }) {
   return {
     contractVersion: "1.1.0", purpose, requestId, sourceProduct, kid, userId, tenantId,
@@ -34,16 +37,24 @@ export function prepareClaims({ purpose, requestId, sourceProduct, kid, userId, 
  */
 export function studentStatus(answer) {
   const status = answer && typeof answer.status === "string" ? answer.status : "on_demand";
-  if (status === "ready") return { ready: true, status: "ready" };
+  if (status === "ready") {
+    // The two-minute window, when it is open: NEW Lauren's end time and its clock, so every tab shows the same count.
+    const window = typeof answer.availableUntilMs === "number" && typeof answer.serverNowMs === "number"
+      ? { availableUntilMs: answer.availableUntilMs, serverNowMs: answer.serverNowMs } : {};
+    return { ready: true, status: "ready", ...window };
+  }
   if (status === "preparing") return { ready: false, status: "preparing" };
+  if (status === "started") return { ready: false, status: "started" };
+  if (status === "timed_out") return { ready: false, status: "timed_out" };
   if (status === "unavailable") return { ready: false, status: "unavailable" };
   return { ready: false, status: "on_demand" };
 }
 
 /** The page's words for each status. Customer language only: no GPU, provider, log or error text. */
 export const STATUS_TEXT = Object.freeze({
-  ready: "Lauren is ready for your practice session.",
+  ready: "Lauren is ready for your session.",
   preparing: "Preparing your coaching session.",
   unavailable: "Your coaching session is temporarily unavailable. Please try again.",
-  on_demand: "Lauren will be prepared for you when you press Begin Practice. This usually takes a few minutes.",
+  on_demand: "Lauren will be prepared for you when you click Start Simulator. This usually takes a few minutes.",
+  timed_out: "Your Simulator Has Timed Out",
 });
