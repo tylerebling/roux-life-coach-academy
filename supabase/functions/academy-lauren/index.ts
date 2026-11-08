@@ -1,6 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2.95.0";
 import { newLaurenHealthy, newLaurenTarget } from "../simulator-launch/new-lauren-target.ts";
+import { canonicalPrepare, prepareClaims, studentStatus } from "./prepare-ahead.mjs";
 
 /*
  * ONE SIMULATOR (owner, 2026-11-07): block practice opens NEW Lauren Full-Duplex - the same simulator, origin and
@@ -9,9 +10,12 @@ import { newLaurenHealthy, newLaurenTarget } from "../simulator-launch/new-laure
  *
  * - Launch: contract 1.1.0 = the 1.0 claims plus the signed checkpoint (id, assignment, length, reservation).
  *   NEW Lauren fixes the checkpoint's case and length on its side.
- * - Prewarm: NEW Lauren rents a GPU only when the student presses Begin, so background warm-up during a lesson is a
- *   no-op (it would rent capacity nobody may use, against the $30 budget and the one-GPU limit). The actions are
- *   kept so the lesson pages' existing calls succeed quietly.
+ * - Prewarm (owner directive 2026-11-08): OFF unless NEW_LAUREN_PREWARM_ENABLED is exactly "true". When on, the lesson's
+ *   eight-minute warm-up asks NEW Lauren - server to server, signed with the launch key in its own domain - to prepare
+ *   THIS student's checkpoint under their reservation; the later launch carries the same reservation and claims that
+ *   GPU. NEW Lauren decides what is safe (budget, one GPU, its cleanup limit; the 10-minute capstone answers
+ *   "on_demand"). When off, nothing is rented in the background, exactly as before.
+ * - Status never shows Lauren as ready unless NEW Lauren says a prepared session is ready ("on_demand" otherwise).
  * - Completion: NEW Lauren signs a completion with its own result key (NEW_LAUREN_RESULT_PUBLIC_KEY / _KID) once the
  *   written evaluation exists. That evaluation has no percentage, so a completion may carry overallScore null with
  *   status "completed" - the page shows "Practice complete", never an invented number.
@@ -21,6 +25,8 @@ const TENANT_ID = "roux-life-coach-academy";
 const ACADEMY_ORIGIN = Deno.env.get("ACADEMY_ORIGIN") ?? "https://roux-life-coach-academy.vercel.app";
 const RESULT_KID = Deno.env.get("NEW_LAUREN_RESULT_KID") ?? "new-lauren-result-2026-11";
 const LAUNCH_TTL_SEC = 120;
+const PREWARM_ENABLED = (Deno.env.get("NEW_LAUREN_PREWARM_ENABLED") ?? "").trim() === "true";
+const PREWARM_TIMEOUT_MS = 5_000;
 
 /** `newLaurenCase`: the NEW Lauren case each block practises (null = the student's rotation across all cases). */
 const CHECKPOINTS = Object.freeze({
@@ -130,6 +136,39 @@ async function reservation(admin: Admin, userId: string, enrollmentId: string, i
   }
   return created.data;
 }
+/**
+ * Ask NEW Lauren to prepare / report / cancel this student's checkpoint session. Never throws; null = no answer
+ * (not configured, unhealthy, timed out, refused) and the caller falls back to the on-demand behaviour.
+ */
+async function prepareAhead(purpose: "prepare" | "status" | "cancel", userId: string, id: CheckpointId, reservationId: string) {
+  if (!PREWARM_ENABLED) return null;
+  const target = newLaurenTarget((name) => Deno.env.get(name));
+  if (target === null) return null;
+  const cp = CHECKPOINTS[id];
+  const claims = prepareClaims({
+    purpose, requestId: crypto.randomUUID(), sourceProduct: SOURCE_PRODUCT, kid: target.kid, userId, tenantId: TENANT_ID,
+    checkpoint: { id, assignmentId: cp.assignmentId, durationSeconds: cp.durationSeconds, newLaurenCase: cp.newLaurenCase },
+    reservationId, nowSec: Math.floor(Date.now() / 1000),
+  });
+  const payload = canonicalPrepare(claims);
+  try {
+    const response = await fetch(`${target.origin}/api/academy/prewarm`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ claims, payload, signature: await sign(payload, target.keySecret) }),
+      signal: AbortSignal.timeout(PREWARM_TIMEOUT_MS),
+    });
+    if (!response.ok) {
+      console.error("academy-lauren: prepare-ahead answered", response.status);
+      return null;
+    }
+    return await response.json() as Record<string, unknown>;
+  } catch {
+    console.error("academy-lauren: prepare-ahead unreachable");
+    return null;
+  }
+}
+
 async function handleCallback(admin: Admin, body: Record<string, unknown>) {
   const claims = body.claims as Record<string, unknown> | undefined;
   if (!claims || typeof body.payload !== "string" || typeof body.signature !== "string") return json({error:"invalid_result"},401);
@@ -182,22 +221,33 @@ Deno.serve(async req => {
       return json({error:"lesson_incomplete"},403);
     }
     if (body.action === "prewarm") {
-      // Deliberately no simulator call and no reservation write: NEW Lauren rents capacity only at Begin.
-      return json({ready:false,status:"on_demand"});
+      // Off: no simulator call and no reservation write - NEW Lauren rents only at Begin.
+      if (!PREWARM_ENABLED) return json({ready:false,status:"on_demand"});
+      const prepared = await reservation(admin, auth.user.id, auth.enrollment.id, id);
+      const answer = studentStatus(await prepareAhead("prepare", auth.user.id, id, prepared.reservation_id));
+      return json({...answer, reservationId: prepared.reservation_id});
     }
     if (body.action === "cancel-prewarm") {
-      // Nothing was warmed, so there is nothing to release.
-      return json({cancelled:true});
+      if (!PREWARM_ENABLED) return json({cancelled:true});
+      const held = await admin.from("academy_lauren_reservations").select("reservation_id")
+        .eq("user_id", auth.user.id).eq("checkpoint_id", id).maybeSingle();
+      if (held.error || !held.data) return json({cancelled:true});
+      const answer = await prepareAhead("cancel", auth.user.id, id, held.data.reservation_id);
+      // A session the student already started is never cancelled: NEW Lauren answers cancelled:false for it.
+      return json({cancelled: answer === null ? true : answer.cancelled !== false});
     }
     const row = await reservation(admin, auth.user.id, auth.enrollment.id, id);
     if (body.action === "status") {
       const result = await admin.from("academy_lauren_results").select("overall_score,status,critical_safety_failure,completed_at")
         .eq("user_id",auth.user.id).eq("checkpoint_id",id).order("completed_at",{ascending:false}).limit(1).maybeSingle();
       if (result.error) throw result.error;
-      // NEW Lauren starts on Begin, so an open checkpoint is always "ready": there is nothing to warm in advance.
-      return json(result.data ? {completed:true,overallScore:result.data.overall_score,passed:result.data.status !== "needs_remediation",status:result.data.status,
-        summary:result.data.critical_safety_failure ? "Your evaluation needs a safety-focused review." : "Your block-practice evaluation has been saved."} :
-        {completed:false,ready:true,status:"on_demand"});
+      if (result.data) {
+        return json({completed:true,overallScore:result.data.overall_score,passed:result.data.status !== "needs_remediation",status:result.data.status,
+          summary:result.data.critical_safety_failure ? "Your evaluation needs a safety-focused review." : "Your block-practice evaluation has been saved."});
+      }
+      // Never a false "ready": only a session NEW Lauren reports as prepared is shown as ready; otherwise Lauren is
+      // prepared when the student presses Begin ("on_demand").
+      return json({completed:false,...studentStatus(await prepareAhead("status", auth.user.id, id, row.reservation_id))});
     }
     if (body.action === "launch") {
       const target = newLaurenTarget((name) => Deno.env.get(name));
