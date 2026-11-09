@@ -81,7 +81,13 @@ assert.ok(edge.includes('contractVersion:"1.1.0"'), "checkpoint launches use con
   const prewarm = edge.slice(edge.indexOf('if (body.action === "prewarm") {'), edge.indexOf('if (body.action === "cancel-prewarm") {', edge.indexOf('if (body.action === "prewarm") {')));
   assert.ok(prewarm.length > 0 && !prewarm.includes("fetch("), "lesson warm-up must not call the simulator (no background GPU rental)");
 }
-assert.equal((edge.match(/fetch\(/g) || []).length, 0, "academy-lauren makes no outbound calls except the shared health check");
+// Prepare-ahead (owner directive 2026-11-08): the ONE outbound call is prepareAhead's, and it is gated by the flag
+// (NEW_LAUREN_PREWARM_ENABLED, off by default) before anything is signed or sent.
+assert.equal((edge.match(/fetch\(/g) || []).length, 1, "academy-lauren makes exactly one outbound call (prepare-ahead)");
+{
+  const helper = edge.slice(edge.indexOf("async function prepareAhead("), edge.indexOf("fetch("));
+  assert.ok(helper.length > 0 && helper.includes("if (!PREWARM_ENABLED) return null;"), "prepare-ahead must be off unless enabled");
+}
 for (const [id, slug] of [["block-03-06","lauren-career-change"],["block-07-10","lauren-relationship-disconnection"],["block-11-14","lauren-divorce-rebuilding"],["block-15-18","workplace-burnout-identity"]]) {
   assert.ok(new RegExp(`"${id}":[^\n]*newLaurenCase: "${slug}"`).test(edge), `${id} must practise ${slug}`);
 }
